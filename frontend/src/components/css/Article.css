@@ -1,0 +1,69 @@
+.Article,h1,h2,h3,h4,h5{font-family: 'Kanit', sans-serif;}
+
+.card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border: none;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 380px; /* Adjust the height as needed */
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 20px;
+  text-align: center; /* Center the content horizontally */
+}
+
+.card-id {
+  font-size: 0.8rem;
+  background-color: #3498db; /* Choose your desired color */
+  color: #fff; /* Text color on the colored background */
+  margin-bottom: 10px;
+  padding: 5px; /* Adjust the minimum padding as needed */
+  border-radius: 10px; /* Adjust the border-radius as needed */
+  display: inline-block; /* Allow padding to be based on content width */
+}
+
+.card-title {
+  font-size: 1rem;
+  font-weight: bold;
+}
+.card-content {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+/* Add custom styles for the carousel arrows */
+.carousel-control-prev,
+.carousel-control-next {
+  width: 5%;
+  color: #ffffff; /* Arrow color */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: #333; /* Background color of the arrows */
+  border-radius: 50%;
+  border: 1px solid #ffffff; /* Border color of the arrows */
+  padding: 10px; /* Size of the arrow */
+}
+
+/* Hover effect for the arrows */
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  color: #ffffff; /* Hover color */
+  text-decoration: none;
+  filter: opacity(0.8);
+}
+
+.text-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* จำนวนบรรทัดที่ต้องการแสดง */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis; /* เพิ่ม ... ให้เมื่อข้อความมีการตัด */
+}

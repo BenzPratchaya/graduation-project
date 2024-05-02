@@ -1,0 +1,88 @@
+.Home{font-family: 'Kanit', sans-serif;}
+
+.functional .col {
+  text-align: center;
+  padding: 40px 15px 50px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 3px 30px 30px rgba(0, 0, 0, 0.08);
+}
+
+section {
+  display: block;
+  unicode-bidi: isolate;
+}
+
+.container {
+  margin: 50px auto;
+}
+
+.firstaid {
+  padding: 50px 0;
+  background-color: #f8f9fa;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.firstaid-pic {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.firstaid-pic img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.firstaid-content {
+  flex: 0 0 50%;
+  max-width: 50%;
+  padding-left: 20px;
+}
+
+h3 {
+  font-size: 24px;
+  color: #333;
+}
+
+p {
+  font-size: 15px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.mini-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mini-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.mini-col img {
+  margin-bottom: 10px; /* ปรับระยะห่างระหว่างไอคอนกับข้อความ */
+}
+
+.firstaid-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  margin-top: 20px;
+}
