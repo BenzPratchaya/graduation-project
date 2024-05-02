@@ -1,0 +1,179 @@
+openapi: 3.0.0
+info:
+  title: FIRSTAID API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3001
+paths:
+#--------------------------------------------------------------(USERS)
+  /users:
+    get:
+      summary: GET list users
+      tags: [Users]
+      responses:
+        '200':
+          description: status = OK
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: object 
+                  properties:
+                    id:
+                      type: integer
+                    email:
+                      type: string
+                    password:
+                      type: string
+                    fname: 
+                      type: string
+                    lname:
+                      type: string
+                    role_id:
+                      type: integer
+        '404':
+          description: status = NOT FOUND
+  /user/{id}:
+    get:
+      summary: GET user by id
+      tags: [Users]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: user id
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses: 
+        '200':
+          description: status = OK
+        '404':
+          description: status = NOT FOUND
+  /users/role_id/{role_id}:
+    get:
+      summary: GET user by role id
+      tags: [Users]
+      parameters:
+        - name: role_id
+          in: path
+          required: true
+          description: role id
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: status = OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/controllers/UserContoller'
+        '404':
+          description: status = NOT FOUND
+  /register:
+    post:
+      summary: Create a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+           schema: 
+              type: array
+              items: 
+                type: object 
+                properties:
+                  id:
+                    type: integer
+                  email:
+                    type: string
+                    required: true
+                  password:
+                    type: string
+                  fname: 
+                    type: string
+                  lname:
+                    type: string
+      responses:
+        '201':
+          description: User created successfully
+        '400':
+          description: Invalid request data
+  /user/delete/{id}:
+    delete:
+      summary: Delete user by id
+      tags: [Users]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: User deleted successfully
+        '404':
+          description: User not found
+#--------------------------------------------------------------(FIRSTAIDS)
+  /firstaids:
+    get:
+      summary: GET list firstaids
+      tags: [Firstaids]
+      responses:
+        '200':
+          description: status = OK
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: object 
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    detail:
+                      type: string
+                    image: 
+                      type: string
+                    video:
+                      type: string
+        '404':
+          description: status = NOT FOUND
+#--------------------------------------------------------------(ARTICLES)
+  /articles:
+      get:
+        summary: GET list articles
+        tags: [Articles]
+        responses:
+          '200':
+            description: status = OK
+            content:
+              application/json:
+                schema: 
+                  type: array
+                  items: 
+                    type: object 
+                    properties:
+                      id:
+                        type: integer
+                      title:
+                        type: string
+                      content:
+                        type: string
+                      image: 
+                        type: string
+                      type_id:
+                        type: integer
+                      like: 
+                        type: integer
+                      liked:
+                        type: boolean
+          '404':
+            description: status = NOT FOUND
