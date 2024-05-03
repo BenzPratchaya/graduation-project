@@ -38,7 +38,7 @@ exports.updateLikeForLike = (req, res) => {
         console.error("Error Updating Like for Like Count:", err);
         return res.status(500).json({ error: "Internal Server Error" });
       } else {
-        console.log("Like for Unlike Successfully!", result);
+        console.log("Like for Unlike Successfully!");
         return res.status(200).json({ liked: 1 });
       }
     }
@@ -54,7 +54,7 @@ exports.updateLikeForUnLike = (req, res) => {
         console.error("Error Updating Like for Unlike Count:", err);
         return res.status(500).json({ error: "Internal Server Error" });
       } else {
-        console.log("Like for Unlike Successfully!", result);
+        console.log("Like for Unlike Successfully!");
         return res.status(200).json({ liked: 0 });
       }
     }

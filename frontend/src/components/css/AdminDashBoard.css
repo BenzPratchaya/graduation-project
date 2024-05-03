@@ -13,7 +13,7 @@
    display: grid;
    grid-template-columns: repeat(4,1fr);
    gap: 15px;
-   margin: 50px 0px 0px 250px;
+   margin-top: 50px;
 }
 .adminDashboard .main-adminBx .showDataWeb .dataBx{
     border-radius:10px ;
@@ -56,7 +56,7 @@
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 30px;
-    margin: 50px 0px 0px 250px;
+    margin-top: 50px;
 }
 .adminDashboard .main-adminBx .showGraph .graphBx{
     position: relative;

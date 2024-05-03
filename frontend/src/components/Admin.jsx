@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   CssBaseline,
@@ -13,12 +13,14 @@ import {
   ListItemText,
   Typography,
   Divider,
+  IconButton,
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import ArticleIcon from "@mui/icons-material/Article";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import DashboardIcon from '@mui/icons-material/Dashboard';
+import DashboardIcon from "@mui/icons-material/Dashboard";
+
 const menu = [
   { name: "Dashboard", icon: <DashboardIcon />, path: "/admin/dashboard" },
   { name: "Manage Users", icon: <PersonIcon />, path: "/admin/users" },
@@ -32,17 +34,34 @@ const menu = [
 ];
 
 function Admin() {
+  const [open, setOpen] = useState(true);
+
+  const toggleDrawer = () => {
+    setOpen(!open);
+  };
+
   return (
-    <Box sx={{ display: "flex" }}>
+    <>
       <CssBaseline />
       <AppBar
         position="fixed"
         sx={{
-          width: `calc(100% - 240px)`,
-          ml: `240px`,
+          width: `calc(100% - ${open ? 240 : 0}px)`,
+          ml: open ? `240px` : 0,
+          transition: "width 0.3s", // เพิ่ม transition ในการเปลี่ยนความกว้างของ AppBar
         }}
       >
         <Toolbar style={{ background: "white" }}>
+          <IconButton onClick={toggleDrawer} sx={{ color: "black" }}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z" />
+            </svg>
+          </IconButton>
           <Typography
             variant="h6"
             noWrap
@@ -62,10 +81,13 @@ function Admin() {
             boxSizing: "border-box",
             background: `linear-gradient(rgb(84, 103, 225), rgb(71, 101, 236), rgb(73, 79, 243))`,
             display: "flex",
+            transition: "transform 0.3s", // เพิ่ม transition ในการเปลี่ยนค่าการแสดงผล (transform) ของ sidebar
+            transform: open ? "translateX(0)" : "translateX(-240px)", // เพิ่มการเปลี่ยนแปลงค่าการแสดงผล (transform) ของ sidebar
           },
         }}
         variant="permanent"
         anchor="left"
+        open={open}
       >
         <Typography
           variant="h6"
@@ -78,7 +100,7 @@ function Admin() {
             margin: "12px 0px -50px 0px",
             color: "white",
             fontWeight: "bold",
-            fontSize: "24px"
+            fontSize: "24px",
           }}
         >
           Admin System
@@ -113,9 +135,21 @@ function Admin() {
       </Drawer>
       <Box
         component="main"
-        sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
-      ></Box>
-    </Box>
+        sx={{
+          flexGrow: 1,
+          bgcolor: "background.default",
+          p: 3,
+          ml: open ? "240px" : "0px",
+          width: open ? `calc(100% - 240px)` : "100%",
+          transition: "margin-left 0.3s, width 0.3s",
+        }}
+      >
+        <Box
+          component="main"
+          sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
+        ></Box>
+      </Box>
+    </>
   );
 }
 

@@ -22,6 +22,7 @@ import {
   TableRow,
   Paper,
   IconButton,
+  Icon,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PersonIcon from "@mui/icons-material/Person";
@@ -44,6 +45,7 @@ const menu = [
 
 function Adminusers() {
   const [users, setUsers] = useState([]);
+  const [open, setOpen] = useState(true);
 
   useEffect(() => {
     fetch("http://localhost:3001/users")
@@ -71,42 +73,77 @@ function Adminusers() {
     }
   };
 
+  const toggleDrawer = () => {
+    setOpen(!open);
+  };
+
   return (
     <>
-      <Box sx={{ display: "flex" }}>
-        <CssBaseline />
-        <AppBar
-          position="fixed"
-          sx={{
-            width: `calc(100% - 240px)`,
-            ml: `240px`,
-          }}
-        >
-          <Toolbar style={{ background: "white" }}>
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              style={{ color: "black" }}
+      <CssBaseline />
+      <AppBar
+        position="fixed"
+        sx={{
+          width: `calc(100% - ${open ? 240 : 0}px)`,
+          ml: open ? `240px` : 0,
+          transition: "width 0.3s", // เพิ่ม transition ในการเปลี่ยนความกว้างของ AppBar
+        }}
+      >
+        <Toolbar style={{ background: "white" }}>
+          <IconButton onClick={toggleDrawer} sx={{ color: "black" }}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
             >
-              Admin System
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <Drawer
-          sx={{
+              <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z" />
+            </svg>
+          </IconButton>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            style={{ color: "black" }}
+          >
+            Admin System
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        sx={{
+          width: 240,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
             width: 240,
-            flexShrink: 0,
-            "& .MuiDrawer-paper": {
-              width: 240,
-              boxSizing: "border-box",
-              background: `linear-gradient(rgb(84, 103, 225), rgb(71, 101, 236), rgb(73, 79, 243))`,
+            boxSizing: "border-box",
+            background: `linear-gradient(rgb(84, 103, 225), rgb(71, 101, 236), rgb(73, 79, 243))`,
+            display: "flex",
+            transition: "transform 0.3s", // เพิ่ม transition ในการเปลี่ยนค่าการแสดงผล (transform) ของ sidebar
+            transform: open ? "translateX(0)" : "translateX(-240px)", // เพิ่มการเปลี่ยนแปลงค่าการแสดงผล (transform) ของ sidebar
+          },
+        }}
+        variant="permanent"
+        anchor="left"
+        open={open}
+      >
+        <div style={{ display: "flex" }}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            style={{
               display: "flex",
-            },
-          }}
-          variant="permanent"
-          anchor="left"
-        >
+              alignItems: "center",
+              justifyContent: "center",
+              margin: "12px 5px -50px 5px",
+              color: "white", // กำหนดสีให้กับ SVG
+            }}
+            width="38"
+            height="38"
+            viewBox="0 0 24 24"
+          >
+            <path d="M12 2A10.13 10.13 0 0 0 2 12a10 10 0 0 0 4 7.92V20h.1a9.7 9.7 0 0 0 11.8 0h.1v-.08A10 10 0 0 0 22 12 10.13 10.13 0 0 0 12 2zM8.07 18.93A3 3 0 0 1 11 16.57h2a3 3 0 0 1 2.93 2.36 7.75 7.75 0 0 1-7.86 0zm9.54-1.29A5 5 0 0 0 13 14.57h-2a5 5 0 0 0-4.61 3.07A8 8 0 0 1 4 12a8.1 8.1 0 0 1 8-8 8.1 8.1 0 0 1 8 8 8 8 0 0 1-2.39 5.64z" />
+            <path d="M12 6a3.91 3.91 0 0 0-4 4 3.91 3.91 0 0 0 4 4 3.91 3.91 0 0 0 4-4 3.91 3.91 0 0 0-4-4zm0 6a1.91 1.91 0 0 1-2-2 1.91 1.91 0 0 1 2-2 1.91 1.91 0 0 1 2 2 1.91 1.91 0 0 1-2 2z" />
+          </svg>
+
           <Typography
             variant="h6"
             noWrap
@@ -123,34 +160,46 @@ function Adminusers() {
           >
             Admin System
           </Typography>
-          <Toolbar />
-          <Divider />
-          <List>
-            {menu.map((item) => (
-              <Link
-                to={item.path}
-                key={item.name}
-                style={{ textDecoration: "none", color: "white" }}
+        </div>
+        <Toolbar />
+        <Divider />
+        <List>
+          {menu.map((item) => (
+            <Link
+              to={item.path}
+              key={item.name}
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              <ListItem
+                disablePadding
+                sx={{ display: "flex", alignItems: "center" }}
               >
-                <ListItem
-                  disablePadding
-                  sx={{ display: "flex", alignItems: "center" }}
-                >
-                  <ListItemButton>
-                    <ListItemIcon style={{ minWidth: "30px", color: "white" }}>
-                      {item.icon}
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={item.name}
-                      primaryTypographyProps={{ style: { fontSize: "17px" } }}
-                    />
-                  </ListItemButton>
-                </ListItem>
-              </Link>
-            ))}
-          </List>
-          <Divider />
-        </Drawer>
+                <ListItemButton>
+                  <ListItemIcon style={{ minWidth: "30px", color: "white" }}>
+                    {item.icon}
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={item.name}
+                    primaryTypographyProps={{ style: { fontSize: "17px" } }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+          ))}
+        </List>
+        <Divider />
+      </Drawer>
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          bgcolor: "background.default",
+          p: 3,
+          ml: open ? "240px" : "0px",
+          width: open ? `calc(100% - 240px)` : "100%",
+          transition: "margin-left 0.3s, width 0.3s",
+        }}
+      >
         <Box
           component="main"
           sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
