@@ -20,6 +20,8 @@ import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import ArticleIcon from "@mui/icons-material/Article";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
+import MenuIcon from "@mui/icons-material/Menu";
 
 const menu = [
   { name: "Dashboard", icon: <DashboardIcon />, path: "/admin/dashboard" },
@@ -53,14 +55,7 @@ function Admin() {
       >
         <Toolbar style={{ background: "white" }}>
           <IconButton onClick={toggleDrawer} sx={{ color: "black" }}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-            >
-              <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z" />
-            </svg>
+            <MenuIcon sx={{ width: "24", height: "24" }}></MenuIcon>
           </IconButton>
           <Typography
             variant="h6"
@@ -89,21 +84,35 @@ function Admin() {
         anchor="left"
         open={open}
       >
-        <Typography
-          variant="h6"
-          noWrap
-          component="div"
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            margin: "12px 0px -50px 0px",
-            color: "white",
-            fontWeight: "bold",
-            fontSize: "24px",
-          }}
-        >
-          Admin System
+        <Typography style={{ display: "flex" }}>
+          <SupervisedUserCircleIcon
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              margin: "12px 5px -50px 5px",
+              color: "white", // กำหนดสีให้กับ SVG
+              width: "38",
+              height: "38",
+            }}
+          ></SupervisedUserCircleIcon>
+
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              margin: "12px 0px -50px 0px",
+              color: "white",
+              fontWeight: "bold",
+              fontSize: "24px",
+            }}
+          >
+            Admin System
+          </Typography>
         </Typography>
         <Toolbar />
         <Divider />
