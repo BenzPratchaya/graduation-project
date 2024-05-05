@@ -61,11 +61,6 @@ function Adminfirstaids() {
       });
   }, []);
 
-  const addFirstaid = () => {
-    // ตัวอย่างฟังก์ชันเพิ่มข้อมูล Firstaid
-    console.log("เพิ่มข้อมูล Firstaid");
-  };
-
   // const editFirstaid = (id) => {
   //   const confirmEdit = window.confirm("ต้องการแก้ไขข้อมูลหรือไม่?");
   //   if (confirmEdit) {
@@ -348,7 +343,8 @@ function Adminfirstaids() {
           <Adminfirstaid_add
             popupadd={popupadd}
             setPopupAdd={setPopupAdd}
-            addFirstaid={addFirstaid}
+            firstaids={firstaids}
+            setFirstaids={setFirstaids}
           />
         </Box>
       </Box>
