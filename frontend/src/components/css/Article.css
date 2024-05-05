@@ -60,10 +60,3 @@
   filter: opacity(0.8);
 }
 
-.text-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3; /* จำนวนบรรทัดที่ต้องการแสดง */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis; /* เพิ่ม ... ให้เมื่อข้อความมีการตัด */
-}

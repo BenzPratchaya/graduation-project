@@ -14,7 +14,7 @@ export default function Firstaid() {
   const [firstaids, setFirstaids] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResult, setSearchResult] = useState([]);
-  const [selectedType, setSelectedType] = useState(""); // เพิ่ม state สำหรับเก็บประเภทปฐมพยาบาลที่ถูกเลือก
+  const [selectedType, setSelectedType] = useState("All"); // เพิ่ม state สำหรับเก็บประเภทปฐมพยาบาลที่ถูกเลือก
 
   useEffect(() => {
     fetch("http://localhost:3001/firstaids")
@@ -31,8 +31,8 @@ export default function Firstaid() {
 
   // กรอง firstaids โดยใช้ selectedType เพื่อแสดงเฉพาะปฐมพยาบาลที่มีประเภทที่เลือก หรือแสดงทั้งหมดถ้าไม่ได้เลือกประเภท
   const filteredResults =
-    selectedType === ""
-      ? firstaids
+    selectedType === "All"
+      ? searchResult.filter((item) => item)
       : searchResult.filter((item) => item.type_id === parseInt(selectedType));
 
   const handleSearchChange = (event) => {
@@ -72,7 +72,7 @@ export default function Firstaid() {
               style={{ width: "30%" }}
               onChange={handleTypeChange} // เพิ่ม onChange เพื่อเรียกใช้ handleTypeChange เมื่อมีการเลือกประเภทใหม่
             >
-              <option value="">เลือกประเภทการปฐมพยาบาล</option>
+              <option value="All">เลือกประเภทการปฐมพยาบาล</option>
               <option value="1">บาดแผลที่เกิดจากการแตกหรือฉีกขาด</option>
               <option value="2">บาดแผลที่เกิดจากการบีบหรือกระทบ</option>
               <option value="3">บาดแผลที่เกิดจากการเผาไหม้หรือรอยไฟ</option>

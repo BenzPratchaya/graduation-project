@@ -9,10 +9,13 @@ import Commentbutton from "./Commentbutton.jsx";
 function Articlecontent(props) {
   // const postList = props.contentList;
   const postList = props.articleslike;
+  const postListAll = props.articleslike;
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResult, setSearchResult] = useState(postList);
-  const [selectedType, setSelectedType] = useState(""); // เพิ่ม state สำหรับเก็บประเภทบทความที่ถูกเลือก
+  const [selectedType, setSelectedType] = useState("All"); // เพิ่ม state สำหรับเก็บประเภทบทความที่ถูกเลือก
 
+  postListAll.type_id = "all"
+  console.log(postList)
   useEffect(() => {
     setSearchResult(postList);
   }, [postList]);
@@ -23,8 +26,8 @@ function Articlecontent(props) {
 
   // กรอง postList โดยใช้ selectedType เพื่อแสดงเฉพาะบทความที่มีประเภทที่เลือก หรือแสดงทั้งหมดถ้าไม่ได้เลือกประเภท
   const filteredResults =
-    selectedType === ""
-      ? postList
+    selectedType === "All"
+      ? searchResult.filter((item) => item)
       : searchResult.filter((item) => item.type_id === parseInt(selectedType));
 
   const handleSearchChange = (event) => {
@@ -55,7 +58,7 @@ function Articlecontent(props) {
             style={{ width: "30%" }}
             onChange={handleTypeChange} // เพิ่ม onChange เพื่อเรียกใช้ handleTypeChange เมื่อมีการเลือกประเภทใหม่
           >
-            <option value="">เลือกประเภทบทความ</option>
+            <option value="All">เลือกประเภทบทความ</option>
             <option value="1">บทความเชิงวิชาการ</option>
             <option value="2">บทความแนะนำและเคล็ดลับ</option>
             <option value="3">บทความเกี่ยวกับโรคและการรักษา</option>
