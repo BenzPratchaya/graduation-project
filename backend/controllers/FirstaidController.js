@@ -35,36 +35,51 @@ exports.getFirstaidById = (req, res) => {
 };
 
 // router.get("/firstaids/counttype", (req, res) => {
-  exports.getFirstaidCountType = (req, res) => {
-    db.query("SELECT firstaidtype.name, COUNT(firstaids.id) AS count FROM firstaids JOIN firstaidtype ON firstaids.type_id = firstaidtype.id GROUP BY firstaids.type_id", (err, result) => {
+exports.getFirstaidCountType = (req, res) => {
+  db.query(
+    "SELECT firstaidtype.name, COUNT(firstaids.id) AS count FROM firstaids JOIN firstaidtype ON firstaids.type_id = firstaidtype.id GROUP BY firstaids.type_id",
+    (err, result) => {
       if (err) {
         console.log("error in users", err);
       } else {
         res.send(result);
       }
-    });
-  };
+    }
+  );
+};
 
 // router.post("/firstaid/create", (req, res) => {
 exports.createFirstaid = (req, res) => {
+  // ตรวจสอบว่ามีการอัปโหลดไฟล์ภาพหรือไม่
+  if (!req.file) {
+    return res.status(400).send("No image file uploaded");
+  }
+
   const name = req.body.name;
   const detail = req.body.detail;
-  const image = req.body.image;
+  const image = req.file.filename; // ใช้ไฟล์ที่ Multer อัปโหลด
   const video = req.body.video;
   const type_id = req.body.type_id;
-  const created_date = new Date()
-  
+  const created_date = new Date();
+
   db.query(
     "INSERT INTO firstaids (name, detail, image, video, type_id, created_date) VALUES(?,?,?,?,?,?)",
     [name, detail, image, video, type_id, created_date],
-    (err, result) => {
+    (req, res, err, result) => {
       if (err) {
         console.log(err);
-      } else {
-        res.send("Firstaid Create Success");
       }
     }
   );
+  res.json({
+    status: "Firstaid Create Success",
+    name: name,
+    detail: detail,
+    image: `http://localhost:3001/image/${req.file.filename}`,
+    video: video,
+    type_id: type_id,
+    created_date: created_date,
+  });
 };
 
 // router.put("/firstaid/update", (req, res) => {
