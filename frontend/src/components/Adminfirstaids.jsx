@@ -34,6 +34,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
 import MenuIcon from "@mui/icons-material/Menu";
 import Adminfirstaid_add from "./Adminfirstaid_add";
+import Adminfirstaid_edit from "./Adminfirstaid_edit";
 import Adminfirstaidupdate from "./Adminfirstaidupdate";
 
 const menu = [
@@ -51,6 +52,7 @@ const menu = [
 function Adminfirstaids() {
   const [firstaids, setFirstaids] = useState([]);
   const [popupadd, setPopupAdd] = useState(false);
+  const [popupedit, setPopupEdit] = useState(false);
   const [open, setOpen] = useState(true);
 
   useEffect(() => {
@@ -96,22 +98,6 @@ function Adminfirstaids() {
       console.log("ยกเลิกการลบ");
     }
   };
-
-  // Function to delete firstaid
-  // const deleteFirstaid = (id) => {
-  //   const confirmDelete = window.confirm("ต้องการลบข้อมูลหรือไม่?");
-  //   if (confirmDelete) {
-  //     Axios.delete(`http://localhost:3001/firstaid/delete/${id}`)
-  //       .then((response) => {
-  //         setFirstaids((prevFirstaids) =>
-  //           prevFirstaids.filter((firstaid) => firstaid.id !== id)
-  //         );
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error deleting firstaid: ", error);
-  //       });
-  //   }
-  // };
 
   const changeUrl = (url) => {
     const embedUrl = url;
@@ -288,14 +274,29 @@ function Adminfirstaids() {
                     <TableCell align="center">{firstaid.name}</TableCell>
                     <TableCell align="left">{firstaid.detail}</TableCell>
                     <TableCell align="center">
-                      <img src={firstaid.image} style={{ width: "50%" }} />
-                    </TableCell>
-                    <TableCell align="center">
                       <img
-                        src={changeUrl(firstaid.video)}
-                        alt="YouTube Video"
+                        src={`http://localhost:3001/image/${firstaid.image}`}
                         style={{ width: "50%" }}
                       />
+                    </TableCell>
+                    <TableCell align="center">
+                      {firstaid.video &&
+                      (firstaid.video.startsWith("http://") ||
+                        firstaid.video.startsWith("https://")) ? (
+                        <a
+                          href={firstaid.video}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <img
+                            src={changeUrl(firstaid.video)}
+                            alt="Video Thumbnail"
+                            style={{ width: "50%" }}
+                          />
+                        </a>
+                      ) : (
+                        "ไม่มีวิดีโอ"
+                      )}
                     </TableCell>
                     <TableCell align="center">
                       {formatDate(firstaid.created_date)}
@@ -311,8 +312,9 @@ function Adminfirstaids() {
                             color: "black",
                           },
                         }}
-                        component={Link}
-                        to={`/admin/firstaid/update/${firstaid.id}`}
+                        onClick={() => setPopupEdit(true)} // เมื่อคลิกปุ่มจะเปิด popup
+                        // component={Link}
+                        // to={`/admin/firstaid/update/${firstaid.id}`}
                       >
                         <EditIcon />
                       </IconButton>
@@ -343,6 +345,12 @@ function Adminfirstaids() {
           <Adminfirstaid_add
             popupadd={popupadd}
             setPopupAdd={setPopupAdd}
+            firstaids={firstaids}
+            setFirstaids={setFirstaids}
+          />
+          <Adminfirstaid_edit
+            popupedit={popupedit}
+            setPopupEdit={setPopupEdit}
             firstaids={firstaids}
             setFirstaids={setFirstaids}
           />

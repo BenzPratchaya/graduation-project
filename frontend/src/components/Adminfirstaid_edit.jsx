@@ -14,7 +14,13 @@ import {
   Select,
 } from "@mui/material";
 
-function Adminfirstaid_add({ popupadd, setPopupAdd, firstaids, setFirstaids }) {
+function Adminfirstaid_edit({
+  popupedit,
+  setPopupEdit,
+  firstaids,
+  setFirstaids,
+}) {
+  
   const [formData, setFormData] = useState({
     name: "",
     detail: "",
@@ -24,7 +30,7 @@ function Adminfirstaid_add({ popupadd, setPopupAdd, firstaids, setFirstaids }) {
   });
 
   useEffect(() => {
-    if (popupadd) {
+    if (popupedit) {
       setFormData({
         name: "",
         detail: "",
@@ -33,32 +39,24 @@ function Adminfirstaid_add({ popupadd, setPopupAdd, firstaids, setFirstaids }) {
         type_id: "0",
       });
     }
-  }, [popupadd]);
+  }, [popupedit]);
 
-  // const addFirstaid = () => {
-  //   fetch("http://localhost:3001/firstaid/create", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       name: name,
-  //       detail: detail,
-  //       image: image,
-  //       video: video.replace("watch?v=", "embed/"),
-  //       type_id: type_id,
-  //     }),
-  //   }).then(() => {
-  //     // เมื่อเพิ่มข้อมูลเสร็จสมบูรณ์ ให้ดึงข้อมูล Firstaids ใหม่
-  //     fetch("http://localhost:3001/firstaids")
-  //       .then((res) => res.json())
-  //       .then((result) => {
-  //         setFirstaids(result);
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error fetching firstaids: ", error);
-  //       });
-  //   });
+  // const editFirstaid = (id) => {
+  //   const confirmEdit = window.confirm("ต้องการแก้ไขข้อมูลหรือไม่?");
+  //   if (confirmEdit) {
+  //     Axios.put(`http://localhost:3001/firstaid/update/${id}`).then(
+  //       (response) => {
+  //         setFirstaids(
+  //           firstaids.filter((firstaid) => {
+  //             return firstaid.id !== id;
+  //           })
+  //         );
+  //       }
+  //     );
+  //     console.log("แก้ไขข้อมูล");
+  //   } else {
+  //     console.log("ยกเลิกการแก้ไข");
+  //   }
   // };
 
   const handleInputChange = (event) => {
@@ -91,7 +89,7 @@ function Adminfirstaid_add({ popupadd, setPopupAdd, firstaids, setFirstaids }) {
           "Content-Type": "multipart/form-data",
         },
       });
-      
+
       // อัปเดตรายการ firstaids ใหม่
       Axios.get("http://localhost:3001/firstaids")
         .then((res) => {
@@ -102,7 +100,7 @@ function Adminfirstaid_add({ popupadd, setPopupAdd, firstaids, setFirstaids }) {
         });
 
       alert("Firstaid created successfully");
-      setPopupAdd(false);
+      setPopupEdit(false);
     } catch (error) {
       console.error("Error creating firstaid:", error);
       alert("Failed to creating firstaid");
@@ -114,8 +112,8 @@ function Adminfirstaid_add({ popupadd, setPopupAdd, firstaids, setFirstaids }) {
       <CssBaseline />
       {/* โค้ดสำหรับ Popup */}
       <Dialog
-        open={popupadd}
-        onClose={() => setPopupAdd(false)}
+        open={popupedit}
+        onClose={() => setPopupEdit(false)}
         fullWidth
         maxWidth="md"
       >
@@ -220,7 +218,7 @@ function Adminfirstaid_add({ popupadd, setPopupAdd, firstaids, setFirstaids }) {
                 background: "var(--blue1)",
                 color: "white",
               }}
-              onClick={() => setPopupAdd(false)}
+              onClick={() => setPopupEdit(false)}
               color="primary"
             >
               Cancel
@@ -243,4 +241,4 @@ function Adminfirstaid_add({ popupadd, setPopupAdd, firstaids, setFirstaids }) {
   );
 }
 
-export default Adminfirstaid_add;
+export default Adminfirstaid_edit;
