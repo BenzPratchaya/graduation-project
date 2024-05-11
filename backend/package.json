@@ -22,5 +22,9 @@
     "socket.io": "^4.7.4",
     "swagger-ui-express": "^5.0.0",
     "yaml": "^2.4.1"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.0.0"
   }
+  
 }
