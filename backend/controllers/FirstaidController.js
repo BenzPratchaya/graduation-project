@@ -87,8 +87,12 @@ exports.updateFirstaid = (req, res) => {
   const id = req.body.id;
   const name = req.body.name;
   const detail = req.body.detail;
-  const image = req.body.image;
   const video = req.body.video;
+  // เช็คว่ามีการอัปโหลดไฟล์ภาพหรือไม่
+  let image = null;
+  if (req.file) {
+    image = req.file.filename;
+  }
   db.query(
     "UPDATE firstaids SET name = ?, detail = ?, image = ?, video = ? WHERE id = ?",
     [name, detail, image, video, id],

@@ -12,10 +12,7 @@ router.use(express.static(path.join(__dirname, 'upload/images')));
 const storage = multer.diskStorage({
   destination: "./upload/images",
   filename: (req, file, cb) => {
-    return cb(
-      null,
-      `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
-    );
+    return cb(null,`${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`);
   },
 });
 
@@ -41,29 +38,16 @@ router.put("/article/updateunlike/:id", ArticleController.updateArticleUnLike);
 
 // Like routes
 router.get("/like", LikeController.getLikeList);
-router.get(
-  "/like/:article_id/user/:user_id",
-  LikeController.getLikeByArticleIdUserId
-);
-router.put(
-  "/like/liked/:article_id/:user_id",
-  LikeController.updateLikeForLike
-);
-router.put(
-  "/like/unliked/:article_id/:user_id",
-  LikeController.updateLikeForUnLike
-);
+router.get("/like/:article_id/user/:user_id",LikeController.getLikeByArticleIdUserId);
+router.put("/like/liked/:article_id/:user_id",LikeController.updateLikeForLike);
+router.put("/like/unliked/:article_id/:user_id",LikeController.updateLikeForUnLike);
 
 // Firstaid routes
 router.get("/firstaids", FirstaidController.getFirstaidList);
 router.get("/firstaid/:id", FirstaidController.getFirstaidById);
 router.get("/firstaids/counttype", FirstaidController.getFirstaidCountType);
-router.post(
-  "/firstaid/create",
-  upload.single("image"),
-  FirstaidController.createFirstaid
-);
-router.put("/firstaid/update/:id", FirstaidController.updateFirstaid);
+router.post("/firstaid/create", upload.single("image"), FirstaidController.createFirstaid);
+router.put("/firstaid/update/:id", upload.single("image"), FirstaidController.updateFirstaid);
 router.delete("/firstaid/delete/:id", FirstaidController.deleteFirstaid);
 
 module.exports = router;
