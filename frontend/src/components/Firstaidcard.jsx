@@ -19,7 +19,7 @@ const Firstaidcard = ({ id, name, detail, image, videoUrl }) => {
       <Card style={{ width: "100%" }}>
         <Card.Img
           variant="top"
-          src={image}
+          src={`http://localhost:3001/image/${image}`}
           style={{ width: "100%", height: "20rem" }}
         />
         <Card.Body>

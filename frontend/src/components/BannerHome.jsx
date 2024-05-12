@@ -1,5 +1,6 @@
 import React from "react";
 import "./css/BannerHome.css";
+import { colors } from "@mui/material";
 
 function BannerHome(props) {
   return (
@@ -25,7 +26,7 @@ function BannerHome(props) {
             </h1>
             <p style={{ textAlign: "center", fontSize: "24px" }}>
               Home / Pages {" "}
-              <span className="banner-page-color">{props.page}</span>
+              <span >{props.page}</span>
             </p>
           </div>
         </div>

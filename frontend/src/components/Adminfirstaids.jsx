@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   CssBaseline,
   Box,
@@ -33,9 +33,9 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
 import MenuIcon from "@mui/icons-material/Menu";
-import Adminfirstaid_add from "./Adminfirstaid_add";
-import Adminfirstaid_edit from "./Adminfirstaid_edit";
-import Adminfirstaidupdate from "./Adminfirstaidupdate";
+import AdminfirstaidAdd from "./Adminfirstaid_add";
+import AdminfirstaidEdit from "./Adminfirstaid_edit";
+//import Adminfirstaidupdate from "./Adminfirstaidupdate";
 
 const menu = [
   { name: "Dashboard", icon: <DashboardIcon />, path: "/admin/dashboard" },
@@ -54,6 +54,7 @@ function Adminfirstaids() {
   const [popupadd, setPopupAdd] = useState(false);
   const [popupedit, setPopupEdit] = useState(false);
   const [open, setOpen] = useState(true);
+  const [selectedFirstaidId, setSelectedFirstaidId] = useState(null);
 
   useEffect(() => {
     fetch("http://localhost:3001/firstaids")
@@ -277,6 +278,7 @@ function Adminfirstaids() {
                       <img
                         src={`http://localhost:3001/image/${firstaid.image}`}
                         style={{ width: "50%" }}
+                        alt=""
                       />
                     </TableCell>
                     <TableCell align="center">
@@ -290,7 +292,7 @@ function Adminfirstaids() {
                         >
                           <img
                             src={changeUrl(firstaid.video)}
-                            alt="Video Thumbnail"
+                            alt="Video"
                             style={{ width: "50%" }}
                           />
                         </a>
@@ -312,7 +314,10 @@ function Adminfirstaids() {
                             color: "black",
                           },
                         }}
-                        onClick={() => setPopupEdit(true)} // เมื่อคลิกปุ่มจะเปิด popup
+                        onClick={() => {
+                          setSelectedFirstaidId(firstaid.id);
+                          setPopupEdit(true);
+                        }}
                         // component={Link}
                         // to={`/admin/firstaid/update/${firstaid.id}`}
                       >
@@ -342,16 +347,17 @@ function Adminfirstaids() {
               </TableBody>
             </Table>
           </TableContainer>
-          <Adminfirstaid_add
+          <AdminfirstaidAdd
             popupadd={popupadd}
             setPopupAdd={setPopupAdd}
             firstaids={firstaids}
             setFirstaids={setFirstaids}
           />
-          <Adminfirstaid_edit
+          <AdminfirstaidEdit
             popupedit={popupedit}
             setPopupEdit={setPopupEdit}
-            firstaids={firstaids}
+            firstaidId={selectedFirstaidId}
+            setFirstaidId={setSelectedFirstaidId}
             setFirstaids={setFirstaids}
           />
         </Box>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import {
   CssBaseline,
@@ -17,11 +17,11 @@ import {
 function Adminfirstaid_edit({
   popupedit,
   setPopupEdit,
-  firstaids,
+  firstaidId,
   setFirstaids,
 }) {
-  
   const [formData, setFormData] = useState({
+    id: "",
     name: "",
     detail: "",
     image: null,
@@ -30,34 +30,21 @@ function Adminfirstaid_edit({
   });
 
   useEffect(() => {
-    if (popupedit) {
-      setFormData({
-        name: "",
-        detail: "",
-        image: null,
-        video: "",
-        type_id: "0",
-      });
+    if (firstaidId !== null) {
+      fetch(`http://localhost:3001/firstaid/${firstaidId}`)
+        .then((res) => res.json())
+        .then((result) => {
+          setFormData({
+            id: result.id,
+            name: result.name,
+            detail: result.detail,
+            image: result.image,
+            video: result.video,
+            type_id: result.type_id,
+          });
+        });
     }
-  }, [popupedit]);
-
-  // const editFirstaid = (id) => {
-  //   const confirmEdit = window.confirm("ต้องการแก้ไขข้อมูลหรือไม่?");
-  //   if (confirmEdit) {
-  //     Axios.put(`http://localhost:3001/firstaid/update/${id}`).then(
-  //       (response) => {
-  //         setFirstaids(
-  //           firstaids.filter((firstaid) => {
-  //             return firstaid.id !== id;
-  //           })
-  //         );
-  //       }
-  //     );
-  //     console.log("แก้ไขข้อมูล");
-  //   } else {
-  //     console.log("ยกเลิกการแก้ไข");
-  //   }
-  // };
+  }, [firstaidId]);
 
   const handleInputChange = (event) => {
     setFormData({
@@ -75,35 +62,43 @@ function Adminfirstaid_edit({
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     try {
       const data = new FormData();
+      data.append("id", formData.id);
       data.append("name", formData.name);
       data.append("detail", formData.detail);
-      data.append("image", formData.image); // ใช้ formData.image ไม่ใช่ formData.file
+      if (formData.image) {
+        data.append("image", formData.image);
+      }
       data.append("video", formData.video.replace("watch?v=", "embed/"));
       data.append("type_id", formData.type_id);
-
-      await Axios.post("http://localhost:3001/firstaid/create", data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      // อัปเดตรายการ firstaids ใหม่
-      Axios.get("http://localhost:3001/firstaids")
-        .then((res) => {
-          setFirstaids(res.data);
-        })
-        .catch((error) => {
-          console.error("Error fetching firstaids: ", error);
-        });
-
-      alert("Firstaid created successfully");
-      setPopupEdit(false);
+  
+      const confirmEdit = window.confirm("ต้องการแก้ไขข้อมูลหรือไม่?");
+      if (confirmEdit) {
+        await Axios.put(
+          `http://localhost:3001/firstaid/update/${firstaidId}`,
+          data,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+  
+        Axios.get("http://localhost:3001/firstaids")
+          .then((res) => {
+            setFirstaids(res.data);
+          })
+          .catch((error) => {
+            console.error("Error fetching firstaids: ", error);
+          });
+  
+        alert("Firstaid updated successfully");
+        setPopupEdit(false);
+      }
     } catch (error) {
-      console.error("Error creating firstaid:", error);
-      alert("Failed to creating firstaid");
+      console.error("Error updating firstaid:", error);
+      alert("Failed to updating firstaid");
     }
   };
 
@@ -183,7 +178,6 @@ function Adminfirstaid_edit({
                 <Typography>Image</Typography>
                 <input
                   type="file"
-                  multiple
                   accept="image/*"
                   onChange={handleFileChange}
                   style={{
@@ -204,8 +198,8 @@ function Adminfirstaid_edit({
                         height: "auto",
                         margin: "10px 0",
                       }}
-                      src={URL.createObjectURL(formData.image)}
-                      alt="Selected"
+                      src={`http://localhost:3001/image/${formData.image}`}
+                      alt=""
                     />
                   </div>
                 )}
