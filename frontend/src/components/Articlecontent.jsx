@@ -7,15 +7,20 @@ import LikeButton from "./LikeButton.jsx";
 import Commentbutton from "./Commentbutton.jsx";
 
 function Articlecontent(props) {
-  // const postList = props.contentList;
-  const postList = props.articleslike;
-  const postListAll = props.articleslike;
+  let postList = [];
+
+  if (props.user.id != null) {
+    postList = props.articleslike; // User is logged in
+  } else {
+    postList = props.contentList; // User is not logged in
+  }
+
+  console.log(props.user)
+
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResult, setSearchResult] = useState(postList);
   const [selectedType, setSelectedType] = useState("All"); // เพิ่ม state สำหรับเก็บประเภทบทความที่ถูกเลือก
 
-  postListAll.type_id = "all"
-  console.log(postList)
   useEffect(() => {
     setSearchResult(postList);
   }, [postList]);
@@ -94,7 +99,7 @@ function Articlecontent(props) {
                     >
                       <Card.Img
                         variant="top"
-                        src={article.image}
+                        src={`http://localhost:3001/image/${article.image}`}
                         style={{ width: "100%", height: "20rem" }}
                       />
                       <Card.Body>

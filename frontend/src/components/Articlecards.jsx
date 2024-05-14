@@ -30,7 +30,7 @@ function Articlecards(props) {
                         style={{ textDecoration: "none", color: "black" }}
                       >
                         <img
-                          src={card.image}
+                          src={`http://localhost:3001/image/${card.image}`}
                           alt={`Card ${card.id}`}
                           className="card-img-top"
                         />

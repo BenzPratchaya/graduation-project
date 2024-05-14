@@ -21,7 +21,7 @@ function Articlepost(props) {
                 style={{ textDecoration: "none", color: "black" }}
               >
                 <img
-                  src={article.image}
+                  src={`http://localhost:3001/image/${article.image}`}
                   alt="Image"
                   className="w3-left w3-margin-right"
                   style={{ width: "50px" }}
