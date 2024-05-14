@@ -51,9 +51,9 @@ const menu = [
 
 function Adminfirstaids() {
   const [firstaids, setFirstaids] = useState([]);
+  const [open, setOpen] = useState(true);
   const [popupadd, setPopupAdd] = useState(false);
   const [popupedit, setPopupEdit] = useState(false);
-  const [open, setOpen] = useState(true);
   const [selectedFirstaidId, setSelectedFirstaidId] = useState(null);
 
   useEffect(() => {
@@ -63,24 +63,6 @@ function Adminfirstaids() {
         setFirstaids(result);
       });
   }, []);
-
-  // const editFirstaid = (id) => {
-  //   const confirmEdit = window.confirm("ต้องการแก้ไขข้อมูลหรือไม่?");
-  //   if (confirmEdit) {
-  //     Axios.put(`http://localhost:3001/firstaid/update/${id}`).then(
-  //       (response) => {
-  //         setFirstaids(
-  //           firstaids.filter((firstaid) => {
-  //             return firstaid.id !== id;
-  //           })
-  //         );
-  //       }
-  //     );
-  //     console.log("แก้ไขข้อมูล");
-  //   } else {
-  //     console.log("ยกเลิกการแก้ไข");
-  //   }
-  // };
 
   const deleteFirstaid = (id) => {
     const confirmDelete = window.confirm("ต้องการลบข้อมูลหรือไม่?");
@@ -100,12 +82,16 @@ function Adminfirstaids() {
     }
   };
 
-  const changeUrl = (url) => {
+  const toggleDrawer = () => {
+    setOpen(!open);
+  };
+
+  const changeUrlVideo = (url) => {
     const embedUrl = url;
     const imageUrl =
       embedUrl.replace(/www\.youtube\.com\/embed\//, "img.youtube.com/vi/") +
       "/maxresdefault.jpg";
-    //console.log(imageUrl);
+      
     return imageUrl;
   };
 
@@ -114,10 +100,6 @@ function Adminfirstaids() {
     const dateObj = new Date(isoDateString);
     const options = { year: "numeric", month: "2-digit", day: "2-digit" };
     return dateObj.toLocaleDateString("th-TH", options);
-  };
-
-  const toggleDrawer = () => {
-    setOpen(!open);
   };
 
   return (
@@ -248,7 +230,7 @@ function Adminfirstaids() {
                 color: "white",
                 fontWeight: "bold",
               }}
-              onClick={() => setPopupAdd(true)} // เมื่อคลิกปุ่มจะเปิด popup
+              onClick={() => setPopupAdd(true)}
             >
               Create Firstaid +
             </Button>
@@ -291,7 +273,7 @@ function Adminfirstaids() {
                           rel="noopener noreferrer"
                         >
                           <img
-                            src={changeUrl(firstaid.video)}
+                            src={changeUrlVideo(firstaid.video)}
                             alt="Video"
                             style={{ width: "50%" }}
                           />
@@ -318,8 +300,6 @@ function Adminfirstaids() {
                           setSelectedFirstaidId(firstaid.id);
                           setPopupEdit(true);
                         }}
-                        // component={Link}
-                        // to={`/admin/firstaid/update/${firstaid.id}`}
                       >
                         <EditIcon />
                       </IconButton>
@@ -350,7 +330,6 @@ function Adminfirstaids() {
           <AdminfirstaidAdd
             popupadd={popupadd}
             setPopupAdd={setPopupAdd}
-            firstaids={firstaids}
             setFirstaids={setFirstaids}
           />
           <AdminfirstaidEdit

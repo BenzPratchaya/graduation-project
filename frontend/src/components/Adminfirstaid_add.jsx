@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import {
   CssBaseline,
@@ -14,7 +14,7 @@ import {
   Select,
 } from "@mui/material";
 
-function Adminfirstaid_add({ popupadd, setPopupAdd, firstaids, setFirstaids }) {
+function Adminfirstaid_add({ popupadd, setPopupAdd, setFirstaids }) {
   const [formData, setFormData] = useState({
     name: "",
     detail: "",
@@ -34,32 +34,6 @@ function Adminfirstaid_add({ popupadd, setPopupAdd, firstaids, setFirstaids }) {
       });
     }
   }, [popupadd]);
-
-  // const addFirstaid = () => {
-  //   fetch("http://localhost:3001/firstaid/create", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       name: name,
-  //       detail: detail,
-  //       image: image,
-  //       video: video.replace("watch?v=", "embed/"),
-  //       type_id: type_id,
-  //     }),
-  //   }).then(() => {
-  //     // เมื่อเพิ่มข้อมูลเสร็จสมบูรณ์ ให้ดึงข้อมูล Firstaids ใหม่
-  //     fetch("http://localhost:3001/firstaids")
-  //       .then((res) => res.json())
-  //       .then((result) => {
-  //         setFirstaids(result);
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error fetching firstaids: ", error);
-  //       });
-  //   });
-  // };
 
   const handleInputChange = (event) => {
     setFormData({
@@ -91,7 +65,7 @@ function Adminfirstaid_add({ popupadd, setPopupAdd, firstaids, setFirstaids }) {
           "Content-Type": "multipart/form-data",
         },
       });
-      
+
       // อัปเดตรายการ firstaids ใหม่
       Axios.get("http://localhost:3001/firstaids")
         .then((res) => {
