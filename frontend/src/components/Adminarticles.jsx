@@ -33,6 +33,8 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
 import MenuIcon from "@mui/icons-material/Menu";
+import AdminarticleAdd from "./Adminarticle_add";
+import AdminarticleEdit from "./Adminarticle_edit";
 
 const menu = [
   { name: "Dashboard", icon: <DashboardIcon />, path: "/admin/dashboard" },
@@ -49,7 +51,10 @@ const menu = [
 function Adminarticles() {
   const [articles, setArticles] = useState([]);
   const [open, setOpen] = useState(true);
-
+  const [popupadd, setPopupAdd] = useState(false);
+  const [popupedit, setPopupEdit] = useState(false);
+  const [selectedArticleId, setSelectedArticleId] = useState(null);
+  
   useEffect(() => {
     fetch("http://localhost:3001/articles")
       .then((res) => res.json())
@@ -58,15 +63,33 @@ function Adminarticles() {
       });
   }, []);
 
+  const deleteArticle = (id) => {
+    const confirmDelete = window.confirm("ต้องการลบข้อมูลหรือไม่?");
+    if (confirmDelete) {
+      Axios.delete(`http://localhost:3001/article/delete/${id}`).then(
+        (response) => {
+          setArticles(
+            articles.filter((article) => {
+              return article.id !== id;
+            })
+          );
+        }
+      );
+      console.log("ลบข้อมูล");
+    } else {
+      console.log("ยกเลิกการลบ");
+    }
+  };
+
+  const toggleDrawer = () => {
+    setOpen(!open);
+  };
+
   // สร้างฟังก์ชันสำหรับแปลงวันที่จากข้อความ ISO 8601 format เป็นวันที่ในรูปแบบที่เข้าใจง่าย
   const formatDate = (isoDateString) => {
     const dateObj = new Date(isoDateString);
     const options = { year: "numeric", month: "2-digit", day: "2-digit" };
     return dateObj.toLocaleDateString("th-TH", options);
-  };
-
-  const toggleDrawer = () => {
-    setOpen(!open);
   };
 
   return (
@@ -197,6 +220,7 @@ function Adminarticles() {
                 color: "white",
                 fontWeight: "bold",
               }}
+              onClick={() => setPopupAdd(true)}
             >
               Create Article +
             </Button>
@@ -223,7 +247,11 @@ function Adminarticles() {
                     <TableCell align="center">{article.title}</TableCell>
                     <TableCell align="left">{article.content}</TableCell>
                     <TableCell align="center">
-                      <img src={article.image} style={{ width: "50%" }} />
+                      <img
+                        src={`http://localhost:3001/image/${article.image}`}
+                        style={{ width: "50%" }}
+                        alt=""
+                      />
                     </TableCell>
                     <TableCell align="center">{article.like_count}</TableCell>
                     <TableCell align="center">
@@ -240,8 +268,10 @@ function Adminarticles() {
                             color: "black",
                           },
                         }}
-                        component={Link}
-                        to="/admin/article/update"
+                        onClick={() => {
+                          setSelectedArticleId(article.id);
+                          setPopupEdit(true);
+                        }}
                       >
                         <EditIcon />
                       </IconButton>
@@ -257,6 +287,9 @@ function Adminarticles() {
                             color: "white",
                           },
                         }}
+                        onClick={() => {
+                          deleteArticle(article.id);
+                        }}
                       >
                         <DeleteIcon />
                       </IconButton>
@@ -266,6 +299,18 @@ function Adminarticles() {
               </TableBody>
             </Table>
           </TableContainer>
+          <AdminarticleAdd
+            popupadd={popupadd}
+            setPopupAdd={setPopupAdd}
+            setArticles={setArticles}
+          />
+          <AdminarticleEdit
+            popupedit={popupedit}
+            setPopupEdit={setPopupEdit}
+            articleId={selectedArticleId}
+            setarticleId={setSelectedArticleId}
+            setArticles={setArticles}
+          />
         </Box>
       </Box>
     </>
