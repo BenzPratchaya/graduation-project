@@ -12,7 +12,18 @@ router.use(express.static(path.join(__dirname, 'upload/images')));
 const storage = multer.diskStorage({
   destination: "./upload/images",
   filename: (req, file, cb) => {
-    return cb(null,`${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`);
+    const date = new Date();
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    const timestamp = `${hours}${minutes}${seconds}`;
+
+    const originalName = file.originalname;
+    const ext = path.extname(originalName);
+    const nameWithoutExt = path.basename(originalName, ext);
+
+    const newFilename = `${nameWithoutExt}_${timestamp}${ext}`;
+    return cb(null, newFilename);
   },
 });
 
@@ -32,9 +43,11 @@ router.get("/articles", ArticleController.getArticleList);
 router.get("/article/:id", ArticleController.getArticleById);
 router.get("/articles/like/:user_id", ArticleController.getArticleByUserId);
 router.get("/articles/counttype", ArticleController.getArticleCountType);
-router.post("/article/create", ArticleController.createArticle);
+router.post("/article/create", upload.single("image"), ArticleController.createArticle);
+router.put("/article/update/:id", upload.single("image"), ArticleController.updateArticle);
 router.put("/article/updatelike/:id", ArticleController.updateArticleLike);
 router.put("/article/updateunlike/:id", ArticleController.updateArticleUnLike);
+router.delete("/article/delete/:id", ArticleController.deleteArticle);
 
 // Like routes
 router.get("/like", LikeController.getLikeList);

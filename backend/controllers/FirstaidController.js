@@ -1,8 +1,7 @@
-// const express = require("express");
-// const router = express.Router();
 const db = require("../config/db");
+const fs = require('fs');
+const path = require('path');
 
-// router.get("/firstaids", (req, res) => {
 exports.getFirstaidList = (req, res) => {
   db.query("SELECT * FROM firstaids", (err, result) => {
     if (err) {
@@ -13,7 +12,6 @@ exports.getFirstaidList = (req, res) => {
   });
 };
 
-// router.get("/firstaid/:id", (req, res) => {
 exports.getFirstaidById = (req, res) => {
   const firstaidId = req.params.id;
   db.query(
@@ -34,7 +32,6 @@ exports.getFirstaidById = (req, res) => {
   );
 };
 
-// router.get("/firstaids/counttype", (req, res) => {
 exports.getFirstaidCountType = (req, res) => {
   db.query(
     "SELECT firstaidtype.name, COUNT(firstaids.id) AS count FROM firstaids JOIN firstaidtype ON firstaids.type_id = firstaidtype.id GROUP BY firstaids.type_id",
@@ -48,74 +45,104 @@ exports.getFirstaidCountType = (req, res) => {
   );
 };
 
-// router.post("/firstaid/create", (req, res) => {
 exports.createFirstaid = (req, res) => {
-  // ตรวจสอบว่ามีการอัปโหลดไฟล์ภาพหรือไม่
   if (!req.file) {
     return res.status(400).send("No image file uploaded");
   }
 
-  const name = req.body.name;
-  const detail = req.body.detail;
-  const image = req.file.filename; // ใช้ไฟล์ที่ Multer อัปโหลด
-  const video = req.body.video;
-  const type_id = req.body.type_id;
+  const { name, detail, video, type_id } = req.body;
   const created_date = new Date();
+  const image = req.file.filename;
 
   db.query(
     "INSERT INTO firstaids (name, detail, image, video, type_id, created_date) VALUES(?,?,?,?,?,?)",
     [name, detail, image, video, type_id, created_date],
-    (req, res, err, result) => {
-      if (err) {
-        console.log(err);
-      }
-    }
-  );
-  res.json({
-    status: "Firstaid Create Success",
-    name: name,
-    detail: detail,
-    image: `http://localhost:3001/image/${req.file.filename}`,
-    video: video,
-    type_id: type_id,
-    created_date: created_date,
-  });
-};
-
-// router.put("/firstaid/update", (req, res) => {
-exports.updateFirstaid = (req, res) => {
-  const id = req.body.id;
-  const name = req.body.name;
-  const detail = req.body.detail;
-  const video = req.body.video;
-  // เช็คว่ามีการอัปโหลดไฟล์ภาพหรือไม่
-  let image = null;
-  if (req.file) {
-    image = req.file.filename;
-  }
-  db.query(
-    "UPDATE firstaids SET name = ?, detail = ?, image = ?, video = ? WHERE id = ?",
-    [name, detail, image, video, id],
     (err, result) => {
       if (err) {
         console.log(err);
       } else {
-        res.send(result);
+        res.json({
+          status: "Firstaid Create Success",
+          name: name,
+          detail: detail,
+          image: `http://localhost:3001/image/${req.file.filename}`,
+          video: video,
+          type_id: type_id,
+          created_date: created_date,
+        });
       }
     }
   );
 };
 
-// router.delete("/firstaid/delete/:id", (req, res) => {
+exports.updateFirstaid = (req, res) => {
+  const { id, name, detail, video, type_id } = req.body;
+  let image = null;
+
+  if (req.file) {
+    image = req.file.filename;
+  }
+
+  db.query(
+    "UPDATE firstaids SET name = ?, detail = ?, image = ?, video = ?, type_id = ? WHERE id = ?",
+    [name, detail, image, video, type_id, id],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send("Error updating first aid");
+      } else {
+        res.json({
+          status: "First Aid Update Success",
+          result: result,
+        });
+      }
+    }
+  );
+};
+
 exports.deleteFirstaid = (req, res) => {
   const id = req.params.id;
-  db.query("DELETE FROM firstaids WHERE id = ?", id, (err, result) => {
+
+  // Step 1: Retrieve the image filename
+  db.query("SELECT image FROM firstaids WHERE id = ?", id, (err, result) => {
     if (err) {
-      console.log(err);
+      console.log("Error retrieving firstaid image:", err);
+      return res.status(500).send("Error retrieving firstaid image");
+    }
+
+    if (result.length === 0) {
+      return res.status(404).send("Firstaid not found");
+    }
+
+    const image = result[0].image;
+
+    // Step 2: Delete the image file from the server
+    if (image) {
+      const imagePath = path.join(__dirname, '..', 'upload', 'images', image);
+      fs.unlink(imagePath, (err) => {
+        if (err) {
+          console.log("Error deleting image file:", err);
+          return res.status(500).send("Error deleting image file");
+        }
+
+        // Step 3: Delete the firstaid from the database
+        db.query("DELETE FROM firstaids WHERE id = ?", id, (err, result) => {
+          if (err) {
+            console.log("Error deleting firstaid:", err);
+            return res.status(500).send("Error deleting firstaid");
+          }
+          res.send(result);
+        });
+      });
     } else {
-      res.send(result);
+      // If there's no image, directly delete the firstaid from the database
+      db.query("DELETE FROM firstaids WHERE id = ?", id, (err, result) => {
+        if (err) {
+          console.log("Error deleting firstaid:", err);
+          return res.status(500).send("Error deleting firstaid");
+        }
+        res.send(result);
+      });
     }
   });
 };
-
-// module.exports = router;

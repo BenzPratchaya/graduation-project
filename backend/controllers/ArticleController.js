@@ -1,11 +1,11 @@
 // const express = require("express");
 // const router = express.Router();
 const db = require("../config/db");
+const fs = require('fs');
+const path = require('path');
 
-// router.get("/articles", (req, res) => {
 exports.getArticleList = (req, res) => {
-  const articleData = req.body;
-  db.query("SELECT * FROM articles", articleData, (err, result) => {
+  db.query("SELECT * FROM articles", (err, result) => {
     if (err) {
       console.log(err);
     } else {
@@ -14,7 +14,6 @@ exports.getArticleList = (req, res) => {
   });
 };
 
-// router.get("/article/:id", (req, res) => {
 exports.getArticleById = (req, res) => {
   const articleId = req.params.id;
   db.query("SELECT * FROM articles WHERE id = ?", articleId, (err, result) => {
@@ -43,7 +42,6 @@ exports.getArticleByUserId = (req, res) => {
   );
 };
 
-// router.get("/articles/counttype", (req, res) => {
 exports.getArticleCountType = (req, res) => {
   db.query(
     "SELECT articletype.name, COUNT(articles.id) AS count FROM articles JOIN articletype ON articles.type_id = articletype.id GROUP BY articles.type_id",
@@ -58,21 +56,58 @@ exports.getArticleCountType = (req, res) => {
 };
 
 exports.createArticle = (req, res) => {
+  // ตรวจสอบว่ามีการอัปโหลดไฟล์ภาพหรือไม่
+  if (!req.file) {
+    return res.status(400).send("No image file uploaded");
+  }
+
+  const { title, content, type_id } = req.body;
+  const like_count = 0;
+  const created_date = new Date();
+  const image = req.file.filename;
+
   db.query(
-    "INSERT INTO articles (title, content, image, type_id, `like_count`, created_date) VALUES(?,?,?,?,?,?)",
-    [
-      req.body.title,
-      req.body.content,
-      req.body.image,
-      req.body.type_id,
-      req.body.like_count,
-      new Date(),
-    ],
+    "INSERT INTO articles (title, content, image, type_id, like_count, created_date) VALUES (?, ?, ?, ?, ?, ?)",
+    [title, content, image, type_id, like_count, created_date],
     (err, result) => {
       if (err) {
         console.log(err);
+        return res.status(500).send("Error creating article");
       } else {
-        res.send("Article Create Success");
+        res.json({
+          status: "Article Create Success",
+          title: title,
+          content: content,
+          image: `http://localhost:3001/image/${image}`,
+          type_id: type_id,
+          like_count: like_count,
+          created_date: created_date,
+        });
+      }
+    }
+  );
+};
+
+exports.updateArticle = (req, res) => {
+  const { id, title, content, type_id } = req.body;
+  let image = null;
+
+  if (req.file) {
+    image = req.file.filename;
+  }
+
+  db.query(
+    "UPDATE articles SET title = ?, content = ?, image = ?, type_id = ? WHERE id = ?",
+    [title, content, image, type_id, id],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send("Error updating article");
+      } else {
+        res.json({
+          status: "Article Update Success",
+          result: result,
+        });
       }
     }
   );
@@ -108,6 +143,53 @@ exports.updateArticleUnLike = (req, res) => {
       }
     }
   );
+};
+
+exports.deleteArticle = (req, res) => {
+  const id = req.params.id;
+
+  // Step 1: Retrieve the image filename
+  db.query("SELECT image FROM articles WHERE id = ?", id, (err, result) => {
+    if (err) {
+      console.log("Error retrieving article image:", err);
+      return res.status(500).send("Error retrieving article image");
+    }
+
+    if (result.length === 0) {
+      return res.status(404).send("Article not found");
+    }
+
+    const image = result[0].image;
+
+    // Step 2: Delete the image file from the server
+    if (image) {
+      const imagePath = path.join(__dirname, '..', 'upload', 'images', image);
+      fs.unlink(imagePath, (err) => {
+        if (err) {
+          console.log("Error deleting image file:", err);
+          return res.status(500).send("Error deleting image file");
+        }
+
+        // Step 3: Delete the article from the database
+        db.query("DELETE FROM articles WHERE id = ?", id, (err, result) => {
+          if (err) {
+            console.log("Error deleting article:", err);
+            return res.status(500).send("Error deleting article");
+          }
+          res.send(result);
+        });
+      });
+    } else {
+      // If there's no image, directly delete the article from the database
+      db.query("DELETE FROM articles WHERE id = ?", id, (err, result) => {
+        if (err) {
+          console.log("Error deleting article:", err);
+          return res.status(500).send("Error deleting article");
+        }
+        res.send(result);
+      });
+    }
+  });
 };
 
 // module.exports = router;
