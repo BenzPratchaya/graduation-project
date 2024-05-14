@@ -83,21 +83,51 @@ exports.updateFirstaid = (req, res) => {
     image = req.file.filename;
   }
 
-  db.query(
-    "UPDATE firstaids SET name = ?, detail = ?, image = ?, video = ?, type_id = ? WHERE id = ?",
-    [name, detail, image, video, type_id, id],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).send("Error updating first aid");
-      } else {
-        res.json({
-          status: "First Aid Update Success",
-          result: result,
-        });
-      }
+  // Step 1: Retrieve the existing image filename
+  db.query("SELECT image FROM firstaids WHERE id = ?", id, (err, result) => {
+    if (err) {
+      console.log("Error retrieving firstaid image:", err);
+      return res.status(500).send("Error retrieving firstaid image");
     }
-  );
+
+    if (result.length === 0) {
+      return res.status(404).send("Firstaid not found");
+    }
+
+    const existingImage = result[0].image;
+
+    // Step 2: Update the firstaid in the database
+    db.query(
+      "UPDATE firstaids SET name = ?, detail = ?, image = ?, video = ?, type_id = ? WHERE id = ?",
+      [name, detail, image || existingImage, video, type_id, id],
+      (err, result) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).send("Error updating first aid");
+        }
+
+        // Step 3: Delete the old image file if a new image is provided
+        if (req.file && existingImage) {
+          const imagePath = path.join(__dirname, '..', 'upload', 'images', existingImage);
+          fs.unlink(imagePath, (err) => {
+            if (err) {
+              console.log("Error deleting old image file:", err);
+              // Continue even if there's an error deleting the old image
+            }
+            res.json({
+              status: "First Aid Update Success",
+              result: result,
+            });
+          });
+        } else {
+          res.json({
+            status: "First Aid Update Success",
+            result: result,
+          });
+        }
+      }
+    );
+  });
 };
 
 exports.deleteFirstaid = (req, res) => {

@@ -96,21 +96,51 @@ exports.updateArticle = (req, res) => {
     image = req.file.filename;
   }
 
-  db.query(
-    "UPDATE articles SET title = ?, content = ?, image = ?, type_id = ? WHERE id = ?",
-    [title, content, image, type_id, id],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).send("Error updating article");
-      } else {
-        res.json({
-          status: "Article Update Success",
-          result: result,
-        });
-      }
+  // Step 1: Retrieve the existing image filename
+  db.query("SELECT image FROM articles WHERE id = ?", id, (err, result) => {
+    if (err) {
+      console.log("Error retrieving article image:", err);
+      return res.status(500).send("Error retrieving article image");
     }
-  );
+
+    if (result.length === 0) {
+      return res.status(404).send("Article not found");
+    }
+
+    const existingImage = result[0].image;
+
+    // Step 2: Update the article in the database
+    db.query(
+      "UPDATE articles SET title = ?, content = ?, image = ?, type_id = ? WHERE id = ?",
+      [title, content, image || existingImage, type_id, id],
+      (err, result) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).send("Error updating article");
+        }
+
+        // Step 3: Delete the old image file if a new image is provided
+        if (req.file && existingImage) {
+          const imagePath = path.join(__dirname, '..', 'upload', 'images', existingImage);
+          fs.unlink(imagePath, (err) => {
+            if (err) {
+              console.log("Error deleting old image file:", err);
+              // Continue even if there's an error deleting the old image
+            }
+            res.json({
+              status: "Article Update Success",
+              result: result,
+            });
+          });
+        } else {
+          res.json({
+            status: "Article Update Success",
+            result: result,
+          });
+        }
+      }
+    );
+  });
 };
 
 exports.updateArticleLike = (req, res) => {
