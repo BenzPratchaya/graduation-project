@@ -3,8 +3,9 @@ import {
   Button,
   CssBaseline,
   TextField,
-  Grid,
+  Link,
   Box,
+  Grid,
   Typography,
 } from "@mui/material";
 
@@ -17,7 +18,7 @@ export default function SignUp() {
       email: data.get("email"),
       password: data.get("password"),
     });
-    
+
     const jsonData = {
       email: data.get("email"),
       password: data.get("password"),
@@ -46,7 +47,16 @@ export default function SignUp() {
   };
 
   return (
-    <div className="register">
+    <div
+      className="login"
+      style={{
+        backgroundImage:
+          "url('http://localhost:3000/images/Gemini_Generated_Image_nvo12snvo12snvo1.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        height: "100vh",
+      }}
+    >
       <Grid
         container
         component="main"
@@ -59,12 +69,21 @@ export default function SignUp() {
         <CssBaseline />
         <Grid
           item
-          xs={6}
-          className="border border-3 border-secondary rounded-5"
+          xs={10}
+          sm={8}
+          md={6}
+          lg={3}
+          className="border rounded-5"
+          sx={{
+            backgroundColor: "white",
+            border: "3px solid",
+            borderColor: "secondary.main",
+            borderRadius: "5px",
+          }}
         >
           <Box
             sx={{
-              my: 14,
+              my: 8,
               mx: 4,
               display: "flex",
               flexDirection: "column",
@@ -81,25 +100,33 @@ export default function SignUp() {
               sx={{ mt: 3 }}
             >
               <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12}>
                   <TextField
-                    autoComplete="given-name"
                     name="firstName"
                     required
                     fullWidth
                     id="firstName"
                     label="First Name"
                     autoFocus
+                    InputProps={{
+                      sx: {
+                        borderRadius: 5,
+                      },
+                    }}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12}>
                   <TextField
                     required
                     fullWidth
                     id="lastName"
                     label="Last Name"
                     name="lastName"
-                    autoComplete="family-name"
+                    InputProps={{
+                      sx: {
+                        borderRadius: 5,
+                      },
+                    }}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -109,7 +136,11 @@ export default function SignUp() {
                     id="email"
                     label="Email Address"
                     name="email"
-                    autoComplete="email"
+                    InputProps={{
+                      sx: {
+                        borderRadius: 5,
+                      },
+                    }}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -120,27 +151,52 @@ export default function SignUp() {
                     label="Password"
                     type="password"
                     id="password"
-                    autoComplete="new-password"
+                    InputProps={{
+                      sx: {
+                        borderRadius: 5,
+                      },
+                    }}
                   />
                 </Grid>
-                <Grid item xs={12}></Grid>
               </Grid>
-              <Button
-                className="rounded-pill"
-                href="/login"
-                variant="contained"
-                sx={{ width: "40%", margin: " 30px 25px" }}
-              >
-                ⏎ Sign In
-              </Button>
-              <Button
-                className="rounded-pill"
-                type="submit"
-                variant="contained"
-                sx={{ width: "40%", margin: " 30px" }}
-              >
-                Sign Up
-              </Button>
+              <Grid container sx={{ mt: 2, mb: 2, justifyContent: "center" }}>
+                <Button
+                  className="rounded-pill"
+                  type="submit"
+                  variant="contained"
+                  sx={{
+                    width: "50%",
+                    bgcolor: "#4761ff",
+                    "&:hover": { bgcolor: "#304ffe" },
+                  }}
+                >
+                  Sign Up
+                </Button>
+              </Grid>
+              <Grid container justifyContent="flex-end">
+                <Grid item>
+                  <Box display="flex" alignItems="center">
+                    <Typography variant="body2">
+                      Already have an account?&nbsp;
+                    </Typography>
+                    <Link
+                      href="/login"
+                      variant="body2"
+                      sx={{
+                        color: "#4761ff",
+                        textDecoration: "none",
+                        fontWeight: "bold",
+                        "&:hover": {
+                          color: "#304ffe",
+                          textDecoration: "underline",
+                        },
+                      }}
+                    >
+                      Sign In
+                    </Link>
+                  </Box>
+                </Grid>
+              </Grid>
             </Box>
           </Box>
         </Grid>

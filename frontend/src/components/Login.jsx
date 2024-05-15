@@ -3,8 +3,6 @@ import {
   Button,
   CssBaseline,
   TextField,
-  FormControlLabel,
-  Checkbox,
   Link,
   Box,
   Grid,
@@ -14,12 +12,12 @@ import {
 import "./css/Login.css";
 import NavTab from "./NavTab";
 
-export default function SignInSide() {
+export default function Login() {
   const [user, setUser] = useState([]);
   useEffect(() => {
     console.log(user);
   }, [user]);
-  
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -45,8 +43,8 @@ export default function SignInSide() {
           localStorage.setItem("token", data.token);
           window.location = "/home";
           alert("login success");
-          setUser(data.user)
-          console.log(user)
+          setUser(data.user);
+          console.log(user);
         } else {
           alert("login failed");
         }
@@ -57,7 +55,16 @@ export default function SignInSide() {
   };
 
   return (
-    <div className="login">
+    <div
+      className="login"
+      style={{
+        backgroundImage:
+          "url('http://localhost:3000/images/Gemini_Generated_Image_nvo12snvo12snvo1.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        height: "100vh",
+      }}
+    >
       <Grid
         container
         component="main"
@@ -70,12 +77,21 @@ export default function SignInSide() {
         <CssBaseline />
         <Grid
           item
-          xs={6}
-          className="border border-3 border-secondary rounded-5"
+          xs={10}
+          sm={8}
+          md={6}
+          lg={3}
+          className="border rounded-5"
+          sx={{
+            backgroundColor: "white",
+            border: "3px solid",
+            borderColor: "secondary.main",
+            borderRadius: "5px",
+          }}
         >
           <Box
             sx={{
-              my: 14,
+              my: 8,
               mx: 4,
               display: "flex",
               flexDirection: "column",
@@ -101,6 +117,11 @@ export default function SignInSide() {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                InputProps={{
+                  sx: {
+                    borderRadius: 5,
+                  },
+                }}
               />
               <TextField
                 className="password"
@@ -112,42 +133,54 @@ export default function SignInSide() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                InputProps={{
+                  sx: {
+                    borderRadius: 5,
+                  },
+                }}
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-              <br />
-              <Button
-                className="rounded-pill"
-                type="submit"
-                variant="contained"
-                sx={{ width: "40%", margin: " 30px 25px" }}
-              >
-                Sign In
-              </Button>
-              <Button
-                className="rounded-pill"
-                href="/register"
-                variant="contained"
-                sx={{ width: "40%", margin: " 30px" }}
-              >
-                Sign Up ➲
-              </Button>
-              <hr />
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
+
+              <Grid container sx={{ mt: 2, mb: 2, justifyContent: "center" }}>
+                <Button
+                  className="rounded-pill"
+                  type="submit"
+                  variant="contained"
+                  sx={{
+                    width: "50%",
+                    bgcolor: "#4761ff",
+                    "&:hover": { bgcolor: "#304ffe" },
+                  }}
+                >
+                  Sign in
+                </Button>
+              </Grid>
+              <Grid container justifyContent="flex-end">
+                <Grid item>
+                  <Box display="flex" alignItems="center">
+                    <Typography variant="body2">Not a member?&nbsp;</Typography>
+                    <Link
+                      href="/register"
+                      variant="body2"
+                      sx={{
+                        color: "#4761ff",
+                        textDecoration: "none",
+                        fontWeight: "bold",
+                        "&:hover": {
+                          color: "#304ffe",
+                          textDecoration: "underline",
+                        },
+                      }}
+                    >
+                      Sign Up
+                    </Link>
+                  </Box>
                 </Grid>
-                <Grid item></Grid>
               </Grid>
             </Box>
           </Box>
         </Grid>
       </Grid>
-      {user != 0 && <NavTab user={user} setUser={setUser}/>}
+      {user.length !== 0 && <NavTab user={user} setUser={setUser} />}
     </div>
   );
 }
