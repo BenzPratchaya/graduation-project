@@ -1,0 +1,61 @@
+.add-comment-post {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .add-comment-post form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .add-comment-post .cm-header {
+    display: flex;
+    align-items: center;
+  }
+  
+  .add-comment-post .cm-header .box-img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .cm-header p {
+    margin-left: 10px;
+  }
+  
+  .add-comment-post .cm-content {
+    margin-top: 10px;
+  }
+  
+  .add-comment-post .cm-content input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  
+  .add-comment-post .cm-content textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    width: 100%;
+    min-height: 80px;
+  }
+  
+  .add-comment-post .cm-content button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    background-color: #333; /* Adjust for comment button color */
+    color: #fff;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .add-comment-post .cm-content button:hover {
+    background-color: #222; /* Adjust for comment button hover color */
+  }
