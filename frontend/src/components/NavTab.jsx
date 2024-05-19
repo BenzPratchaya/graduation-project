@@ -69,11 +69,10 @@ function NavTab() {
           <Navbar.Brand className="ms-5">
             
           <img
-          src="http://localhost:3000/images/bx-plus-medical.svg"
-          alt="Heart Icon"
+          src="http://localhost:3000/images/firstaid_logo.png"
+          alt="Logo"
           style={{
-            width: "30px",
-            height: "30px",
+            width: "50px",
             margin: "0px -5px 2px 0px",
           }}
         />
