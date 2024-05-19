@@ -21,9 +21,9 @@ import Footer from "./components/Footer.jsx";
 import Admin from "./components/Admin.jsx";
 import Adminusers from "./components/Adminusers.jsx";
 import Adminfirstaids from "./components/Adminfirstaids.jsx";
-import Adminfirstaidupdate from "./components/Adminfirstaidupdate.jsx";
 import Adminarticles from "./components/Adminarticles.jsx";
 import Admindashboard from "./components/Admindashboard.jsx";
+import Articlepage from "./components/Articlepage.jsx";
 
 function App() {
   const [user, setUser] = useState([]);
@@ -75,12 +75,9 @@ function App() {
         <Route path="/admin/dashboard" element={<Admindashboard />} />
         <Route path="/admin/users" element={<Adminusers />} />
         <Route path="/admin/firstaids" element={<Adminfirstaids />} />
-        <Route
-          path="/admin/firstaid/update/:id"
-          element={<Adminfirstaidupdate />}
-        />
         <Route path="/admin/articles" element={<Adminarticles />} />
-        
+        <Route path="/article/:articleId" element={<Articlepage user={user}/>} />
+       
 
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog2" element={<Blog2 />} />

@@ -1,49 +1,151 @@
-import React, { useState } from "react";
-import "./css/Comment_add.css";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import format from "date-fns/format";
+import parseISO from "date-fns/parseISO";
+import { th } from "date-fns/locale";
 
-function Comment_add() {
-  const [username, setUsername] = useState("");
-  const [userComment, setUserComment] = useState("");
+function Comment_add({ articleId, user }) {
+  const [comments, setComments] = useState([]);
+  const [body, setBody] = useState("");
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3001/comments/${articleId}`)
+      .then((response) => setComments(response.data))
+      .catch((error) => console.error(error));
+  }, [articleId]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Handle form submission logic here (e.g., API call)
-    console.log("Submitted comment:", username, userComment);
+    if (!user || !user.id) {
+      alert("Please log in to comment.");
+      return;
+    }
 
-    // Reset form after submission (optional)
-    setUsername("");
-    setUserComment("");
+    axios
+      .post("http://localhost:3001/comment/create", {
+        article_id: articleId,
+        user_id: user.id,
+        body,
+        user_fname: user.fname,
+        user_lname: user.lname,
+      })
+      .then((response) => {
+        setComments([...comments, response.data]);
+        setBody("");
+      })
+      .catch((error) => console.error(error));
+  };
+
+  const formatDateTime = (dateString) => {
+    try {
+      const date = parseISO(dateString);
+      return format(date, "d MMMM yyyy - HH:mm", { locale: th });
+    } catch (error) {
+      console.error("Invalid date format:", dateString);
+      return "Invalid date";
+    }
+  };
+
+  const containerStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    border: '1px solid #ddd',
+    borderRadius: '5px',
+    padding: '15px',
+    marginBottom: '15px',
+  };
+
+  const headerStyle = {
+    display: 'flex',
+    alignItems: 'center',
+  };
+
+  const iconStyle = {
+    width: '48px',
+    height: '48px',
+  };
+
+  const pStyle = {
+    marginLeft: '10px',
+  };
+
+  const contentStyle = {
+    marginTop: '10px',
+  };
+
+  const textStyle = {
+    padding: '10px',
+    border: '1px solid #ccc',
+    borderRadius: '3px',
+    marginBottom: '10px',
+    width: '100%',
+  };
+
+  const buttonStyle = {
+    padding: '10px 20px',
+    border: 'none',
+    borderRadius: '3px',
+    cursor: 'pointer',
+    backgroundColor: '#333',
+    color: '#fff',
+    transition: 'all 0.2s ease-in-out',
+  };
+
+  const buttonHoverStyle = {
+    backgroundColor: '#222',
   };
 
   return (
-    <div className="add-comment-post container w3-padding">
-      <form
-        action={`/community/user-post-${1}/createComment`}
-        method="POST"
-        id={1}
-        onSubmit={handleSubmit}
-      >
-        <div className="cm-header">
-          <AccountCircleIcon className="box-img" />
-          <p>Pratchaya Tanapiboonphol</p>
-        </div>
-        <hr/>
-        <div className="cm-content">
-          <textarea
-            name="userComment"
-            className="contentComment"
-            cols="30"
-            rows="10"
-            value={userComment}
-            onChange={(event) => setUserComment(event.target.value)}
-          />
-          <button className="post-comments-1" type="submit">
-            comment
-          </button>
-        </div>
-      </form>
+    <div>
+      <div style={containerStyle}>
+        <form onSubmit={handleSubmit}>
+          <div style={headerStyle}>
+            <AccountCircleIcon style={iconStyle} />
+            <p style={pStyle}>
+              {user.fname} {user.lname}
+            </p>
+          </div>
+          <hr />
+          <div style={contentStyle}>
+            <h3>Comment</h3>
+            <textarea
+              name="comment"
+              style={textStyle}
+              cols="30"
+              rows="10"
+              value={body}
+              onChange={(e) => setBody(e.target.value)}
+            />
+            <button style={{...buttonStyle, ':hover': buttonHoverStyle}} type="submit">
+              comment
+            </button>
+          </div>
+        </form>
+      </div>
+      <ul style={{padding: '15px'}}>
+        {comments.map((comment) => (
+          <div style={containerStyle} key={comment.id}>
+            <div style={{display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '10px', alignItems: 'center'}}>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <AccountCircleIcon style={iconStyle} />
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <p style={{ margin: 0 }}>
+                  {comment.user_fname} {comment.user_lname}
+                </p>
+                <p style={{ margin: 0 }}>
+                  {formatDateTime(comment.created_date)}
+                </p>
+              </div>
+            </div>
+            <br />
+            <p>{comment.body}</p>
+          </div>
+        ))}
+      </ul>
     </div>
   );
 }

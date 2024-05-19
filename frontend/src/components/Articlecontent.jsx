@@ -15,7 +15,7 @@ function Articlecontent(props) {
     postList = props.contentList; // User is not logged in
   }
 
-  console.log(props.user)
+  console.log(postList);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResult, setSearchResult] = useState(postList);
@@ -115,10 +115,7 @@ function Articlecontent(props) {
                         >
                           {article.content}
                         </Card.Text>
-                        <Link
-                          component={Link}
-                          to={`/article/article${article.id}`}
-                        >
+                        <Link to={`/article/${article.article_id}`}>
                           <Button className="w3-button w3-padding-large w3-white w3-border">
                             Read More
                           </Button>
@@ -130,7 +127,9 @@ function Articlecontent(props) {
                             article={article}
                             user={props.user}
                           />
-                          <Commentbutton />
+                          <Link to={`/article/${article.article_id}`} style={{textDecoration: 'none'}}>
+                            <Commentbutton />
+                          </Link>
                         </div>
                       </Card.Body>
                     </Card>
