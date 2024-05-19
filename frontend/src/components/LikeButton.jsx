@@ -14,13 +14,13 @@ function LikeButton(props) {
   }, [props.article.liked, props.article.like_count]);
 
   const handleLikeUnlike = () => {
-    if (!props.user.user_id) {
+    if (!props.user.id) {
       alert("Please log in or register to like articles.");
       return;
     }
 
     const endpoint = liked ? "updateunlike" : "updatelike";
-    const method = liked ? "put" : "post";
+    const method = "put";
 
     axios[method](
       `http://localhost:3001/article/${endpoint}/${props.article.article_id}`,
