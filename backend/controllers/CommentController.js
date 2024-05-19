@@ -1,34 +1,29 @@
-const express = require("express");
-const router = express.Router();
 const db = require("../config/db");
-router.get("/comments", (req, res) => {
-  db.query("SELECT * FROM comments", (err, result) => {
+
+exports.getCommentListByArticleId = (req, res) => {
+  const { article_id } = req.params;
+  const query = "SELECT * FROM comments WHERE article_id = ?";
+  db.query(query, [article_id], (err, results) => {
     if (err) {
-      console.log(err);
-    } else {
-      res.send(result);
+      return res.status(500).send(err);
     }
+    res.status(200).send(results);
   });
-});
+};
 
-router.post("/comment/create", (req, res) => {
-  const body = req.body.body;
-  const username = req.body.username;
-  const userId = req.body.userId;
-  const parentId = req.body.parentId;
-  const createdAt = req.body.createdAt;
-
+exports.createComment = (req, res) => {
+  const { article_id, user_id, body, user_fname, user_lname } = req.body;
+  const created_date = new Date();
+  const query =
+    "INSERT INTO comments (article_id, user_id, body, user_fname, user_lname, created_date) VALUES (?,?,?,?,?,?)";
   db.query(
-    "INSERT INTO comments (body, username, userId, parentId, createdAt) VALUES(?,?,?,?,?)",
-    [body, username, userId, parentId, createdAt],
+    query,
+    [article_id, user_id, body, user_fname, user_lname, created_date],
     (err, result) => {
       if (err) {
-        console.log(err);
-      } else {
-        res.send("Values inserted");
+        return res.status(500).send(err);
       }
+      res.status(201).send(result);
     }
   );
-});
-
-module.exports = router;
+};

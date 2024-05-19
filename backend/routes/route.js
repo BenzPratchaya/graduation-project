@@ -4,6 +4,7 @@ const UserController = require("../controllers/UserController");
 const ArticleController = require("../controllers/ArticleController");
 const FirstaidController = require("../controllers/FirstaidController");
 const LikeController = require("../controllers/LikeController");
+const CommentController = require("../controllers/CommentController");
 
 const multer = require("multer");
 const path = require("path");
@@ -62,5 +63,10 @@ router.get("/firstaids/counttype", FirstaidController.getFirstaidCountType);
 router.post("/firstaid/create", upload.single("image"), FirstaidController.createFirstaid);
 router.put("/firstaid/update/:id", upload.single("image"), FirstaidController.updateFirstaid);
 router.delete("/firstaid/delete/:id", FirstaidController.deleteFirstaid);
+
+// Comment routes
+router.get("/comments/:article_id", CommentController.getCommentListByArticleId);
+router.post("/comment/create",CommentController.createComment);
+
 
 module.exports = router;
