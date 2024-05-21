@@ -15,80 +15,84 @@ const secret = "Fullstack-Login";
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regular Expression สำหรับตรวจสอบรูปแบบของ email
 
 router.post("/register", jsonParser, function (req, res, next) {
-  bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
-    db.query(
-      "SELECT * FROM users WHERE email = ?",
-      [req.body.email],
-      function (err, results) {
-        if (err) {
-          res.json({ status: "error", message: err });
-          return;
-        }
-        if (results.length > 0) {
-          res
-            .status(400)
-            .json({ status: "error", message: "Email already exists" });
-          return;
-        }
-
-        db.query(
-          "INSERT INTO users (email, password, fname, lname, role_id, created_date) VALUES (?,?,?,?,1,?)",
-          [req.body.email, hash, req.body.fname, req.body.lname, new Date()],
-          function (err, results) {
-            if (err) {
-              res.json({ status: "error", message: err });
-              return;
-            }
-            if (!emailRegex.test(req.body.email)) {
-              res
-                .status(400)
-                .json({ status: "error", message: "Invalid email format" });
-              return;
-            }
-            res.json({ status: "ok" });
-          }
-        );
+  db.query(
+    "SELECT * FROM users WHERE email = ?",
+    [req.body.email],
+    function (err, results) {
+      if (err) {
+        res.json({ status: "error", message: err });
+        return;
       }
-    );
-  });
+      if (results.length > 0) {
+        res
+          .status(400)
+          .json({ status: "error", message: "Email already exists" });
+      } else if (!emailRegex.test(req.body.email)) {
+        res
+          .status(400)
+          .json({ status: "error", message: "Invalid email format" });
+      } else {
+        bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
+          if (err) {
+            res.json({ status: "error", message: err });
+            return;
+          }
+          db.query(
+            "INSERT INTO users (email, password, fname, lname, role_id, created_date) VALUES (?,?,?,?,1,?)",
+            [req.body.email, hash, req.body.fname, req.body.lname, new Date()],
+            function (err, results) {
+              if (err) {
+                res.json({ status: "error", message: err });
+                return;
+              }
+
+              res.json({ status: "ok" });
+            }
+          );
+        });
+      }
+    }
+  );
 });
 
 router.post("/register/admin", jsonParser, function (req, res, next) {
-  bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
-    db.query(
-      "SELECT * FROM users WHERE email = ?",
-      [req.body.email],
-      function (err, results) {
-        if (err) {
-          res.json({ status: "error", message: err });
-          return;
-        }
-        if (results.length > 0) {
-          res
-            .status(400)
-            .json({ status: "error", message: "Email already exists" });
-          return;
-        }
-        db.query(
-          "INSERT INTO users (email, password, fname, lname, role_id, created_date) VALUES (?,?,?,?,2,?)",
-          [req.body.email, hash, req.body.fname, req.body.lname, new Date()],
-          function (err, results) {
-            if (err) {
-              res.json({ status: "error", message: err });
-              return;
-            }
-            if (!emailRegex.test(req.body.email)) {
-              res
-                .status(400)
-                .json({ status: "error", message: "Invalid email format" });
-              return;
-            }
-            res.json({ status: "ok" });
-          }
-        );
+  db.query(
+    "SELECT * FROM users WHERE email = ?",
+    [req.body.email],
+    function (err, results) {
+      if (err) {
+        res.json({ status: "error", message: err });
+        return;
       }
-    );
-  });
+      if (results.length > 0) {
+        res
+          .status(400)
+          .json({ status: "error", message: "Email already exists" });
+      } else if (!emailRegex.test(req.body.email)) {
+        res
+          .status(400)
+          .json({ status: "error", message: "Invalid email format" });
+      } else {
+        bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
+          if (err) {
+            res.json({ status: "error", message: err });
+            return;
+          }
+          db.query(
+            "INSERT INTO users (email, password, fname, lname, role_id, created_date) VALUES (?,?,?,?,2,?)",
+            [req.body.email, hash, req.body.fname, req.body.lname, new Date()],
+            function (err, results) {
+              if (err) {
+                res.json({ status: "error", message: err });
+                return;
+              }
+              res.json({ status: "ok" });
+            }
+          );
+        });
+      }
+    }
+  );
 });
 
 router.post("/login", jsonParser, function (req, res, next) {
