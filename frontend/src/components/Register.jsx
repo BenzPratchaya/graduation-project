@@ -7,17 +7,31 @@ import {
   Box,
   Grid,
   Typography,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 
 export default function SignUp() {
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
+  const [snackbarMessage, setSnackbarMessage] = React.useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = React.useState("success");
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+
+    if (
+      !data.get("firstName") ||
+      !data.get("lastName") ||
+      !data.get("email") ||
+      !data.get("password")
+    ) {
+      setSnackbarMessage("Please fill in all fields");
+      setSnackbarSeverity("error");
+      setOpenSnackbar(true);
+      return;
+    }
 
     const jsonData = {
       email: data.get("email"),
@@ -36,19 +50,39 @@ export default function SignUp() {
       .then((response) => response.json())
       .then((data) => {
         if (data.status === "ok") {
-          alert("register success");
-          window.location = "/login";
+          setSnackbarMessage("Register success");
+          setSnackbarSeverity("success");
+          setOpenSnackbar(true);
+          setTimeout(() => {
+            window.location = "/login";
+          }, 1000);
         } else {
           if (data.message === "Email already exists") {
-            alert("มีอีเมลอยู่แล้ว กรุณาใช้อีเมลอื่น");
+            setSnackbarMessage(
+              "Email already exists. Please use a different email."
+            );
+          } else if (data.message === "Invalid email format") {
+            setSnackbarMessage("Invalid email format");
           } else {
-            alert("register failed");
+            setSnackbarMessage("Register failed");
           }
+          setSnackbarSeverity("error");
+          setOpenSnackbar(true);
         }
       })
       .catch((error) => {
         console.error("Error:", error);
+        setSnackbarMessage("An error occurred");
+        setSnackbarSeverity("error");
+        setOpenSnackbar(true);
       });
+  };
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSnackbar(false);
   };
 
   return (
@@ -206,6 +240,15 @@ export default function SignUp() {
           </Box>
         </Grid>
       </Grid>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+      >
+        <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }
