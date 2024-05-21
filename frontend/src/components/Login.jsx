@@ -41,9 +41,9 @@ export default function Login() {
       .then((data) => {
         if (data.status === "ok") {
           localStorage.setItem("token", data.token);
-          window.location = "/home";
           alert("login success");
           setUser(data.user);
+          window.location = "/home";
           console.log(user);
         } else {
           alert("login failed");

@@ -69,7 +69,7 @@ function NavTab() {
           <Navbar.Brand className="ms-5">
             
           <img
-          src="http://localhost:3000/images/firstaid_logo.png"
+          src="http://localhost:3000/images/image__firstaid__logo.png"
           alt="Logo"
           style={{
             width: "50px",

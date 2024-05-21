@@ -37,8 +37,13 @@ export default function SignUp() {
       .then((data) => {
         if (data.status === "ok") {
           alert("register success");
+          window.location = "/login";
         } else {
-          alert("register failed");
+          if (data.message === "Email already exists") {
+            alert("มีอีเมลอยู่แล้ว กรุณาใช้อีเมลอื่น");
+          } else {
+            alert("register failed");
+          }
         }
       })
       .catch((error) => {
