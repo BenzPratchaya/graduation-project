@@ -1,8 +1,6 @@
-import { React, useState } from "react";
+import React from "react";
 
 const Commentbutton = () => {
-  const [comments, setComments] = useState([]);
-
   return (
     <div className="d-flex">
       <button>

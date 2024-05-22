@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./css/NavTab.css";
-import { Button, Container, Nav, Navbar } from "react-bootstrap";
+import { Button, Container, Nav, Navbar,NavDropdown } from "react-bootstrap";
 
 function NavTab() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -97,7 +97,7 @@ function NavTab() {
               <Nav.Link href="/article" className="Nav-Link mx-4">
                 บทความเพื่อสุขภาพ
               </Nav.Link>
-              {/* <NavDropdown
+              <NavDropdown
                 title="บทความ"
                 id="navbarScrollingDropdown"
                 className="Nav-Link mx-4"
@@ -112,10 +112,10 @@ function NavTab() {
                 <NavDropdown.Item href="#action5">
                   Something else here
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/blog">Blog</NavDropdown.Item>
-                <NavDropdown.Item href="/blog2">Blog2</NavDropdown.Item>
-                <NavDropdown.Item href="/blog3">Blog3</NavDropdown.Item>
-              </NavDropdown> */}
+                <NavDropdown.Item href="">Blog</NavDropdown.Item>
+                <NavDropdown.Item href="">Blog2</NavDropdown.Item>
+                <NavDropdown.Item href="">Blog3</NavDropdown.Item>
+              </NavDropdown>
               {user.role_id === 2 && (
                 <Nav.Link href="/admin" className="Nav-Link mx-4">
                   แอดมิน

@@ -4,11 +4,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import Login from "./components/Login.jsx";
 import Firstaid from "./components/Firstaid.jsx";
 import Register from "./components/Register.jsx";
-import Employee from "./components/Employee.jsx";
 import Home from "./components/Home.jsx";
-import Blog from "./components/Blog.jsx";
-import Blog2 from "./components/Blog2.jsx";
-import Blog3 from "./components/Blog3.jsx";
 import Article from "./components/Article.jsx";
 import Article1 from "./components/Article1.jsx";
 import Article2 from "./components/Article2.jsx";
@@ -77,12 +73,6 @@ function App() {
         <Route path="/admin/firstaids" element={<Adminfirstaids />} />
         <Route path="/admin/articles" element={<Adminarticles />} />
         <Route path="/article/:articleId" element={<Articlepage user={user}/>} />
-       
-
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/blog2" element={<Blog2 />} />
-        <Route path="/blog3" element={<Blog3 />} />
-        <Route path="/employee" element={<Employee />} />
       </Routes>
     </div>
   );
