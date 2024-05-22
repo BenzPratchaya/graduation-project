@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-// import io from "socket.io-client";
-// const socket = io("http://localhost:3001");
+import io from "socket.io-client";
 import "./css/LikeButton.css";
 
 function LikeButton(props) {
   const [liked, setLiked] = useState(props.article.liked);
   const [likes, setLikes] = useState(props.article.like_count);
+  const [socket, setSocket] = useState(null);
 
   useEffect(() => {
     setLiked(props.article.liked);
     setLikes(props.article.like_count);
   }, [props.article.liked, props.article.like_count]);
+
+  useEffect(() => {
+    const newSocket = io("http://localhost:3001");
+    setSocket(newSocket);
+
+    return () => newSocket.close();
+  }, []);
 
   const handleLikeUnlike = () => {
     if (!props.user.id) {
@@ -36,12 +43,29 @@ function LikeButton(props) {
         )
           .then((response) => {
             console.log(response.data);
-            window.location.reload();
+            // ส่งข้อมูลผ่าน Socket.io เพื่ออัปเดตข้อมูลเมื่อมีการกด Like หรือ Unlike
+            socket.emit("likeUpdated", { articleId: props.article.article_id });
           })
           .catch((error) => console.error("Error:", error));
       })
       .catch((error) => console.error("Error:", error));
   };
+
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.on("likeUpdated", (data) => {
+      if (data.articleId === props.article.article_id) {
+        // รับข้อมูลจากเซิร์ฟเวอร์และอัปเดต state
+        setLikes((prevLikes) => prevLikes + (liked ? -1 : 1));
+        setLiked(!liked);
+      }
+    });
+
+    return () => {
+      socket.off("likeUpdated");
+    };
+  }, [socket, liked, props.article.article_id]);
 
   return (
     <div className="d-flex">
@@ -55,11 +79,11 @@ function LikeButton(props) {
               width: "30px",
               height: "30px",
               cursor: "pointer",
-              transition: "transform 0.2s ease-in-out", // เพิ่ม transition เมื่อมีการ hover
-              transform: "scale(1)", // ปกติ
+              transition: "transform 0.2s ease-in-out",
+              transform: "scale(1)",
             }}
-            onMouseEnter={(e) => (e.target.style.transform = "scale(1.1)")} // ขยายขนาดเมื่อ hover
-            onMouseLeave={(e) => (e.target.style.transform = "scale(1)")} // กลับสู่ขนาดปกติเมื่อไม่ hover
+            onMouseEnter={(e) => (e.target.style.transform = "scale(1.1)")}
+            onMouseLeave={(e) => (e.target.style.transform = "scale(1)")}
           />
         ) : (
           <img
@@ -70,15 +94,17 @@ function LikeButton(props) {
               width: "30px",
               height: "30px",
               cursor: "pointer",
-              transition: "transform 0.2s ease-in-out", // เพิ่ม transition เมื่อมีการ hover
-              transform: "scale(1)", // ปกติ
+              transition: "transform 0.2s ease-in-out",
+              transform: "scale(1)",
             }}
-            onMouseEnter={(e) => (e.target.style.transform = "scale(1.1)")} // ขยายขนาดเมื่อ hover
-            onMouseLeave={(e) => (e.target.style.transform = "scale(1)")} // กลับสู่ขนาดปกติเมื่อไม่ hover
+            onMouseEnter={(e) => (e.target.style.transform = "scale(1.1)")}
+            onMouseLeave={(e) => (e.target.style.transform = "scale(1)")}
           />
         )}
       </div>
-      <h5 className="mx-2">{likes}</h5>
+      <h5 className="mx-2" style={{ marginTop: "6px" }}>
+        {likes}
+      </h5>
     </div>
   );
 }
