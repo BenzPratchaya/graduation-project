@@ -152,7 +152,7 @@ exports.updateArticleLike = (req, res) => {
         console.error("Error Updating Article Like Count:", err);
         return res.status(500).json({ error: "Internal Server Error" });
       } else {
-        console.log("Article Liked Successfully!", result);
+        console.log("Article Liked Successfully!");
         return res.status(200).send("Article Like Success");
       }
     }
@@ -168,7 +168,7 @@ exports.updateArticleUnLike = (req, res) => {
         console.error("Error Updating Article Like Count:", err);
         return res.status(500).json({ error: "Internal Server Error" });
       } else {
-        console.log("Article Unliked Successfully!", result);
+        console.log("Article Unliked Successfully!");
         return res.status(200).send("Article UnLike Success");
       }
     }

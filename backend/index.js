@@ -78,44 +78,31 @@ app.post("/firstaid/created", upload.single("image"), (req, res) => {
 /****************************** Create SocketIO *******************************/
 // create server
 
-// const http = require("http");
-// const server = http.createServer(app);
-// const socketIo = require("socket.io");
-// const io = socketIo(server, {
-//   cors: {
-//     origin: "*",
-//     methods: ["GET", "POST"],
-//   },
-// });
+const http = require("http");
+const server = http.createServer(app);
+const socketIo = require("socket.io");
+const io = socketIo(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
+});
 
-// let likes = 0;
+io.on("connection", (socket) => {
+  console.log("A user connected");
 
-// io.on("connection", (socket) => {
-//   console.log("A user connected");
+  socket.on("likeUpdated", (data) => {
+    io.emit("likeUpdated", data);
+  });
 
-//   socket.on("emit", (data) => {
-//     console.log(data);
-//     socket.broadcast.emit("count", { count: data.count });
-//   });
-
-//   socket.on("disconnect", () => {
-//     console.log("A user disconnected");
-//   });
-
-//   socket.on("like", () => {
-//     likes++;
-//     io.emit("updateLikes", likes);
-//   });
-
-//   socket.on("unlike", () => {
-//     likes = Math.max(likes - 1, 0);
-//     io.emit("updateLikes", likes);
-//   });
-// });
+  socket.on("disconnect", () => {
+    console.log("User disconnected");
+  });
+});
 
 /****************************** END SocketIO *******************************/
 
 //ใช้ server แทน app ถ้าใช้ socket.io
-app.listen("3001", () => {
+server.listen("3001", () => {
   console.log("Server is running on port 3001");
 });
