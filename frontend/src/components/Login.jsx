@@ -7,13 +7,17 @@ import {
   Box,
   Grid,
   Typography,
+  Snackbar,
+  Alert,
 } from "@mui/material";
-
 import "./css/Login.css";
-import NavTab from "./NavTab";
 
 export default function Login() {
   const [user, setUser] = useState([]);
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
+  const [snackbarMessage, setSnackbarMessage] = React.useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = React.useState("success");
+
   useEffect(() => {
     console.log(user);
   }, [user]);
@@ -41,17 +45,33 @@ export default function Login() {
       .then((data) => {
         if (data.status === "ok") {
           localStorage.setItem("token", data.token);
-          alert("login success");
+          setSnackbarSeverity("success");
+          setOpenSnackbar(true);
+          setSnackbarMessage("Login success");
           setUser(data.user);
-          window.location = "/home";
+          setTimeout(() => {
+            window.location = "/home";
+          }, 1000);
           console.log(user);
         } else {
-          alert("login failed");
+          setSnackbarMessage("Email or password is incorrect.");
+          setSnackbarSeverity("error");
+          setOpenSnackbar(true);
         }
       })
       .catch((error) => {
         console.error("Error:", error);
+        setSnackbarMessage("An error occurred");
+        setSnackbarSeverity("error");
+        setOpenSnackbar(true);
       });
+  };
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSnackbar(false);
   };
 
   return (
@@ -180,7 +200,15 @@ export default function Login() {
           </Box>
         </Grid>
       </Grid>
-      {user.length !== 0 && <NavTab user={user} setUser={setUser} />}
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+      >
+        <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }
