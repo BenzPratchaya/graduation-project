@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
+import axios from "axios";
 import {
   CssBaseline,
   Button,
@@ -60,14 +60,14 @@ function Adminfirstaid_add({ popupadd, setPopupAdd, setFirstaids }) {
       data.append("video", formData.video.replace("watch?v=", "embed/"));
       data.append("type_id", formData.type_id);
 
-      await Axios.post("http://localhost:3001/firstaid/create", data, {
+      await axios.post("http://localhost:3001/firstaid/create", data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
 
       // อัปเดตรายการ firstaids ใหม่
-      Axios.get("http://localhost:3001/firstaids")
+      axios.get("http://localhost:3001/firstaids")
         .then((res) => {
           setFirstaids(res.data);
         })

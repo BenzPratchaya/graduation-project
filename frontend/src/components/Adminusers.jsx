@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import {
   CssBaseline,
@@ -60,7 +60,7 @@ function Adminusers() {
   const deleteUser = (id) => {
     const confirmDelete = window.confirm("ต้องการลบผู้ใช้หรือไม่?");
     if (confirmDelete) {
-      Axios.delete(`http://localhost:3001/user/delete/${id}`).then(
+      axios.delete(`http://localhost:3001/user/delete/${id}`).then(
         (response) => {
           setUsers(
             users.filter((user) => {

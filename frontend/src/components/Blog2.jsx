@@ -1,4 +1,4 @@
-import Axios from "axios";
+import axios from "axios";
 import { useState } from "react";
 
 import "./css/Blog2.css";

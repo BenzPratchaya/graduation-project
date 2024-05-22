@@ -1,4 +1,4 @@
-import Axios from 'axios'
+import axios from 'axios'
 import { useState } from 'react'
 
 function Employee(props) {
@@ -13,13 +13,13 @@ function Employee(props) {
   const [employeeList, setEmployeeList] = useState([]);
 
   const getEmployees = () => {
-    Axios.get('http://localhost:3001/employees').then((response) => {
+    axios.get('http://localhost:3001/employees').then((response) => {
       setEmployeeList(response.data);
     });
   }
 
   const addEmployee = () => {
-    Axios.post('http://localhost:3001/create', {
+    axios.post('http://localhost:3001/create', {
       name: name,
       age: age,
       country: country,
@@ -40,7 +40,7 @@ function Employee(props) {
   }
 
   const updateEmployeeWage = (id) => {
-    Axios.put("http://localhost:3001/update", { wage: newWage, id: id }).then((response) => {
+    axios.put("http://localhost:3001/update", { wage: newWage, id: id }).then((response) => {
       setEmployeeList(
         employeeList.map((val) => {
           return val.id === id ? {
@@ -57,7 +57,7 @@ function Employee(props) {
   }
 
   const deleteEmployee = (id) => {
-    Axios.delete(`http://localhost:3001/delete/${id}`).then((response) => {
+    axios.delete(`http://localhost:3001/delete/${id}`).then((response) => {
       setEmployeeList(
         employeeList.filter((val) => {
           return val.id !== id;

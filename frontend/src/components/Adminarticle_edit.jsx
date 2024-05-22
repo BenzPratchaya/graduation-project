@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
+import axios from "axios";
 import {
   CssBaseline,
   Button,
@@ -72,7 +72,7 @@ function Adminarticle_edit({
   
       const confirmEdit = window.confirm("ต้องการแก้ไขข้อมูลหรือไม่?");
       if (confirmEdit) {
-        await Axios.put(
+        await axios.put(
           `http://localhost:3001/article/update/${articleId}`,
           data,
           {
@@ -82,7 +82,7 @@ function Adminarticle_edit({
           }
         );
   
-        Axios.get("http://localhost:3001/articles")
+        axios.get("http://localhost:3001/articles")
           .then((res) => {
             setArticles(res.data);
           })

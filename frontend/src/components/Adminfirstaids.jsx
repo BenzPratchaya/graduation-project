@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import {
   CssBaseline,
@@ -67,7 +67,7 @@ function Adminfirstaids() {
   const deleteFirstaid = (id) => {
     const confirmDelete = window.confirm("ต้องการลบข้อมูลหรือไม่?");
     if (confirmDelete) {
-      Axios.delete(`http://localhost:3001/firstaid/delete/${id}`).then(
+      axios.delete(`http://localhost:3001/firstaid/delete/${id}`).then(
         (response) => {
           setFirstaids(
             firstaids.filter((firstaid) => {

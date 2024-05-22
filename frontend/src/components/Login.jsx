@@ -10,7 +10,6 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
-import "./css/Login.css";
 
 export default function Login() {
   const [user, setUser] = useState([]);
