@@ -4,7 +4,6 @@ import "./css/Article.css";
 import { Link } from "react-router-dom";
 import Articlepost from "./Articlepost.jsx";
 import LikeButton from "./LikeButton.jsx";
-import Commentbutton from "./Commentbutton.jsx";
 
 function Articlecontent(props) {
   let postList = [];
@@ -14,8 +13,6 @@ function Articlecontent(props) {
   } else {
     postList = props.contentList; // User is not logged in
   }
-
-  console.log(postList);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResult, setSearchResult] = useState(postList);
@@ -115,7 +112,14 @@ function Articlecontent(props) {
                         >
                           {article.content}
                         </Card.Text>
-                        <Link to={`/article/${article.article_id}`}>
+                        {/* <!-- user ที่ไม่ได้ login เข้ามาดูได้ --> */}
+                        <Link
+                          to={`/article/${
+                            article.article_id !== undefined
+                              ? article.article_id
+                              : article.id
+                          }`}
+                        >
                           <Button className="w3-button w3-padding-large w3-white w3-border">
                             Read More
                           </Button>
@@ -127,9 +131,6 @@ function Articlecontent(props) {
                             article={article}
                             user={props.user}
                           />
-                          <Link to={`/article/${article.article_id}`} style={{textDecoration: 'none'}}>
-                            <Commentbutton />
-                          </Link>
                         </div>
                       </Card.Body>
                     </Card>
@@ -150,7 +151,7 @@ function Articlecontent(props) {
           </Col>
 
           {/* <!-- Introduction menu --> */}
-          <Articlepost postList={postList} />
+          <Articlepost postList={props.contentList} />
           {/* <!-- END Introduction Menu --> */}
         </Row>
       </Container>

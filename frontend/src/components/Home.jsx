@@ -35,9 +35,9 @@ function Home() {
                 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAAAXNSR0IArs4c6QAAAwNJREFUeF7t3OFx1DAQhmGlE6gEqASoBKgEqAQ6ASqBfMMdBC7Wak/SJ+Xm1Ux+WdZajzfyWbJ9VygWgTtLFIIUoE1JADTQJgFTGDIaaJOAKcwOGf3m1NdnE/v8tZTy/fQ3Mcxx0yuhv5RSXpp7/amU8mEF+Apo4Qp5VVFmC1votuKG1vDwzda7eqDnzsx2Q68YLo64NW6/cp10J/TqIeMxU0ELfHpxQr8vpbyb3qNcgLeusdoJ/fF+TDz/lMtxzKutC6KwpxcndG18njleror7z8kD2nRBBBroYcMmQ8cDSsboYXn1+7b7aG4DaKDHCFx7MVRmat4iM7X5ulJfEz2fx3TpopXRca+acs1C73h3N+n8hM2eZwCVJGFphVbm6s7OPX8cdmBxBWW37ixD7FbonWbdFttehBeyJqeq2C3QDBfxqdUwIqfD0gL9M45DjfuLeXUhIYLeaUVk97PZBc2w0X56q3PbUUYD3Q5dHaeBboeMagIdCQ3afhPQ0VNGO9xI3QR0bbV6l9V1oAcNDVEzQEdCg7YDPQgyagboSGjQdqAHQUbNAB0JDdoO9CDIqBmgI6FB24EeBBk1A3QkNGj7ttDRzOGg/l80M2vFCOj/qIGelcJAm2SBBvqPwMw1Qy6GDxIN6Pb/um1/dejAWovenjp65ErPnmTe9pr1Ct620K3IqsdSVkaroy7QHXiZXYHOaHXUBboDL7Mr0BmtjrpAd+BldgU6o9VRF+gOvMyuQGe0OuoC3YGX2bX2ipkecpx1W505xpu4Bc90eFVdoE3yQANtEjCF6cpozfPqHXBKLFD9hl60nMQLnTHwuUbVMoJWI/qWaOa7HO2Hdjs1tfqjN2cPSwu0kPV1A7CPHcNPb7ZAq/mZi7RPPa/DLxuog63QqqsLo+7AyOy/qRFmctMA/kiqnVecX1zxTaWnnrnn49eK/I/Tf3lznzIZ3dwoFS8FgDZlBdBAmwRMYchooE0CpjBkNNAmAVMYMhpok4ApDBkNtEnAFIaMBtokYApDRpugfwFSrNlbNi+9HQAAAABJRU5ErkJggg=="
                 alt=""
               />
-              <h3>ปฐมพยาบาลฉุกเฉิน</h3>
+              <h3>ปฐมพยาบาลเบื้องต้น</h3>
               <p>
-                การปฐมพยาบาลในกรณีฉุกเฉิน เช่น การให้ CPR,
+                การปฐมพยาบาลในกรณีเบื้องต้น เช่น การให้ CPR,
                 การปฐมพยาบาลในสถานการณ์เฉพาะ
               </p>
             </div>
@@ -87,9 +87,9 @@ function Home() {
               />
             </div>
             <div class="firstaid-content">
-              <h3>การปฐมพยาบาลฉุกเฉิน</h3>
+              <h3>การปฐมพยาบาลเบื้องต้น</h3>
               <p>
-                เป็นระบบที่ให้ผู้ใช้สามารถสืบค้นหาข้อมูลเกี่ยวกับวิธีกาปฐมพยาบาลฉุกเฉินได้
+                เป็นระบบที่ให้ผู้ใช้สามารถสืบค้นหาข้อมูลเกี่ยวกับวิธีกาปฐมพยาบาลเบื้องต้นได้
                 เนื้อหาและข้อมูลของการปฐมพยาบาลเบื้องต้น
                 เป็นข้อมูลซึ่งได้มาจากการสืบค้นและนำมาใช้อ้างอิงเพื่อการปฐมพยาบาลเบื้องต้น
               </p>
@@ -114,7 +114,7 @@ function Home() {
               </div>
 
               <a href="/firstaid" class="firstaid-btn">
-                การปฐมพยาบาลฉุกเฉิน
+                การปฐมพยาบาลเบื้องต้น
               </a>
             </div>
           </div>

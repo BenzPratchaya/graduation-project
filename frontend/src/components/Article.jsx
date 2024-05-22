@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./css/Article.css";
 import Footer from "./Footer.jsx";
-import Cards from "./Articlecards.jsx";
+import Articlecards from "./Articlecards.jsx";
 import Articlecontent from "./Articlecontent.jsx";
 import NavTab from "./NavTab.jsx";
 import Banner from "./Banner.jsx";
@@ -51,7 +51,7 @@ function Article(props) {
       <Banner title="บทความเพื่อสุขภาพ" page="Articles" />
       <br />
       {/* CardSlide */}
-      <Cards key={articles.id} cardList={articles} />
+      <Articlecards key={articles.id} cardList={articles} />
       {/* END CardSlide */}
 
       {/* CONTENT */}

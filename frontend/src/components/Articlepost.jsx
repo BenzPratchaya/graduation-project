@@ -4,7 +4,7 @@ import "./css/Article.css";
 import { Link } from "react-router-dom";
 
 function Articlepost(props) {
-  const lastPosts =  props.postList.slice().reverse().slice(0, 7);;
+  const lastPosts = props.postList.slice().reverse().slice(0, 7);
 
   return (
     <div className="w3-col l4">
@@ -17,7 +17,8 @@ function Articlepost(props) {
           {lastPosts.map((article) => (
             <li className="w3-padding-16" key={article.id}>
               <Link
-                component={Link} to={`/article/article${article.id}`}
+                component={Link}
+                to={`/article/${article.id}`}
                 style={{ textDecoration: "none", color: "black" }}
               >
                 <img
@@ -26,7 +27,7 @@ function Articlepost(props) {
                   className="w3-left w3-margin-right"
                   style={{ width: "50px" }}
                 />
-                <span className="w3-medium" >{article.title}</span>
+                <span className="w3-medium">{article.title}</span>
               </Link>
               <br />
             </li>

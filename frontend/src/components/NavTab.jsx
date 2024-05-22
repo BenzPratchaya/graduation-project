@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./css/NavTab.css";
-import { Button, Container, Nav, Navbar,NavDropdown } from "react-bootstrap";
+import { Button, Container, Nav, Navbar } from "react-bootstrap";
 
 function NavTab() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -32,7 +32,7 @@ function NavTab() {
       setIsLoggedIn(false);
     }
   }, []); // ใช้เป็น []
-  
+
   const fetchUserData = (token) => {
     fetch("http://localhost:3001/profile", {
       method: "GET",
@@ -67,20 +67,16 @@ function NavTab() {
       <Navbar expand="lg" className="bg-body-tertiary fixed-top shadow-lg">
         <Container fluid className="container-nav">
           <Navbar.Brand className="ms-5">
-            
-          <img
-          src="http://localhost:3000/images/image__firstaid__logo.png"
-          alt="Logo"
-          style={{
-            width: "50px",
-            margin: "0px -5px 2px 0px",
-          }}
-        />
+            <img
+              src="http://localhost:3000/images/image__firstaid__logo.png"
+              alt="Logo"
+              style={{
+                width: "50px",
+                margin: "0px -5px 2px 0px",
+              }}
+            />
           </Navbar.Brand>
-          <Navbar.Brand>
-            
-            ระบบรวบรวมข้อมูลการปฐมพยาบาลเบื้องต้น
-          </Navbar.Brand>
+          <Navbar.Brand>ระบบรวบรวมข้อมูลการปฐมพยาบาลเบื้องต้น</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
@@ -92,37 +88,27 @@ function NavTab() {
                 หน้าแรก
               </Nav.Link>
               <Nav.Link href="/firstaid" className="Nav-Link mx-4">
-                ปฐมพยาบาลฉุกเฉิน
+                การปฐมพยาบาล
               </Nav.Link>
               <Nav.Link href="/article" className="Nav-Link mx-4">
                 บทความเพื่อสุขภาพ
               </Nav.Link>
-              <NavDropdown
-                title="บทความ"
+              {/* <NavDropdown
+                title="ตั้งค่า"
                 id="navbarScrollingDropdown"
                 className="Nav-Link mx-4"
               >
-                <NavDropdown.Item href="/article">
-                  บทความเพื่อสุขภาพ
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action4">
-                  Another action
-                </NavDropdown.Item>
+                <NavDropdown.Item href="">แก้ไขข้อมูลส่วนตัว</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action5">
-                  Something else here
-                </NavDropdown.Item>
-                <NavDropdown.Item href="">Blog</NavDropdown.Item>
-                <NavDropdown.Item href="">Blog2</NavDropdown.Item>
-                <NavDropdown.Item href="">Blog3</NavDropdown.Item>
-              </NavDropdown>
+                <NavDropdown.Item href="">ออกจากระบบ</NavDropdown.Item>
+              </NavDropdown> */}
               {user.role_id === 2 && (
                 <Nav.Link href="/admin" className="Nav-Link mx-4">
                   แอดมิน
                 </Nav.Link>
               )}
             </Nav>
-            <Navbar.Brand className="ms-5" style={{fontSize: "16px"}}>
+            <Navbar.Brand className="ms-5" style={{ fontSize: "16px" }}>
               {user.fname} {user.lname}
             </Navbar.Brand>
             {isLoggedIn ? (
@@ -133,7 +119,10 @@ function NavTab() {
                 Logout
               </Button>
             ) : (
-              <Button href="/login" className="me-auto mx-2 my-2 my-lg-0 Logout-Button">
+              <Button
+                href="/login"
+                className="me-auto mx-2 my-2 my-lg-0 Logout-Button"
+              >
                 Login
               </Button>
             )}

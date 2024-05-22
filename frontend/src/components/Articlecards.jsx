@@ -26,7 +26,8 @@ function Articlecards(props) {
                   <Col key={card.id} md={4} className="mb-4">
                     <div className="card w3-light-grey">
                       <Link
-                        component={Link} to={`/article/article${card.id}`}
+                        component={Link}
+                        to={`/article/${card.id}`}
                         style={{ textDecoration: "none", color: "black" }}
                       >
                         <img

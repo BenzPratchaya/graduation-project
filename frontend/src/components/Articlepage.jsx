@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
-import { Container, Button, Row, Col } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import "./css/Articledata.css";
 import CommentAdd from "./Comment_add";
-import Banner from "./Banner";
+import Bannerpage from "./Bannerpage";
 import Articlepost from "./Articlepost";
 
 const Articlepage = ({ user }) => {
@@ -35,10 +35,7 @@ const Articlepage = ({ user }) => {
     <div className="Article1">
       {/* <!-- Banner --> */}
       <div class="banner-container">
-        <Button as={Link} to="/article">
-          Back to Articles
-        </Button>
-        <Banner title="บทความเพื่อสุขภาพ" page="Articles"></Banner>
+        <Bannerpage title="บทความเพื่อสุขภาพ" page="Articles"></Bannerpage>
       </div>
       {/* <!-- END Banner --> */}
       <Container
