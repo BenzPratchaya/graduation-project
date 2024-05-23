@@ -7,15 +7,14 @@ import {
   Box,
   Grid,
   Typography,
-  Snackbar,
-  Alert,
 } from "@mui/material";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import "./css/Login.css";
 
 export default function Login() {
   const [user, setUser] = useState([]);
-  const [openSnackbar, setOpenSnackbar] = React.useState(false);
-  const [snackbarMessage, setSnackbarMessage] = React.useState("");
-  const [snackbarSeverity, setSnackbarSeverity] = React.useState("success");
+  const MySwal = withReactContent(Swal);
 
   useEffect(() => {
     console.log(user);
@@ -44,33 +43,33 @@ export default function Login() {
       .then((data) => {
         if (data.status === "ok") {
           localStorage.setItem("token", data.token);
-          setSnackbarSeverity("success");
-          setOpenSnackbar(true);
-          setSnackbarMessage("Login success");
-          setUser(data.user);
-          setTimeout(() => {
+          MySwal.fire({
+            title: "เข้าสู่ระบบสำเร็จ",
+            text: "You have successfully logged in.",
+            icon: "success",
+            confirmButtonText: "ยืนยัน",
+          }).then(() => {
+            setUser(data.user);
             window.location = "/home";
-          }, 1000);
-          console.log(user);
+          });
         } else {
-          setSnackbarMessage("Email or password is incorrect.");
-          setSnackbarSeverity("error");
-          setOpenSnackbar(true);
+          MySwal.fire({
+            title: "Error",
+            text: "Email or Password is incorrect.",
+            icon: "error",
+            confirmButtonText: "Try Again",
+          });
         }
       })
       .catch((error) => {
         console.error("Error:", error);
-        setSnackbarMessage("An error occurred");
-        setSnackbarSeverity("error");
-        setOpenSnackbar(true);
+        MySwal.fire({
+          title: "Error",
+          text: "An error occurred during login.",
+          icon: "error",
+          confirmButtonText: "Try Again",
+        });
       });
-  };
-
-  const handleCloseSnackbar = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpenSnackbar(false);
   };
 
   return (
@@ -96,9 +95,9 @@ export default function Login() {
         <CssBaseline />
         <Grid
           item
-          xs={10}
-          sm={8}
-          md={6}
+          xs={12}
+          sm={10}
+          md={8}
           lg={3}
           className="border rounded-5"
           sx={{
@@ -110,15 +109,15 @@ export default function Login() {
         >
           <Box
             sx={{
-              my: 8,
+              my: 12,
               mx: 4,
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
             }}
           >
-            <Typography component="h1" variant="h5">
-              Sign in
+            <Typography component="h1" variant="h4">
+              ลงชื่อเข้าใช้
             </Typography>
             <Box
               component="form"
@@ -127,15 +126,14 @@ export default function Login() {
               sx={{ mt: 1 }}
             >
               <TextField
-                className="email"
                 margin="normal"
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                type="email"
                 name="email"
-                autoComplete="email"
-                autoFocus
+                label="อีเมล"
+                autocomplete="off"
                 InputProps={{
                   sx: {
                     borderRadius: 5,
@@ -143,15 +141,14 @@ export default function Login() {
                 }}
               />
               <TextField
-                className="password"
                 margin="normal"
                 required
                 fullWidth
-                name="password"
-                label="Password"
-                type="password"
                 id="password"
-                autoComplete="current-password"
+                type="password"
+                name="password"
+                label="รหัสผ่าน"
+                autoComplete="new-password"
                 InputProps={{
                   sx: {
                     borderRadius: 5,
@@ -170,13 +167,13 @@ export default function Login() {
                     "&:hover": { bgcolor: "#304ffe" },
                   }}
                 >
-                  Sign in
+                  เข้าสู่ระบบ
                 </Button>
               </Grid>
               <Grid container justifyContent="flex-end">
                 <Grid item>
                   <Box display="flex" alignItems="center">
-                    <Typography variant="body2">Not a member?&nbsp;</Typography>
+                    <Typography variant="body2">ไม่มีบัญชีผู้ใช้?&nbsp;</Typography>
                     <Link
                       href="/register"
                       variant="body2"
@@ -190,7 +187,7 @@ export default function Login() {
                         },
                       }}
                     >
-                      Sign Up
+                      ลงทะเบียน
                     </Link>
                   </Box>
                 </Grid>
@@ -199,15 +196,6 @@ export default function Login() {
           </Box>
         </Grid>
       </Grid>
-      <Snackbar
-        open={openSnackbar}
-        autoHideDuration={6000}
-        onClose={handleCloseSnackbar}
-      >
-        <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity}>
-          {snackbarMessage}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }
