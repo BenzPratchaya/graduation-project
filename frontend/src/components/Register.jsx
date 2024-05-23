@@ -87,7 +87,7 @@ export default function SignUp() {
 
   return (
     <div
-      className="login"
+      className="register"
       style={{
         backgroundImage:
           "url('http://localhost:3000/images/Gemini_Generated_Image_nvo12snvo12snvo1.jpg')",
@@ -129,8 +129,8 @@ export default function SignUp() {
               alignItems: "center",
             }}
           >
-            <Typography component="h1" variant="h5">
-              Sign up
+            <Typography component="h1" variant="h4">
+              ลงทะเบียนผู้ใช้
             </Typography>
             <Box
               component="form"
@@ -141,11 +141,11 @@ export default function SignUp() {
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField
-                    name="firstName"
                     required
                     fullWidth
                     id="firstName"
-                    label="First Name"
+                    name="firstName"
+                    label="ชื่อ"
                     autoFocus
                     InputProps={{
                       sx: {
@@ -159,8 +159,8 @@ export default function SignUp() {
                     required
                     fullWidth
                     id="lastName"
-                    label="Last Name"
                     name="lastName"
+                    label="นามสกุล"
                     InputProps={{
                       sx: {
                         borderRadius: 5,
@@ -173,8 +173,8 @@ export default function SignUp() {
                     required
                     fullWidth
                     id="email"
-                    label="Email Address"
                     name="email"
+                    label="อีเมล"
                     InputProps={{
                       sx: {
                         borderRadius: 5,
@@ -186,10 +186,10 @@ export default function SignUp() {
                   <TextField
                     required
                     fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
                     id="password"
+                    type="password"
+                    name="password"
+                    label="รหัสผ่าน"
                     InputProps={{
                       sx: {
                         borderRadius: 5,
@@ -209,14 +209,14 @@ export default function SignUp() {
                     "&:hover": { bgcolor: "#304ffe" },
                   }}
                 >
-                  Sign Up
+                  ลงทะเบียน
                 </Button>
               </Grid>
               <Grid container justifyContent="flex-end">
                 <Grid item>
                   <Box display="flex" alignItems="center">
                     <Typography variant="body2">
-                      Already have an account?&nbsp;
+                      มีบัญชีอยู่แล้ว?&nbsp;
                     </Typography>
                     <Link
                       href="/login"
@@ -231,7 +231,7 @@ export default function SignUp() {
                         },
                       }}
                     >
-                      Sign In
+                      ลงชื่อเข้าใช้
                     </Link>
                   </Box>
                 </Grid>

@@ -54,20 +54,20 @@ export default function Login() {
           });
         } else {
           MySwal.fire({
-            title: "Error",
+            title: "เข้าสู่ระบบล้มเหลว",
             text: "Email or Password is incorrect.",
             icon: "error",
-            confirmButtonText: "Try Again",
+            confirmButtonText: "ลองอีกครั้ง",
           });
         }
       })
       .catch((error) => {
         console.error("Error:", error);
         MySwal.fire({
-          title: "Error",
+          title: "เข้าสู่ระบบล้มเหลว",
           text: "An error occurred during login.",
           icon: "error",
-          confirmButtonText: "Try Again",
+          confirmButtonText: "ลองอีกครั้ง",
         });
       });
   };
@@ -77,7 +77,7 @@ export default function Login() {
       className="login"
       style={{
         backgroundImage:
-          "url('http://localhost:3000/images/Gemini_Generated_Image_nvo12snvo12snvo1.jpg')",
+          "url('http://localhost:3000/images/login-register.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         height: "100vh",

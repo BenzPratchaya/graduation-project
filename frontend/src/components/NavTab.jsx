@@ -116,14 +116,14 @@ function NavTab() {
                 className="me-auto mx-2 my-2 my-lg-0 Logout-Button"
                 onClick={handleLogout}
               >
-                Logout
+                ออกจากระบบ
               </Button>
             ) : (
               <Button
                 href="/login"
                 className="me-auto mx-2 my-2 my-lg-0 Logout-Button"
               >
-                Login
+                เข้าสู่ระบบ
               </Button>
             )}
           </Navbar.Collapse>
