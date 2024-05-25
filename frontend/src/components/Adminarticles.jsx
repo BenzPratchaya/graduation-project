@@ -1,19 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import {
   CssBaseline,
   Box,
   AppBar,
   Toolbar,
-  Drawer,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
   Typography,
-  Divider,
   Table,
   TableBody,
   TableCell,
@@ -26,28 +18,10 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import PersonIcon from "@mui/icons-material/Person";
-import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
-import ArticleIcon from "@mui/icons-material/Article";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
 import MenuIcon from "@mui/icons-material/Menu";
 import AdminarticleAdd from "./Adminarticle_add";
 import AdminarticleEdit from "./Adminarticle_edit";
-
-
-const menu = [
-  { name: "Dashboard", icon: <DashboardIcon />, path: "/admin/dashboard" },
-  { name: "Manage Users", icon: <PersonIcon />, path: "/admin/users" },
-  {
-    name: "Manage Firstaids",
-    icon: <LocalHospitalIcon />,
-    path: "/admin/firstaids",
-  },
-  { name: "Manage Articles", icon: <ArticleIcon />, path: "/admin/articles" },
-  { name: "Back", icon: <ArrowBackIcon />, path: "/home" },
-];
+import Adminsidebar from "./Adminsidebar";
 
 function Adminarticles() {
   const [articles, setArticles] = useState([]);
@@ -55,7 +29,7 @@ function Adminarticles() {
   const [popupadd, setPopupAdd] = useState(false);
   const [popupedit, setPopupEdit] = useState(false);
   const [selectedArticleId, setSelectedArticleId] = useState(null);
-  
+
   useEffect(() => {
     fetch("http://localhost:3001/articles")
       .then((res) => res.json())
@@ -67,15 +41,15 @@ function Adminarticles() {
   const deleteArticle = (id) => {
     const confirmDelete = window.confirm("ต้องการลบข้อมูลหรือไม่?");
     if (confirmDelete) {
-      axios.delete(`http://localhost:3001/article/delete/${id}`).then(
-        (response) => {
+      axios
+        .delete(`http://localhost:3001/article/delete/${id}`)
+        .then((response) => {
           setArticles(
             articles.filter((article) => {
               return article.id !== id;
             })
           );
-        }
-      );
+        });
       console.log("ลบข้อมูล");
     } else {
       console.log("ยกเลิกการลบ");
@@ -118,81 +92,9 @@ function Adminarticles() {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer
-        sx={{
-          width: 240,
-          flexShrink: 0,
-          "& .MuiDrawer-paper": {
-            width: 240,
-            boxSizing: "border-box",
-            background: `linear-gradient(rgb(84, 103, 225), rgb(71, 101, 236), rgb(73, 79, 243))`,
-            display: "flex",
-            transition: "transform 0.3s", // เพิ่ม transition ในการเปลี่ยนค่าการแสดงผล (transform) ของ sidebar
-            transform: open ? "translateX(0)" : "translateX(-240px)", // เพิ่มการเปลี่ยนแปลงค่าการแสดงผล (transform) ของ sidebar
-          },
-        }}
-        variant="permanent"
-        anchor="left"
-        open={open}
-      >
-        <Typography style={{ display: "flex" }}>
-          <SupervisedUserCircleIcon
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              margin: "12px 5px -50px 5px",
-              color: "white", // กำหนดสีให้กับ SVG
-              width: "38",
-              height: "38",
-            }}
-          ></SupervisedUserCircleIcon>
-
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              margin: "12px 0px -50px 0px",
-              color: "white",
-              fontWeight: "bold",
-              fontSize: "24px",
-            }}
-          >
-            Admin System
-          </Typography>
-        </Typography>
-        <Toolbar />
-        <Divider />
-        <List>
-          {menu.map((item) => (
-            <Link
-              to={item.path}
-              key={item.name}
-              style={{ textDecoration: "none", color: "white" }}
-            >
-              <ListItem
-                disablePadding
-                sx={{ display: "flex", alignItems: "center" }}
-              >
-                <ListItemButton>
-                  <ListItemIcon style={{ minWidth: "30px", color: "white" }}>
-                    {item.icon}
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={item.name}
-                    primaryTypographyProps={{ style: { fontSize: "17px" } }}
-                  />
-                </ListItemButton>
-              </ListItem>
-            </Link>
-          ))}
-        </List>
-        <Divider />
-      </Drawer>
+      {/* -------------------- Adminsidebar ------------------------ */}
+      <Adminsidebar open={open} />
+      {/* -------------------- End Adminsidebar ------------------------ */}
       <Box
         component="main"
         sx={{
