@@ -19,6 +19,7 @@ import Adminusers from "./components/Adminusers.jsx";
 import Adminfirstaids from "./components/Adminfirstaids.jsx";
 import Adminarticles from "./components/Adminarticles.jsx";
 import Admindashboard from "./components/Admindashboard.jsx";
+import Adminhome from "./components/Adminhome.jsx";
 import Articlepage from "./components/Articlepage.jsx";
 
 function App() {
@@ -69,6 +70,7 @@ function App() {
         <Route path="/article/article6" element={<Article6 />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/dashboard" element={<Admindashboard />} />
+        <Route path="/admin/home" element={<Adminhome />} />
         <Route path="/admin/users" element={<Adminusers />} />
         <Route path="/admin/firstaids" element={<Adminfirstaids />} />
         <Route path="/admin/articles" element={<Adminarticles />} />
