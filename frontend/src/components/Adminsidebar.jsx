@@ -23,6 +23,7 @@ import {
   faKitMedical,
   faCircleLeft,
   faUsersGear,
+  faHouseChimney,
 } from "@fortawesome/free-solid-svg-icons";
 
 const menu = [
@@ -30,6 +31,11 @@ const menu = [
     name: "Dashboard",
     icon: <FontAwesomeIcon icon={faChartSimple} />,
     path: "/admin/dashboard",
+  },
+  {
+    name: "Manage Home",
+    icon: <FontAwesomeIcon icon={faHouseChimney} />,
+    path: "/admin/home",
   },
   {
     name: "Manage Users",

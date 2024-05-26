@@ -36,7 +36,6 @@ function Articlecards(props) {
                           className="card-img-top"
                         />
                         <div className="card-body">
-                          <p className="card-id">บทความเพื่อสุขภาพ</p>
                           <p className="card-title">{card.title}</p>
                           <p className="card-content">{card.content}</p>
                           {/* <Button className="btn btn-light">Read More</Button> */}

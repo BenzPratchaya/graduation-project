@@ -5,6 +5,13 @@ import Articlecards from "./Articlecards.jsx";
 import BannerHome from "./BannerHome.jsx";
 import Footer from "./Footer.jsx";
 import { Button } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBriefcaseMedical,
+  faNewspaper,
+  faUser,
+  faComments,
+} from "@fortawesome/free-solid-svg-icons";
 
 function Home() {
   const [articles, setArticles] = useState([]);
@@ -31,9 +38,9 @@ function Home() {
         <div class="container">
           <div class="row">
             <div class="col">
-              <img
-                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAAAXNSR0IArs4c6QAAAwNJREFUeF7t3OFx1DAQhmGlE6gEqASoBKgEqAQ6ASqBfMMdBC7Wak/SJ+Xm1Ux+WdZajzfyWbJ9VygWgTtLFIIUoE1JADTQJgFTGDIaaJOAKcwOGf3m1NdnE/v8tZTy/fQ3Mcxx0yuhv5RSXpp7/amU8mEF+Apo4Qp5VVFmC1votuKG1vDwzda7eqDnzsx2Q68YLo64NW6/cp10J/TqIeMxU0ELfHpxQr8vpbyb3qNcgLeusdoJ/fF+TDz/lMtxzKutC6KwpxcndG18njleror7z8kD2nRBBBroYcMmQ8cDSsboYXn1+7b7aG4DaKDHCFx7MVRmat4iM7X5ulJfEz2fx3TpopXRca+acs1C73h3N+n8hM2eZwCVJGFphVbm6s7OPX8cdmBxBWW37ixD7FbonWbdFttehBeyJqeq2C3QDBfxqdUwIqfD0gL9M45DjfuLeXUhIYLeaUVk97PZBc2w0X56q3PbUUYD3Q5dHaeBboeMagIdCQ3afhPQ0VNGO9xI3QR0bbV6l9V1oAcNDVEzQEdCg7YDPQgyagboSGjQdqAHQUbNAB0JDdoO9CDIqBmgI6FB24EeBBk1A3QkNGj7ttDRzOGg/l80M2vFCOj/qIGelcJAm2SBBvqPwMw1Qy6GDxIN6Pb/um1/dejAWovenjp65ErPnmTe9pr1Ct620K3IqsdSVkaroy7QHXiZXYHOaHXUBboDL7Mr0BmtjrpAd+BldgU6o9VRF+gOvMyuQGe0OuoC3YGX2bX2ipkecpx1W505xpu4Bc90eFVdoE3yQANtEjCF6cpozfPqHXBKLFD9hl60nMQLnTHwuUbVMoJWI/qWaOa7HO2Hdjs1tfqjN2cPSwu0kPV1A7CPHcNPb7ZAq/mZi7RPPa/DLxuog63QqqsLo+7AyOy/qRFmctMA/kiqnVecX1zxTaWnnrnn49eK/I/Tf3lznzIZ3dwoFS8FgDZlBdBAmwRMYchooE0CpjBkNNAmAVMYMhpok4ApDBkNtEnAFIaMBtokYApDRpugfwFSrNlbNi+9HQAAAABJRU5ErkJggg=="
-                alt=""
+              <FontAwesomeIcon
+                icon={faBriefcaseMedical}
+                style={{ height: "60px", marginBottom: "10px" }}
               />
               <h3>ปฐมพยาบาลเบื้องต้น</h3>
               <p>
@@ -42,9 +49,9 @@ function Home() {
               </p>
             </div>
             <div class="col">
-              <img
-                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAAAXNSR0IArs4c6QAAAxlJREFUeF7t3YFt2zAQBdDzJu0kbSdJM0nbSZpMknSSZpO2HzANQZH4aenzTNVfgBEgYY6npzNFB9DlFD5SBE4ps3iSMHRSERja0EkCSdO4og2dJJA0jSva0EkCSdO4og2dJJA0TWtFf46Ih4j4kJQXpvkVEa8R8Xaes3xdSgH5IbdPyTkip+dznlWaFuivEfEzEXhpKpzQj3+IT7MfjpAbUkJu32tGDBpV8vvGyNPpUeGP52/g4qOSRzk+Tt5973Ji0LhK30Y5k8HzQAHM33GXlA2tu3rV5cPQhtYJJEXqWtG4OfU6cCPesp3smVPt5tsVmi09ey8Cbsat+/fqzWhvIuff/1OJc2honFfLzofuYw3dJoC9/Noygg8z2MNmHP91RQPwpfLhxNDCEqtB4+b3RThXLdRdV7ShhVXmihZi1kIZ2tAXgcPvo9muw2u0sNq9dAgxvUZXBHr/raNM7Yp2Rftm2KMG/Mmwh+pCTEMbWiPgm6HGkUYxNCXSDDC0xpFGMTQl0gwwtMaRRjE0JdIMMLTGkUYxNCXSDDC0xpFGMTQl0gwwtMaRRjE0JdIMMLTGkUYxNCXSDDC0xpFGMTQl0gwwtMaRRjE0JdIMMLTGkUYxNCXSDDC0xpFGMTQl0gwwtMaRRjE0JdIMMLTGkUYxNCXSDDC0xpFGMTQl0gwwtMaRRjE0JdIMuHtoPFunOPDg/PQ1j7kVGu3acGxpsLJ0XrVGXl2fM1QgL8XAs4NIvHSTaYVGhxhgbO1es+d8DgldTriAA2+tzQ7GoJsiOtXcsg/eoaH3VFj27+6CHqUlZTbalvl2QeOtiPXRBxfY1TIT4dEDtNy9+XT3OYI++N/6iPE1bdHujbqpQ1krdG+8slsoOwfFvhcNWec9qHufx2r8UaCnCQJ5T8vi0vq41tg7HXxE6ILQ0lhwDoYqLv2l0zFrE44MjbyvwR4WGScyOnQr9tDIR4Fm2MMjHwm6YM877zZtrUZYrI+wdEydsA3ECzuK6b8OGcGymsPRoIcHXUvQ0EmXztCGThJImsYVbegkgaRpXNFJ0H8B+d9Aap2NYRAAAAAASUVORK5CYII="
-                alt=""
+              <FontAwesomeIcon
+                icon={faNewspaper}
+                style={{ height: "60px", marginBottom: "10px" }}
               />
               <h3>บทความสุขภาพ</h3>
               <p>
@@ -53,9 +60,9 @@ function Home() {
               </p>
             </div>
             <div class="col">
-              <img
-                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAAAXNSR0IArs4c6QAABShJREFUeF7tnf2R0zAQxX2dQCVAJUAlQCVAJUAl0Ancm8kympB4v5/kYM/c5I/IsfTT09uVZPuetvOgEHiiXOW8yHaCJongBH2CJhEgXeZU9AmaRIB0maMo+sW2bePfrwsffMofCVnsMquBBsx327a9ujTntaNZAv/7tm0/njvmi+Pc9qIrgB7hesBqcETpAl06Qjuv5fuZoD9elFsJdw8SQH99LoDr0o8ZoNHQtxfPpTf44ul04EzQsIhvEwFfdyoU/n7bNnh6+8EADcCfnxvEsggvNIAG8FYP7waNDAKQVz/a/bsTNAAD9JGOT13BsgP06lahdTzU/VIr5P2+GvRqAc/LQ8oD9ptK364EjWCHrOJRjtKspAo0lPzzUQgP7ShTdhVoKHnV9C3b/yWeXQH6kSFLJyHXhmeHjyzoI6ZwUVhYDcTEJnRkQB9lMhICc+ekcJ4dBf1oGYa1M8KZSBT0/+DL9+CH/DoCeoaax0V8WfzBLgzSyhnZDgKja9UvApqpZuvKGnva7075vKCZATASeLCp8MFquMlyyEDM+5Je0Jj9QT2dR3Y2xlpvcanaA5qlZrf/3eh1Vhwxq9oDmqHm1KTgCjjDRsyq9oD+3ekXlyXJynVgloWYRqAVNMM2IsFP63uGqk31toJmpHRmv9PoDt8zvNo0gbGC7rYNsIFtVO9EM9bJTT5tAc2wDYC21MUh5r9FGSJRR6OlcYylUNPwi1C+bK91T9PV+ltAM9I60/ALgl6i/quA7vJo/C7DOlShWEAzKgogpnzUqWpWfFFjjAaaEbWFnSkfdYJm5NFSpd2sSQPNyEOlourwc0JGcYY/S7V2R6QGmjn0UOHKtQ5GtjT2/aFAV3k1cySarE9TNNPjRgvJ3PfGWky6drLdSYsGeoYy0IDo/cozhCHADwl6VLfl8Qf2nuGtuJzyaGZ6t5dUjA9u4nE2HKgbdsK7p9fWZCeV3q0C2trYmeV2bVjzaHYuOhNU9tpp0IxF/2wjZ5+vTrYsij5B692oTrQsoNmzQ71Z65UoWfifGRCtr4kYXzExoxvUbTiLolFxln1gCCJ9w45FdP9QoON5c8ZzjqptAKAVdKd9RGeBFuXKKyo6H/JXbcMDuss+Otagb3WAAO+4AVK1DQ/oavsI3zlvkfFOGcwisXxadaOmyTa8oKvsQ90xTsLUTq9cFzHZhhd0xfKjmthrlIq+p7fFGgylfRlVz7KLe32ThW1Ws1fRUuFoqtexy50VeDTIu+3Pq2g0LLoZwMowPPCjGwVu0URAZzIQc5T20AqWjY5Mt5qj1oHzokMO584OiNmsw63mDGice8TAmIXsCoDjSItah/xG1OPkfFgJvDu6rmF1DQDGrDCz9pGyvSzorELESjpf+JcVA+oY8uVKRYtfV7w4EKqueoErMiP8VaxtlMSUrKKl0zLB8dbwH6Fra9LjWrRYhNVSLOVCwe/6h6tAZzMRS4PFZuSTcZtBCeRs1nELTnZaawXeXa58uaBS0aONZCN8N8i9308Hvls/3gFabASpVEUwYkJPpXB7Fe0CXZVnMyGHJyOWSnaDFnWvbCXWl69YeN4twwA9evdK75EuD3gzrePWtcW7q/btvErr3HVfQtFjJWRXmnnb7RTA0mimddzrbUDH5AP3XlRPQqbCHRu8AuhrpQN25FVrsgKIT9ztNOXfgNxT02qg7802JXsRX8fnuAbSvczqjQP/lD8C6HQjV/iBEzSpF07QJ2gSAdJlTkWfoEkESJc5FU0C/QeyJRhq7gHRBQAAAABJRU5ErkJggg=="
-                alt=""
+              <FontAwesomeIcon
+                icon={faUser}
+                style={{ height: "60px", marginBottom: "10px" }}
               />
               <h3>แอดมิน</h3>
               <p>
@@ -63,9 +70,9 @@ function Home() {
               </p>
             </div>
             <div class="col">
-              <img
-                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAAAXNSR0IArs4c6QAAA1NJREFUeF7tnP1R3DAQxUUnpJJAJZBKApUAlUAnJJUkvMGaubs5a1de7VqWnmZu7g/r8+fnJ3lt6yYxhRC4CWmFjSSCDhIBQRN0EIGgZqhogg4iENTMHoq+SyndLr+gYTZr5iOl9GepLf+rKo8E/ZRS+q3q1TEyPX+J5fUEfLHXEaCh3peUEpQ8WoLCf2lgR4B+HxRyFg0s5F6C7Q16NLtYuyJhIxjravIG/W80ryiM50dJ1Z6g4c2fBP1NwBP0LLaRtYRJEauQq8kT9FHFjNURfj8rJ/GiTxN0WQ6Py9ofNiglgpYICccBGUtUCTZBG0GjuGa+IegGoFEF7m5hJWuJoBuBBmTAJuhGQNeqwUoEXh0KGhND6TJyHrOpesQm8ENAqDaV7nSbWodmUqjt/F75Afttmei0fXAHPXKoUxV9W86EO+gZQp0ICknJFfRIdlECKYY6v+4SXUHPEuqEhUiqdgMtLWmkS+1ox/GkpLQacQMtLdKPBlLqbzHU6Wkds/hzPgGST7spmqDPrwGCljxBeZyKVoKyZiNoK0FleYJWgrJmI2grQWV5glaCsmYjaCtBZXmCVoKyZiNoK0FleYJWgrJmI2grQWV5glaCsmYjaCtBZXmCVoKyZiNoK0FleQvo4tMZ6bVdxqP18egiS4I+B7lV0VI58dMKKlpWtObpOUFfeLekzMtHWXhijjLie3y0ju3WIZ2Us5oJug40Xr84/fBeuZiRP3+jR6tRljNS0XWK3oydoAl6s3gsBasmuJqGqGgqukYvzfJS0c1QlivaDfRs70dLr+1uPt+SR3PPjc1ozwsSdB2Pzdgl0Kh4lrtDN38GRA3okb8xzApF/AJPSNySBjQa1+5Z4dZRx4oRT8YkKIY6LX3Qgs6w844sljZ7KutqF6cDrQGdy+WdWPIeo2vgavckKp0AbAr1t+EZgnpdFXzZ1y2gteNtNYm6rW21A2mRr2fQId7ZAqKmjl5Bu68CNHBa5ukRNPwYdjFU6g30EH58TSG9gB7Kj3sFPZwf9wh6SD/uDfSwftwL6OH9uAfQU/jx3qCn8eM9QU/lx3uAfoiI9R7hFtLzhgVh1NBQZM/APUH3PO7wvhF0EHKCJuggAkHNUNEEHUQgqBkqOgj0f0Qw4VtLY3g8AAAAAElFTkSuQmCC"
-                alt=""
+              <FontAwesomeIcon
+                icon={faComments}
+                style={{ height: "60px", marginBottom: "10px" }}
               />
               <h3>ถูกใจ แสดงความคิดเห็น</h3>
               <p>
@@ -82,7 +89,7 @@ function Home() {
           <div class="row">
             <div class="firstaid-pic">
               <img
-                src="https://www.esafety.com/wp-content/uploads/2016/12/first-aid-1080x675.jpeg"
+                src="http://localhost:3000/images/first-aid-1080x675.jpeg"
                 alt=""
               />
             </div>
