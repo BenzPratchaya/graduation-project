@@ -43,6 +43,7 @@ router.delete("/user/:id", UserController.deleteUser);
 router.get("/articles", ArticleController.getArticleList);
 router.get("/article/:id", ArticleController.getArticleById);
 router.get("/articles/like/:user_id", ArticleController.getArticleByUserId);
+router.get("/articlelistsearch", ArticleController.getArticleListSearch);
 router.get("/articles/counttype", ArticleController.getArticleCountType);
 router.post("/article/create", upload.single("image"), ArticleController.createArticle);
 router.put("/article/update/:id", upload.single("image"), ArticleController.updateArticle);

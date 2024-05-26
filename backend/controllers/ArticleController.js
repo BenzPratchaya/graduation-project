@@ -1,8 +1,8 @@
 // const express = require("express");
 // const router = express.Router();
 const db = require("../config/db");
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 exports.getArticleList = (req, res) => {
   db.query("SELECT * FROM articles", (err, result) => {
@@ -53,6 +53,17 @@ exports.getArticleCountType = (req, res) => {
       }
     }
   );
+};
+
+exports.getArticleListSearch = (req, res) => {
+  const searchQuery = req.query.q;
+  const query = `SELECT * FROM articles WHERE content LIKE ?`;
+  db.query(query, [`%${searchQuery}%`], (err, results) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    res.json(results);
+  });
 };
 
 exports.createArticle = (req, res) => {
@@ -121,7 +132,13 @@ exports.updateArticle = (req, res) => {
 
         // Step 3: Delete the old image file if a new image is provided
         if (req.file && existingImage) {
-          const imagePath = path.join(__dirname, '..', 'upload', 'images', existingImage);
+          const imagePath = path.join(
+            __dirname,
+            "..",
+            "upload",
+            "images",
+            existingImage
+          );
           fs.unlink(imagePath, (err) => {
             if (err) {
               console.log("Error deleting old image file:", err);
@@ -193,7 +210,7 @@ exports.deleteArticle = (req, res) => {
 
     // Step 2: Delete the image file from the server
     if (image) {
-      const imagePath = path.join(__dirname, '..', 'upload', 'images', image);
+      const imagePath = path.join(__dirname, "..", "upload", "images", image);
       fs.unlink(imagePath, (err) => {
         if (err) {
           console.log("Error deleting image file:", err);

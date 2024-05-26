@@ -18,62 +18,7 @@ app.use(AuthController);
 // Import Routes
 const Routes = require("./routes/route");
 app.use("/", Routes);
-
-const multer = require("multer");
-const path = require("path");
-app.use(express.static(path.join(__dirname, "upload/images")));
-
-// กำหนดการบันทึกไฟล์ด้วย Multer
-const storage = multer.diskStorage({
-  destination: "./upload/images",
-  filename: (req, file, cb) => {
-    return cb(
-      null,
-      `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
-    );
-  },
-});
-
-const upload = multer({
-  storage: storage,
-});
-
-app.use("/image", express.static("upload/images"));
-app.post("/upload", upload.single("image"), (req, res) => {
-  console.log("File uploaded:", req.file);
-
-  res.json({
-    status: "success",
-    image_url: `http://localhost:3001/images/${req.file.filename}`,
-  });
-});
-
-const db = require("./config/db");
-app.post("/firstaid/created", upload.single("image"), (req, res) => {
-  // ตรวจสอบว่ามีการอัปโหลดไฟล์ภาพหรือไม่
-  if (!req.file) {
-    return res.status(400).send("No image file uploaded");
-  }
-
-  const name = req.body.name;
-  const detail = req.body.detail;
-  const image = req.file.filename; // ใช้ไฟล์ที่ Multer อัปโหลด
-  const video = req.body.video;
-  const type_id = req.body.type_id;
-  const created_date = new Date();
-
-  db.query(
-    "INSERT INTO firstaids (name, detail, image, video, type_id, created_date) VALUES(?,?,?,?,?,?)",
-    [name, detail, image, video, type_id, created_date],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.send("Firstaid Create Success");
-      }
-    }
-  );
-});
+app.use("/image", express.static("upload/images")); 
 
 /****************************** Create SocketIO *******************************/
 // create server
