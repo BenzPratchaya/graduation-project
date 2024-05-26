@@ -37,7 +37,7 @@ router.get("/users", UserController.getUserList);
 router.get("/user/:id", UserController.getUserById);
 router.get("/users/role_id/:role_id", UserController.getUserByRoleId);
 router.get("/users/countmonth", UserController.getUserCountMonth);
-router.delete("/user/:id", UserController.deleteUser);
+router.delete("/user/delete/:id", UserController.deleteUser);
 
 // Article routes
 router.get("/articles", ArticleController.getArticleList);
