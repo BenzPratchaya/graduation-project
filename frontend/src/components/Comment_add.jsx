@@ -1,11 +1,60 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import format from "date-fns/format";
-import parseISO from "date-fns/parseISO";
+import { format, parseISO } from "date-fns";
+import { formatInTimeZone } from "date-fns-tz";
 import { th } from "date-fns/locale";
 
 function Comment_add({ articleId, user }) {
+  const containerStyle = {
+    display: "flex",
+    flexDirection: "column",
+    border: "1px solid #ddd",
+    borderRadius: "5px",
+    padding: "15px",
+    marginBottom: "15px",
+  };
+
+  const headerStyle = {
+    display: "flex",
+    alignItems: "center",
+  };
+
+  const iconStyle = {
+    width: "48px",
+    height: "48px",
+  };
+
+  const pStyle = {
+    marginLeft: "10px",
+  };
+
+  const contentStyle = {
+    marginTop: "10px",
+  };
+
+  const textStyle = {
+    padding: "10px",
+    border: "1px solid #ccc",
+    borderRadius: "3px",
+    marginBottom: "10px",
+    width: "100%",
+  };
+
+  const buttonStyle = {
+    padding: "10px 20px",
+    border: "none",
+    borderRadius: "3px",
+    cursor: "pointer",
+    backgroundColor: "#333",
+    color: "#fff",
+    transition: "all 0.2s ease-in-out",
+  };
+
+  const buttonHoverStyle = {
+    backgroundColor: "#222",
+  };
+
   const [comments, setComments] = useState([]);
   const [body, setBody] = useState("");
 
@@ -14,7 +63,7 @@ function Comment_add({ articleId, user }) {
       .get(`http://localhost:3001/comments/${articleId}`)
       .then((response) => setComments(response.data))
       .catch((error) => console.error(error));
-  }, [articleId]);
+  }, [articleId, comments]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -39,64 +88,31 @@ function Comment_add({ articleId, user }) {
       .catch((error) => console.error(error));
   };
 
-  const formatDateTime = (dateString) => {
+  // สร้างฟังก์ชัน formatDateTimeToThai ที่ควบคุมสำหรับการตรวจสอบว่าค่าอินพุตไม่ใช่ undefined ก่อนที่จะใช้งาน
+  function formatDateTimeToThai(isoDateString) {
+    if (!isoDateString) return "Invalid date";
+
+    const timeZone = "Asia/Bangkok";
+    const date = parseISO(isoDateString);
     try {
-      const date = parseISO(dateString);
-      return format(date, "d MMMM yyyy - HH:mm", { locale: th });
+      const formattedDate = formatInTimeZone(
+        date,
+        timeZone,
+        "dd MMMM yyyy HH:mm 'น.'",
+        { locale: th }
+      );
+
+      const buddhistYear = date.getFullYear() + 543;
+      const formattedDateWithBuddhistYear = formattedDate.replace(
+        /(\d{4})/,
+        buddhistYear.toString()
+      );
+      return formattedDateWithBuddhistYear;
     } catch (error) {
-      console.error("Invalid date format:", dateString);
+      console.error("Invalid date format:", isoDateString);
       return "Invalid date";
     }
-  };
-
-  const containerStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    border: '1px solid #ddd',
-    borderRadius: '5px',
-    padding: '15px',
-    marginBottom: '15px',
-  };
-
-  const headerStyle = {
-    display: 'flex',
-    alignItems: 'center',
-  };
-
-  const iconStyle = {
-    width: '48px',
-    height: '48px',
-  };
-
-  const pStyle = {
-    marginLeft: '10px',
-  };
-
-  const contentStyle = {
-    marginTop: '10px',
-  };
-
-  const textStyle = {
-    padding: '10px',
-    border: '1px solid #ccc',
-    borderRadius: '3px',
-    marginBottom: '10px',
-    width: '100%',
-  };
-
-  const buttonStyle = {
-    padding: '10px 20px',
-    border: 'none',
-    borderRadius: '3px',
-    cursor: 'pointer',
-    backgroundColor: '#333',
-    color: '#fff',
-    transition: 'all 0.2s ease-in-out',
-  };
-
-  const buttonHoverStyle = {
-    backgroundColor: '#222',
-  };
+  }
 
   return (
     <div>
@@ -119,25 +135,41 @@ function Comment_add({ articleId, user }) {
               value={body}
               onChange={(e) => setBody(e.target.value)}
             />
-            <button style={{...buttonStyle, ':hover': buttonHoverStyle}} type="submit">
+            <button
+              style={{ ...buttonStyle, ":hover": buttonHoverStyle }}
+              type="submit"
+            >
               comment
             </button>
           </div>
         </form>
       </div>
-      <ul style={{padding: '15px'}}>
+      <ul style={{ padding: "15px" }}>
         {comments.map((comment) => (
           <div style={containerStyle} key={comment.id}>
-            <div style={{display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '10px', alignItems: 'center'}}>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "auto 1fr",
+                gap: "10px",
+                alignItems: "center",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center" }}>
                 <AccountCircleIcon style={iconStyle} />
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                }}
+              >
                 <p style={{ margin: 0 }}>
                   {comment.user_fname} {comment.user_lname}
                 </p>
                 <p style={{ margin: 0 }}>
-                  {formatDateTime(comment.created_date)}
+                  {formatDateTimeToThai(comment.created_date)}
                 </p>
               </div>
             </div>
