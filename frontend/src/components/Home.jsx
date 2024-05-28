@@ -12,9 +12,11 @@ import {
   faUser,
   faComments,
 } from "@fortawesome/free-solid-svg-icons";
+import Articlehome from "./Articlehome.jsx";
 
 function Home() {
   const [articles, setArticles] = useState([]);
+  const [articlelist, setArticleList] = useState([]);
 
   useEffect(() => {
     fetch("http://localhost:3001/articles")
@@ -22,6 +24,14 @@ function Home() {
       .then((result) => {
         setArticles(result);
       });
+  }, []);
+
+  // ดึงข้อมูลจาก localStorage เมื่อโหลดหน้าเว็บครั้งแรก
+  useEffect(() => {
+    const storedArticleList = localStorage.getItem("articleList");
+    if (storedArticleList) {
+      setArticleList(JSON.parse(storedArticleList));
+    }
   }, []);
 
   return (
@@ -141,6 +151,7 @@ function Home() {
           </Button>
         </div>
         <br />
+        <Articlehome articlelist={articlelist} />
         <Articlecards key={articles.id} cardList={articles} />
       </div>
       <Footer />
