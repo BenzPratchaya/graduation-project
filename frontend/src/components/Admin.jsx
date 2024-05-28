@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  CssBaseline,
-  Box,
-  AppBar,
-  Toolbar,
-  Typography,
-  IconButton,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import { Box } from "@mui/material";
 import Adminsidebar from "./Adminsidebar";
 
 function Admin() {
@@ -19,31 +11,8 @@ function Admin() {
 
   return (
     <>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        sx={{
-          width: `calc(100% - ${open ? 240 : 0}px)`,
-          ml: open ? `240px` : 0,
-          transition: "width 0.3s", // เพิ่ม transition ในการเปลี่ยนความกว้างของ AppBar
-        }}
-      >
-        <Toolbar style={{ background: "white" }}>
-          <IconButton onClick={toggleDrawer} sx={{ color: "black" }}>
-            <MenuIcon sx={{ width: "24", height: "24" }}></MenuIcon>
-          </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            style={{ color: "black" }}
-          >
-            Admin System
-          </Typography>
-        </Toolbar>
-      </AppBar>
       {/* -------------------- Adminsidebar ------------------------ */}
-      <Adminsidebar open={open} />
+      <Adminsidebar open={open} toggleDrawer={toggleDrawer} />
       {/* -------------------- End Adminsidebar ------------------------ */}
       <Box
         component="main"
