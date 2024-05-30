@@ -14,16 +14,11 @@ exports.getCommentListByArticleId = (req, res) => {
 exports.createComment = (req, res) => {
   const { article_id, user_id, body, user_fname, user_lname } = req.body;
   const created_date = new Date();
-  const query =
-    "INSERT INTO comments (article_id, user_id, body, user_fname, user_lname, created_date) VALUES (?,?,?,?,?,?)";
-  db.query(
-    query,
-    [article_id, user_id, body, user_fname, user_lname, created_date],
-    (err, result) => {
-      if (err) {
-        return res.status(500).send(err);
-      }
-      res.status(201).send(result);
+  const query = "INSERT INTO comments (article_id, user_id, body, user_fname, user_lname, created_date) VALUES (?,?,?,?,?,?)";
+  db.query(query, [article_id, user_id, body, user_fname, user_lname, created_date], (err, result) => {
+    if (err) {
+      return res.status(500).send(err);
     }
-  );
+    res.status(201).send(result);
+  });
 };

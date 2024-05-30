@@ -8,15 +8,15 @@ const CommentController = require("../controllers/CommentController");
 
 const multer = require("multer");
 const path = require("path");
-router.use(express.static(path.join(__dirname, 'upload/images')));
+router.use(express.static(path.join(__dirname, "upload/images")));
 
 const storage = multer.diskStorage({
   destination: "./upload/images",
   filename: (req, file, cb) => {
     const date = new Date();
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const seconds = String(date.getSeconds()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const seconds = String(date.getSeconds()).padStart(2, "0");
     const timestamp = `${hours}${minutes}${seconds}`;
 
     const originalName = file.originalname;
@@ -53,9 +53,9 @@ router.delete("/article/delete/:id", ArticleController.deleteArticle);
 
 // Like routes
 router.get("/like", LikeController.getLikeList);
-router.get("/like/:article_id/user/:user_id",LikeController.getLikeByArticleIdUserId);
-router.put("/like/liked/:article_id/:user_id",LikeController.updateLikeForLike);
-router.put("/like/unliked/:article_id/:user_id",LikeController.updateLikeForUnLike);
+router.get("/like/:article_id/user/:user_id", LikeController.getLikeByArticleIdUserId);
+router.put("/like/liked/:article_id/:user_id", LikeController.updateLikeForLike);
+router.put("/like/unliked/:article_id/:user_id", LikeController.updateLikeForUnLike);
 
 // Firstaid routes
 router.get("/firstaids", FirstaidController.getFirstaidList);
@@ -67,7 +67,6 @@ router.delete("/firstaid/delete/:id", FirstaidController.deleteFirstaid);
 
 // Comment routes
 router.get("/comments/:article_id", CommentController.getCommentListByArticleId);
-router.post("/comment/create",CommentController.createComment);
-
+router.post("/comment/create", CommentController.createComment);
 
 module.exports = router;

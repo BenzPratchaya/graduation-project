@@ -44,15 +44,15 @@ exports.getUserByRoleId = (req, res) => {
 };
 
 // router.get("/users/countmonth", (req, res) => {
-  exports.getUserCountMonth = (req, res) => {
-    db.query("SELECT DATE_FORMAT(created_date, '%m/%Y') AS date, COUNT(id) AS count FROM users GROUP BY date;", (err, result) => {
-      if (err) {
-        console.log("error in users", err);
-      } else {
-        res.send(result);
-      }
-    });
-  };
+exports.getUserCountMonth = (req, res) => {
+  db.query("SELECT DATE_FORMAT(created_date, '%m/%Y') AS date, COUNT(id) AS count FROM users GROUP BY date;", (err, result) => {
+    if (err) {
+      console.log("error in users", err);
+    } else {
+      res.send(result);
+    }
+  });
+};
 
 // router.delete("/user/delete/:id", (req, res) => {
 exports.deleteUser = (req, res) => {

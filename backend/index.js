@@ -18,7 +18,7 @@ app.use(AuthController);
 // Import Routes
 const Routes = require("./routes/route");
 app.use("/", Routes);
-app.use("/image", express.static("upload/images")); 
+app.use("/image", express.static("upload/images"));
 
 /****************************** Create SocketIO *******************************/
 // create server

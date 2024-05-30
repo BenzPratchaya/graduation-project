@@ -1,6 +1,6 @@
 const db = require("../config/db");
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 exports.getFirstaidList = (req, res) => {
   db.query("SELECT * FROM firstaids", (err, result) => {
@@ -14,22 +14,18 @@ exports.getFirstaidList = (req, res) => {
 
 exports.getFirstaidById = (req, res) => {
   const firstaidId = req.params.id;
-  db.query(
-    "SELECT * FROM firstaids WHERE id = ?",
-    firstaidId,
-    (err, result) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send("Internal Server Error");
+  db.query("SELECT * FROM firstaids WHERE id = ?", firstaidId, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Internal Server Error");
+    } else {
+      if (result.length > 0) {
+        res.send(result[0]);
       } else {
-        if (result.length > 0) {
-          res.send(result[0]);
-        } else {
-          res.status(404).send("firstaid not found");
-        }
+        res.status(404).send("firstaid not found");
       }
     }
-  );
+  });
 };
 
 exports.getFirstaidCountType = (req, res) => {
@@ -108,7 +104,7 @@ exports.updateFirstaid = (req, res) => {
 
         // Step 3: Delete the old image file if a new image is provided
         if (req.file && existingImage) {
-          const imagePath = path.join(__dirname, '..', 'upload', 'images', existingImage);
+          const imagePath = path.join(__dirname, "..", "upload", "images", existingImage);
           fs.unlink(imagePath, (err) => {
             if (err) {
               console.log("Error deleting old image file:", err);
@@ -148,7 +144,7 @@ exports.deleteFirstaid = (req, res) => {
 
     // Step 2: Delete the image file from the server
     if (image) {
-      const imagePath = path.join(__dirname, '..', 'upload', 'images', image);
+      const imagePath = path.join(__dirname, "..", "upload", "images", image);
       fs.unlink(imagePath, (err) => {
         if (err) {
           console.log("Error deleting image file:", err);

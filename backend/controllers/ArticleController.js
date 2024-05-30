@@ -1,5 +1,3 @@
-// const express = require("express");
-// const router = express.Router();
 const db = require("../config/db");
 const fs = require("fs");
 const path = require("path");
@@ -132,13 +130,7 @@ exports.updateArticle = (req, res) => {
 
         // Step 3: Delete the old image file if a new image is provided
         if (req.file && existingImage) {
-          const imagePath = path.join(
-            __dirname,
-            "..",
-            "upload",
-            "images",
-            existingImage
-          );
+          const imagePath = path.join(__dirname, "..", "upload", "images", existingImage);
           fs.unlink(imagePath, (err) => {
             if (err) {
               console.log("Error deleting old image file:", err);
@@ -161,35 +153,27 @@ exports.updateArticle = (req, res) => {
 };
 
 exports.updateArticleLike = (req, res) => {
-  db.query(
-    "UPDATE articles SET `like_count` = `like_count` + 1 WHERE id = ?",
-    req.params.id,
-    (err, result) => {
-      if (err) {
-        console.error("Error Updating Article Like Count:", err);
-        return res.status(500).json({ error: "Internal Server Error" });
-      } else {
-        console.log("Article Liked Successfully!");
-        return res.status(200).send("Article Like Success");
-      }
+  db.query("UPDATE articles SET `like_count` = `like_count` + 1 WHERE id = ?", req.params.id, (err, result) => {
+    if (err) {
+      console.error("Error Updating Article Like Count:", err);
+      return res.status(500).json({ error: "Internal Server Error" });
+    } else {
+      console.log("Article Liked Successfully!");
+      return res.status(200).send("Article Like Success");
     }
-  );
+  });
 };
 
 exports.updateArticleUnLike = (req, res) => {
-  db.query(
-    "UPDATE articles SET `like_count` = `like_count` - 1 WHERE id = ?",
-    req.params.id,
-    (err, result) => {
-      if (err) {
-        console.error("Error Updating Article Like Count:", err);
-        return res.status(500).json({ error: "Internal Server Error" });
-      } else {
-        console.log("Article Unliked Successfully!");
-        return res.status(200).send("Article UnLike Success");
-      }
+  db.query("UPDATE articles SET `like_count` = `like_count` - 1 WHERE id = ?", req.params.id, (err, result) => {
+    if (err) {
+      console.error("Error Updating Article Like Count:", err);
+      return res.status(500).json({ error: "Internal Server Error" });
+    } else {
+      console.log("Article Unliked Successfully!");
+      return res.status(200).send("Article UnLike Success");
     }
-  );
+  });
 };
 
 exports.deleteArticle = (req, res) => {
@@ -238,5 +222,3 @@ exports.deleteArticle = (req, res) => {
     }
   });
 };
-
-// module.exports = router;
