@@ -57,9 +57,7 @@ function Admindashboard() {
       const usersData = await usersResponse.json();
       setUsers(usersData);
 
-      const countmonthResponse = await fetch(
-        "http://localhost:3001/users/countmonth"
-      );
+      const countmonthResponse = await fetch("http://localhost:3001/users/countmonth");
       const countmonthData = await countmonthResponse.json();
       setCountMonth(countmonthData);
 
@@ -67,9 +65,7 @@ function Admindashboard() {
       const firstaidsData = await firstaidsResponse.json();
       setFirstaids(firstaidsData);
 
-      const facounttypeResponse = await fetch(
-        "http://localhost:3001/firstaids/counttype"
-      );
+      const facounttypeResponse = await fetch("http://localhost:3001/firstaids/counttype");
       const facounttypeData = await facounttypeResponse.json();
       setFACountType(facounttypeData);
 
@@ -77,15 +73,11 @@ function Admindashboard() {
       const articlesData = await articlesResponse.json();
       setArticles(articlesData);
 
-      const accounttypeResponse = await fetch(
-        "http://localhost:3001/articles/counttype"
-      );
+      const accounttypeResponse = await fetch("http://localhost:3001/articles/counttype");
       const accounttypeData = await accounttypeResponse.json();
       setACCountType(accounttypeData);
 
-      const adminsResponse = await fetch(
-        "http://localhost:3001/users/role_id/2"
-      );
+      const adminsResponse = await fetch("http://localhost:3001/users/role_id/2");
       const adminsData = await adminsResponse.json();
       setAdmins(adminsData);
     };
@@ -95,9 +87,7 @@ function Admindashboard() {
 
   useEffect(() => {
     if (showFirstGraph) {
-      const userchart1 = document
-        .getElementById("myUserChart")
-        .getContext("2d");
+      const userchart1 = document.getElementById("myUserChart").getContext("2d");
       const myUserChart = new Chart(userchart1, {
         type: "bar",
         data: {
@@ -176,9 +166,7 @@ function Admindashboard() {
 
   useEffect(() => {
     if (showSecondGraph) {
-      const firstaidchart1 = document
-        .getElementById("myFirstaidChart")
-        .getContext("2d");
+      const firstaidchart1 = document.getElementById("myFirstaidChart").getContext("2d");
       const myFirstaidChart = new Chart(firstaidchart1, {
         type: "bar",
         data: {
@@ -202,9 +190,7 @@ function Admindashboard() {
         },
       });
 
-      const firstaidchart2 = document
-        .getElementById("myFirstaidCategory")
-        .getContext("2d");
+      const firstaidchart2 = document.getElementById("myFirstaidCategory").getContext("2d");
       const myFirstaidCategory = new Chart(firstaidchart2, {
         type: "pie",
         data: {
@@ -249,9 +235,7 @@ function Admindashboard() {
 
   useEffect(() => {
     if (showThirdGraph) {
-      const articlechart1 = document
-        .getElementById("myArticleChart")
-        .getContext("2d");
+      const articlechart1 = document.getElementById("myArticleChart").getContext("2d");
 
       const myArticleChart = new Chart(articlechart1, {
         type: "line",
@@ -276,9 +260,7 @@ function Admindashboard() {
         },
       });
 
-      const articlechart2 = document
-        .getElementById("myArticleCategory")
-        .getContext("2d");
+      const articlechart2 = document.getElementById("myArticleCategory").getContext("2d");
       const myArticleCategory = new Chart(articlechart2, {
         type: "pie",
         data: {
@@ -287,16 +269,8 @@ function Admindashboard() {
             {
               label: "จำนวนบทความ",
               data: accounttype.map((item) => item.count),
-              backgroundColor: [
-                "rgba(255, 99, 132, 0.2)",
-                "rgba(54, 162, 235, 0.2)",
-                "rgba(255, 206, 86, 0.2)",
-              ],
-              borderColor: [
-                "rgba(255, 99, 132, 1)",
-                "rgba(54, 162, 235, 1)",
-                "rgba(255, 206, 86, 1)",
-              ],
+              backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(255, 206, 86, 0.2)"],
+              borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)", "rgba(255, 206, 86, 1)"],
               borderWidth: 1,
             },
           ],
@@ -333,10 +307,7 @@ function Admindashboard() {
           transition: "margin-left 0.3s, width 0.3s",
         }}
       >
-        <Box
-          component="main"
-          sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
-        >
+        <Box component="main" sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}>
           <div className="main-adminBx">
             <div className="showDataWeb">
               <div className="dataBx" onClick={handleFirstButtonClick}>

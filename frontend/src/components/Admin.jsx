@@ -25,10 +25,7 @@ function Admin() {
           transition: "margin-left 0.3s, width 0.3s",
         }}
       >
-        <Box
-          component="main"
-          sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
-        ></Box>
+        <Box component="main" sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}></Box>
       </Box>
     </>
   );

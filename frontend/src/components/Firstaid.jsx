@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
-//import axios from "axios";
 import { Container, Button, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/Firstaid.css";
-//import Modal from "react-modal";
 import NavTab from "./NavTab";
+import Banner from "./Banner.jsx";
 import Footer from "./Footer";
 import Firstaidintro from "./Firstaidintro";
 import Firstaidlist from "./Firstaidlist.jsx";
-import Banner from "./Banner.jsx";
 
 export default function Firstaid() {
   const [firstaids, setFirstaids] = useState([]);
@@ -31,9 +29,7 @@ export default function Firstaid() {
 
   // กรอง firstaids โดยใช้ selectedType เพื่อแสดงเฉพาะปฐมพยาบาลที่มีประเภทที่เลือก หรือแสดงทั้งหมดถ้าไม่ได้เลือกประเภท
   const filteredResults =
-    selectedType === "All"
-      ? searchResult.filter((item) => item)
-      : searchResult.filter((item) => item.type_id === parseInt(selectedType));
+    selectedType === "All" ? searchResult.filter((item) => item) : searchResult.filter((item) => item.type_id === parseInt(selectedType));
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -44,9 +40,7 @@ export default function Firstaid() {
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
-    const result = firstaids.filter((item) =>
-      item.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const result = firstaids.filter((item) => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
     setSearchResult(result);
   };
 
@@ -62,10 +56,7 @@ export default function Firstaid() {
         <br />
 
         <Container>
-          <Form
-            className="d-flex w3-container w3-padding mb-4"
-            onSubmit={handleSearchSubmit}
-          >
+          <Form className="d-flex w3-container w3-padding mb-4" onSubmit={handleSearchSubmit}>
             <Form.Select
               className="d-flex me-auto w3-padding"
               aria-label="Default select example"

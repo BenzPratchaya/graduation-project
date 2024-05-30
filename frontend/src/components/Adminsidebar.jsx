@@ -75,12 +75,7 @@ function Adminsidebar({ open, toggleDrawer }) {
           <IconButton onClick={toggleDrawer} sx={{ color: "black" }}>
             <FontAwesomeIcon icon={faBars} sx={{ width: "24", height: "24" }} />
           </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            style={{ color: "black" }}
-          >
+          <Typography variant="h6" noWrap component="div" style={{ color: "black" }}>
             Admin System
           </Typography>
         </Toolbar>
@@ -136,23 +131,11 @@ function Adminsidebar({ open, toggleDrawer }) {
         <Divider />
         <List>
           {menu.map((item) => (
-            <Link
-              to={item.path}
-              key={item.name}
-              style={{ textDecoration: "none", color: "white" }}
-            >
-              <ListItem
-                disablePadding
-                sx={{ display: "flex", alignItems: "center" }}
-              >
+            <Link to={item.path} key={item.name} style={{ textDecoration: "none", color: "white" }}>
+              <ListItem disablePadding sx={{ display: "flex", alignItems: "center" }}>
                 <ListItemButton>
-                  <ListItemIcon style={{ minWidth: "30px", color: "white" }}>
-                    {item.icon}
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={item.name}
-                    primaryTypographyProps={{ style: { fontSize: "17px" } }}
-                  />
+                  <ListItemIcon style={{ minWidth: "30px", color: "white" }}>{item.icon}</ListItemIcon>
+                  <ListItemText primary={item.name} primaryTypographyProps={{ style: { fontSize: "17px" } }} />
                 </ListItemButton>
               </ListItem>
             </Link>

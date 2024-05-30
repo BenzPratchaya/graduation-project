@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Container, Row, Col, Card, Form } from "react-bootstrap";
-import "./css/Article.css";
 import { Link } from "react-router-dom";
+import "./css/Article.css";
 import Articlepost from "./Articlepost.jsx";
 import LikeButton from "./LikeButton.jsx";
 
@@ -28,9 +28,7 @@ function Articlecontent(props) {
 
   // กรอง postList โดยใช้ selectedType เพื่อแสดงเฉพาะบทความที่มีประเภทที่เลือก หรือแสดงทั้งหมดถ้าไม่ได้เลือกประเภท
   const filteredResults =
-    selectedType === "All"
-      ? searchResult.filter((item) => item)
-      : searchResult.filter((item) => item.type_id === parseInt(selectedType));
+    selectedType === "All" ? searchResult.filter((item) => item) : searchResult.filter((item) => item.type_id === parseInt(selectedType));
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -41,9 +39,7 @@ function Articlecontent(props) {
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
-    const result = postList.filter((item) =>
-      item.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const result = postList.filter((item) => item.title.toLowerCase().includes(searchTerm.toLowerCase()));
     setSearchResult(result);
   };
 
@@ -51,10 +47,7 @@ function Articlecontent(props) {
     <div className="w3-container">
       <hr />
       <Container>
-        <Form
-          className="d-flex w3-container w3-padding"
-          onSubmit={handleSearchSubmit}
-        >
+        <Form className="d-flex w3-container w3-padding" onSubmit={handleSearchSubmit}>
           <Form.Select
             className="d-flex me-auto w3-padding"
             style={{ width: "30%" }}
@@ -90,21 +83,10 @@ function Articlecontent(props) {
                 filteredResults.map((article) => (
                   <Col xs={12} sm={6} key={article.id} data={article}>
                     {/* คอลัมการ์ด */}
-                    <Card
-                      style={{ width: "100%" }}
-                      className="w3-card-4 w3-margin w3-white"
-                    >
-                      <Card.Img
-                        variant="top"
-                        src={`http://localhost:3001/image/${article.image}`}
-                        style={{ width: "100%", height: "20rem" }}
-                      />
+                    <Card style={{ width: "100%" }} className="w3-card-4 w3-margin w3-white">
+                      <Card.Img variant="top" src={`http://localhost:3001/image/${article.image}`} style={{ width: "100%", height: "20rem" }} />
                       <Card.Body>
-                        <Card.Title
-                          style={{ backgroundColor: "white", color: "black" }}
-                        >
-                          {article.title}
-                        </Card.Title>
+                        <Card.Title style={{ backgroundColor: "white", color: "black" }}>{article.title}</Card.Title>
                         <Card.Text
                           /*className="text-truncate"*/ style={{
                             height: "8rem",
@@ -113,24 +95,12 @@ function Articlecontent(props) {
                           {article.content}
                         </Card.Text>
                         {/* <!-- user ที่ไม่ได้ login เข้ามาดูได้ --> */}
-                        <Link
-                          to={`/article/${
-                            article.article_id !== undefined
-                              ? article.article_id
-                              : article.id
-                          }`}
-                        >
-                          <Button className="w3-button w3-padding-large w3-white w3-border">
-                            Read More
-                          </Button>
+                        <Link to={`/article/${article.article_id !== undefined ? article.article_id : article.id}`}>
+                          <Button className="w3-button w3-padding-large w3-white w3-border">Read More</Button>
                         </Link>
                         <hr />
                         <div className="d-flex justify-content-between">
-                          <LikeButton
-                            id={article.id}
-                            article={article}
-                            user={props.user}
-                          />
+                          <LikeButton id={article.id} article={article} user={props.user} />
                         </div>
                       </Card.Body>
                     </Card>

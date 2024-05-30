@@ -25,16 +25,8 @@ function Articlecards(props) {
                 {chunk.map((card) => (
                   <Col key={card.id} md={4} className="mb-4">
                     <div className="card w3-light-grey">
-                      <Link
-                        component={Link}
-                        to={`/article/${card.id}`}
-                        style={{ textDecoration: "none", color: "black" }}
-                      >
-                        <img
-                          src={`http://localhost:3001/image/${card.image}`}
-                          alt={`Card ${card.id}`}
-                          className="card-img-top"
-                        />
+                      <Link component={Link} to={`/article/${card.id}`} style={{ textDecoration: "none", color: "black" }}>
+                        <img src={`http://localhost:3001/image/${card.image}`} alt={`Card ${card.id}`} className="card-img-top" />
                         <div className="card-body">
                           <p className="card-title">{card.title}</p>
                           <p className="card-content">{card.content}</p>

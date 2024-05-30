@@ -1,25 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {
-  CssBaseline,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  TextField,
-  Grid,
-  Typography,
-  MenuItem,
-  Select,
-} from "@mui/material";
+import { CssBaseline, Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Grid, Typography, MenuItem, Select } from "@mui/material";
 
-function Adminarticle_edit({
-  popupedit,
-  setPopupEdit,
-  articleId,
-  setArticles,
-}) {
+function Adminarticle_edit({ popupedit, setPopupEdit, articleId, setArticles }) {
   const [formData, setFormData] = useState({
     id: "",
     title: "",
@@ -69,27 +52,24 @@ function Adminarticle_edit({
         data.append("image", formData.image);
       }
       data.append("type_id", formData.type_id);
-  
+
       const confirmEdit = window.confirm("ต้องการแก้ไขข้อมูลหรือไม่?");
       if (confirmEdit) {
-        await axios.put(
-          `http://localhost:3001/article/update/${articleId}`,
-          data,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-  
-        axios.get("http://localhost:3001/articles")
+        await axios.put(`http://localhost:3001/article/update/${articleId}`, data, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        axios
+          .get("http://localhost:3001/articles")
           .then((res) => {
             setArticles(res.data);
           })
           .catch((error) => {
             console.error("Error fetching articles: ", error);
           });
-  
+
         alert("Article updated successfully");
         setPopupEdit(false);
       }
@@ -103,26 +83,14 @@ function Adminarticle_edit({
     <React.Fragment>
       <CssBaseline />
       {/* โค้ดสำหรับ Popup */}
-      <Dialog
-        open={popupedit}
-        onClose={() => setPopupEdit(false)}
-        fullWidth
-        maxWidth="md"
-      >
+      <Dialog open={popupedit} onClose={() => setPopupEdit(false)} fullWidth maxWidth="md">
         <form onSubmit={handleSubmit}>
           <DialogTitle>Create Article</DialogTitle>
           <DialogContent dividers>
             <Grid container spacing={2}>
               <Grid item xs={4}>
                 <Typography>Title</Typography>
-                <TextField
-                  variant="outlined"
-                  placeholder="Title"
-                  fullWidth
-                  value={formData.title}
-                  onChange={handleInputChange}
-                  name="title"
-                />
+                <TextField variant="outlined" placeholder="Title" fullWidth value={formData.title} onChange={handleInputChange} name="title" />
               </Grid>
               <Grid item xs={4}>
                 <Typography>Type</Typography>
@@ -130,9 +98,7 @@ function Adminarticle_edit({
                   variant="outlined"
                   fullWidth
                   value={formData.type_id}
-                  onChange={(event) =>
-                    setFormData({ ...formData, type_id: event.target.value })
-                  }
+                  onChange={(event) => setFormData({ ...formData, type_id: event.target.value })}
                 >
                   <MenuItem value="0" disabled>
                     * เลือกประเภทบทความ

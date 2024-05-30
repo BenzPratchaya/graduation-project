@@ -1,19 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {
-  Box,
-  Toolbar,
-  Typography,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Button,
-  IconButton,
-} from "@mui/material";
+import { Box, Toolbar, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AdminarticleAdd from "./Adminarticle_add";
@@ -38,15 +25,13 @@ function Adminarticles() {
   const deleteArticle = (id) => {
     const confirmDelete = window.confirm("ต้องการลบข้อมูลหรือไม่?");
     if (confirmDelete) {
-      axios
-        .delete(`http://localhost:3001/article/delete/${id}`)
-        .then((response) => {
-          setArticles(
-            articles.filter((article) => {
-              return article.id !== id;
-            })
-          );
-        });
+      axios.delete(`http://localhost:3001/article/delete/${id}`).then((response) => {
+        setArticles(
+          articles.filter((article) => {
+            return article.id !== id;
+          })
+        );
+      });
       console.log("ลบข้อมูล");
     } else {
       console.log("ยกเลิกการลบ");
@@ -80,16 +65,9 @@ function Adminarticles() {
           transition: "margin-left 0.3s, width 0.3s",
         }}
       >
-        <Box
-          component="main"
-          sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
-        >
+        <Box component="main" sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}>
           <Toolbar />
-          <Paper
-            elevation={1}
-            className="d-flex justify-content-between"
-            sx={{ p: 3 }}
-          >
+          <Paper elevation={1} className="d-flex justify-content-between" sx={{ p: 3 }}>
             <Typography variant="h5">List of All Articles</Typography>
             <Button
               style={{
@@ -124,16 +102,10 @@ function Adminarticles() {
                     <TableCell align="center">{article.title}</TableCell>
                     <TableCell align="left">{article.content}</TableCell>
                     <TableCell align="center">
-                      <img
-                        src={`http://localhost:3001/image/${article.image}`}
-                        style={{ width: "50%" }}
-                        alt=""
-                      />
+                      <img src={`http://localhost:3001/image/${article.image}`} style={{ width: "50%" }} alt="" />
                     </TableCell>
                     <TableCell align="center">{article.like_count}</TableCell>
-                    <TableCell align="center">
-                      {formatDate(article.created_date)}
-                    </TableCell>
+                    <TableCell align="center">{formatDate(article.created_date)}</TableCell>
                     <TableCell align="center">
                       <IconButton
                         sx={{
@@ -176,11 +148,7 @@ function Adminarticles() {
               </TableBody>
             </Table>
           </TableContainer>
-          <AdminarticleAdd
-            popupadd={popupadd}
-            setPopupAdd={setPopupAdd}
-            setArticles={setArticles}
-          />
+          <AdminarticleAdd popupadd={popupadd} setPopupAdd={setPopupAdd} setArticles={setArticles} />
           <AdminarticleEdit
             popupedit={popupedit}
             setPopupEdit={setPopupEdit}

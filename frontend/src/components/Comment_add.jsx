@@ -6,55 +6,6 @@ import { formatInTimeZone } from "date-fns-tz";
 import { th } from "date-fns/locale";
 
 function Comment_add({ articleId, user }) {
-  const containerStyle = {
-    display: "flex",
-    flexDirection: "column",
-    border: "1px solid #ddd",
-    borderRadius: "5px",
-    padding: "15px",
-    marginBottom: "15px",
-  };
-
-  const headerStyle = {
-    display: "flex",
-    alignItems: "center",
-  };
-
-  const iconStyle = {
-    width: "48px",
-    height: "48px",
-  };
-
-  const pStyle = {
-    marginLeft: "10px",
-  };
-
-  const contentStyle = {
-    marginTop: "10px",
-  };
-
-  const textStyle = {
-    padding: "10px",
-    border: "1px solid #ccc",
-    borderRadius: "3px",
-    marginBottom: "10px",
-    width: "100%",
-  };
-
-  const buttonStyle = {
-    padding: "10px 20px",
-    border: "none",
-    borderRadius: "3px",
-    cursor: "pointer",
-    backgroundColor: "#333",
-    color: "#fff",
-    transition: "all 0.2s ease-in-out",
-  };
-
-  const buttonHoverStyle = {
-    backgroundColor: "#222",
-  };
-
   const [comments, setComments] = useState([]);
   const [body, setBody] = useState("");
 
@@ -95,18 +46,10 @@ function Comment_add({ articleId, user }) {
     const timeZone = "Asia/Bangkok";
     const date = parseISO(isoDateString);
     try {
-      const formattedDate = formatInTimeZone(
-        date,
-        timeZone,
-        "dd MMMM yyyy HH:mm 'น.'",
-        { locale: th }
-      );
+      const formattedDate = formatInTimeZone(date, timeZone, "dd MMMM yyyy HH:mm 'น.'", { locale: th });
 
       const buddhistYear = date.getFullYear() + 543;
-      const formattedDateWithBuddhistYear = formattedDate.replace(
-        /(\d{4})/,
-        buddhistYear.toString()
-      );
+      const formattedDateWithBuddhistYear = formattedDate.replace(/(\d{4})/, buddhistYear.toString());
       return formattedDateWithBuddhistYear;
     } catch (error) {
       console.error("Invalid date format:", isoDateString);
@@ -127,18 +70,8 @@ function Comment_add({ articleId, user }) {
           <hr />
           <div style={contentStyle}>
             <h3>Comment</h3>
-            <textarea
-              name="comment"
-              style={textStyle}
-              cols="30"
-              rows="10"
-              value={body}
-              onChange={(e) => setBody(e.target.value)}
-            />
-            <button
-              style={{ ...buttonStyle, ":hover": buttonHoverStyle }}
-              type="submit"
-            >
+            <textarea name="comment" style={textStyle} cols="30" rows="10" value={body} onChange={(e) => setBody(e.target.value)} />
+            <button style={{ ...buttonStyle, ":hover": buttonHoverStyle }} type="submit">
               comment
             </button>
           </div>
@@ -168,9 +101,7 @@ function Comment_add({ articleId, user }) {
                 <p style={{ margin: 0 }}>
                   {comment.user_fname} {comment.user_lname}
                 </p>
-                <p style={{ margin: 0 }}>
-                  {formatDateTimeToThai(comment.created_date)}
-                </p>
+                <p style={{ margin: 0 }}>{formatDateTimeToThai(comment.created_date)}</p>
               </div>
             </div>
             <br />
@@ -183,3 +114,52 @@ function Comment_add({ articleId, user }) {
 }
 
 export default Comment_add;
+
+const containerStyle = {
+  display: "flex",
+  flexDirection: "column",
+  border: "1px solid #ddd",
+  borderRadius: "5px",
+  padding: "15px",
+  marginBottom: "15px",
+};
+
+const headerStyle = {
+  display: "flex",
+  alignItems: "center",
+};
+
+const iconStyle = {
+  width: "48px",
+  height: "48px",
+};
+
+const pStyle = {
+  marginLeft: "10px",
+};
+
+const contentStyle = {
+  marginTop: "10px",
+};
+
+const textStyle = {
+  padding: "10px",
+  border: "1px solid #ccc",
+  borderRadius: "3px",
+  marginBottom: "10px",
+  width: "100%",
+};
+
+const buttonStyle = {
+  padding: "10px 20px",
+  border: "none",
+  borderRadius: "3px",
+  cursor: "pointer",
+  backgroundColor: "#333",
+  color: "#fff",
+  transition: "all 0.2s ease-in-out",
+};
+
+const buttonHoverStyle = {
+  backgroundColor: "#222",
+};

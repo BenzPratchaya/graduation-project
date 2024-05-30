@@ -1,18 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {
-  Box,
-  Toolbar,
-  Typography,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  IconButton,
-} from "@mui/material";
+import { Box, Toolbar, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Adminsidebar from "./Adminsidebar";
 
@@ -31,15 +19,13 @@ function Adminusers() {
   const deleteUser = (id) => {
     const confirmDelete = window.confirm("ต้องการลบผู้ใช้หรือไม่?");
     if (confirmDelete) {
-      axios
-        .delete(`http://localhost:3001/user/delete/${id}`)
-        .then((response) => {
-          setUsers(
-            users.filter((user) => {
-              return user.id !== id;
-            })
-          );
-        });
+      axios.delete(`http://localhost:3001/user/delete/${id}`).then((response) => {
+        setUsers(
+          users.filter((user) => {
+            return user.id !== id;
+          })
+        );
+      });
       console.log("ลบข้อมูล");
     } else {
       console.log("ยกเลิกการลบ");
@@ -66,16 +52,9 @@ function Adminusers() {
           transition: "margin-left 0.3s, width 0.3s",
         }}
       >
-        <Box
-          component="main"
-          sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
-        >
+        <Box component="main" sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}>
           <Toolbar />
-          <Paper
-            elevation={1}
-            className="d-flex justify-content-between"
-            sx={{ p: 3 }}
-          >
+          <Paper elevation={1} className="d-flex justify-content-between" sx={{ p: 3 }}>
             <Typography variant="h5">List of All Users</Typography>
           </Paper>
           <br />

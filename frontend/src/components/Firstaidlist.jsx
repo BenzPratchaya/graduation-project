@@ -7,15 +7,7 @@ const Firstaidlist = (props) => {
     <div className="video-list">
       <Row>
         {props.filteredResults.map((card) => (
-          <Firstaidcard
-            key={card.id}
-            id={card.id}
-            name={card.name}
-            detail={card.detail}
-            image={card.image}
-            videoUrl={card.video}
-            link={card.link}
-          />
+          <Firstaidcard key={card.id} id={card.id} name={card.name} detail={card.detail} image={card.image} videoUrl={card.video} link={card.link} />
         ))}
       </Row>
     </div>

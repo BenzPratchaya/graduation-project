@@ -1,18 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {
-  CssBaseline,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  TextField,
-  Grid,
-  Typography,
-  MenuItem,
-  Select,
-} from "@mui/material";
+import { CssBaseline, Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Grid, Typography, MenuItem, Select } from "@mui/material";
 
 function Adminarticle_add({ popupadd, setPopupAdd, setArticles }) {
   const [formData, setFormData] = useState({
@@ -64,7 +52,8 @@ function Adminarticle_add({ popupadd, setPopupAdd, setArticles }) {
       });
 
       // อัปเดตรายการ articles ใหม่
-      axios.get("http://localhost:3001/articles")
+      axios
+        .get("http://localhost:3001/articles")
         .then((res) => {
           setArticles(res.data);
         })
@@ -84,26 +73,14 @@ function Adminarticle_add({ popupadd, setPopupAdd, setArticles }) {
     <React.Fragment>
       <CssBaseline />
       {/* โค้ดสำหรับ Popup */}
-      <Dialog
-        open={popupadd}
-        onClose={() => setPopupAdd(false)}
-        fullWidth
-        maxWidth="md"
-      >
+      <Dialog open={popupadd} onClose={() => setPopupAdd(false)} fullWidth maxWidth="md">
         <form onSubmit={handleSubmit}>
           <DialogTitle>Create Article</DialogTitle>
           <DialogContent dividers>
             <Grid container spacing={2}>
               <Grid item xs={4}>
                 <Typography>Title</Typography>
-                <TextField
-                  variant="outlined"
-                  placeholder="Title"
-                  fullWidth
-                  value={formData.title}
-                  onChange={handleInputChange}
-                  name="title"
-                />
+                <TextField variant="outlined" placeholder="Title" fullWidth value={formData.title} onChange={handleInputChange} name="title" />
               </Grid>
               <Grid item xs={4}>
                 <Typography>Type</Typography>
@@ -111,9 +88,7 @@ function Adminarticle_add({ popupadd, setPopupAdd, setArticles }) {
                   variant="outlined"
                   fullWidth
                   value={formData.type_id}
-                  onChange={(event) =>
-                    setFormData({ ...formData, type_id: event.target.value })
-                  }
+                  onChange={(event) => setFormData({ ...formData, type_id: event.target.value })}
                 >
                   <MenuItem value="0" disabled>
                     * เลือกประเภทบทความ

@@ -1,18 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {
-  CssBaseline,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  TextField,
-  Grid,
-  Typography,
-  MenuItem,
-  Select,
-} from "@mui/material";
+import { CssBaseline, Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Grid, Typography, MenuItem, Select } from "@mui/material";
 
 function Adminfirstaid_add({ popupadd, setPopupAdd, setFirstaids }) {
   const [formData, setFormData] = useState({
@@ -67,7 +55,8 @@ function Adminfirstaid_add({ popupadd, setPopupAdd, setFirstaids }) {
       });
 
       // อัปเดตรายการ firstaids ใหม่
-      axios.get("http://localhost:3001/firstaids")
+      axios
+        .get("http://localhost:3001/firstaids")
         .then((res) => {
           setFirstaids(res.data);
         })
@@ -87,26 +76,14 @@ function Adminfirstaid_add({ popupadd, setPopupAdd, setFirstaids }) {
     <React.Fragment>
       <CssBaseline />
       {/* โค้ดสำหรับ Popup */}
-      <Dialog
-        open={popupadd}
-        onClose={() => setPopupAdd(false)}
-        fullWidth
-        maxWidth="md"
-      >
+      <Dialog open={popupadd} onClose={() => setPopupAdd(false)} fullWidth maxWidth="md">
         <form onSubmit={handleSubmit}>
           <DialogTitle>Create Firstaid</DialogTitle>
           <DialogContent dividers>
             <Grid container spacing={2}>
               <Grid item xs={4}>
                 <Typography>Name</Typography>
-                <TextField
-                  variant="outlined"
-                  placeholder="Name"
-                  fullWidth
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  name="name"
-                />
+                <TextField variant="outlined" placeholder="Name" fullWidth value={formData.name} onChange={handleInputChange} name="name" />
               </Grid>
               <Grid item xs={4}>
                 <Typography>Type</Typography>
@@ -114,34 +91,21 @@ function Adminfirstaid_add({ popupadd, setPopupAdd, setFirstaids }) {
                   variant="outlined"
                   fullWidth
                   value={formData.type_id}
-                  onChange={(event) =>
-                    setFormData({ ...formData, type_id: event.target.value })
-                  }
+                  onChange={(event) => setFormData({ ...formData, type_id: event.target.value })}
                 >
                   <MenuItem value="0" disabled>
                     * เลือกประเภทการปฐมพยาบาล
                   </MenuItem>
-                  <MenuItem value="1">
-                    บาดแผลที่เกิดจากการแตกหรือฉีกขาด
-                  </MenuItem>
+                  <MenuItem value="1">บาดแผลที่เกิดจากการแตกหรือฉีกขาด</MenuItem>
                   <MenuItem value="2">บาดแผลที่เกิดจากการบีบหรือกระทบ</MenuItem>
-                  <MenuItem value="3">
-                    บาดแผลที่เกิดจากการเผาไหม้หรือรอยไฟ
-                  </MenuItem>
+                  <MenuItem value="3">บาดแผลที่เกิดจากการเผาไหม้หรือรอยไฟ</MenuItem>
                   <MenuItem value="4">บาดแผลที่เกิดจากการไหลเลือด</MenuItem>
                   <MenuItem value="5">บาดแผลที่เกิดจากการถูกสัตว์กัด</MenuItem>
                 </Select>
               </Grid>
               <Grid item xs={4}>
                 <Typography>Video</Typography>
-                <TextField
-                  variant="outlined"
-                  placeholder="Video"
-                  fullWidth
-                  value={formData.video}
-                  onChange={handleInputChange}
-                  name="video"
-                />
+                <TextField variant="outlined" placeholder="Video" fullWidth value={formData.video} onChange={handleInputChange} name="video" />
               </Grid>
               <Grid item xs={6}>
                 <Typography>Detail</Typography>

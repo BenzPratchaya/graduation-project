@@ -1,25 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {
-  CssBaseline,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  TextField,
-  Grid,
-  Typography,
-  MenuItem,
-  Select,
-} from "@mui/material";
+import { CssBaseline, Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Grid, Typography, MenuItem, Select } from "@mui/material";
 
-function Adminfirstaid_edit({
-  popupedit,
-  setPopupEdit,
-  firstaidId,
-  setFirstaids,
-}) {
+function Adminfirstaid_edit({ popupedit, setPopupEdit, firstaidId, setFirstaids }) {
   const [formData, setFormData] = useState({
     id: "",
     name: "",
@@ -72,27 +55,24 @@ function Adminfirstaid_edit({
       }
       data.append("video", formData.video.replace("watch?v=", "embed/"));
       data.append("type_id", formData.type_id);
-  
+
       const confirmEdit = window.confirm("ต้องการแก้ไขข้อมูลหรือไม่?");
       if (confirmEdit) {
-        await axios.put(
-          `http://localhost:3001/firstaid/update/${firstaidId}`,
-          data,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-  
-        axios.get("http://localhost:3001/firstaids")
+        await axios.put(`http://localhost:3001/firstaid/update/${firstaidId}`, data, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        axios
+          .get("http://localhost:3001/firstaids")
           .then((res) => {
             setFirstaids(res.data);
           })
           .catch((error) => {
             console.error("Error fetching firstaids: ", error);
           });
-  
+
         alert("Firstaid updated successfully");
         setPopupEdit(false);
       }
@@ -106,26 +86,14 @@ function Adminfirstaid_edit({
     <React.Fragment>
       <CssBaseline />
       {/* โค้ดสำหรับ Popup */}
-      <Dialog
-        open={popupedit}
-        onClose={() => setPopupEdit(false)}
-        fullWidth
-        maxWidth="md"
-      >
+      <Dialog open={popupedit} onClose={() => setPopupEdit(false)} fullWidth maxWidth="md">
         <form onSubmit={handleSubmit}>
           <DialogTitle>Create Firstaid</DialogTitle>
           <DialogContent dividers>
             <Grid container spacing={2}>
               <Grid item xs={4}>
                 <Typography>Name</Typography>
-                <TextField
-                  variant="outlined"
-                  placeholder="Name"
-                  fullWidth
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  name="name"
-                />
+                <TextField variant="outlined" placeholder="Name" fullWidth value={formData.name} onChange={handleInputChange} name="name" />
               </Grid>
               <Grid item xs={4}>
                 <Typography>Type</Typography>
@@ -133,34 +101,21 @@ function Adminfirstaid_edit({
                   variant="outlined"
                   fullWidth
                   value={formData.type_id}
-                  onChange={(event) =>
-                    setFormData({ ...formData, type_id: event.target.value })
-                  }
+                  onChange={(event) => setFormData({ ...formData, type_id: event.target.value })}
                 >
                   <MenuItem value="0" disabled>
                     * เลือกประเภทการปฐมพยาบาล
                   </MenuItem>
-                  <MenuItem value="1">
-                    บาดแผลที่เกิดจากการแตกหรือฉีกขาด
-                  </MenuItem>
+                  <MenuItem value="1">บาดแผลที่เกิดจากการแตกหรือฉีกขาด</MenuItem>
                   <MenuItem value="2">บาดแผลที่เกิดจากการบีบหรือกระทบ</MenuItem>
-                  <MenuItem value="3">
-                    บาดแผลที่เกิดจากการเผาไหม้หรือรอยไฟ
-                  </MenuItem>
+                  <MenuItem value="3">บาดแผลที่เกิดจากการเผาไหม้หรือรอยไฟ</MenuItem>
                   <MenuItem value="4">บาดแผลที่เกิดจากการไหลเลือด</MenuItem>
                   <MenuItem value="5">บาดแผลที่เกิดจากการถูกสัตว์กัด</MenuItem>
                 </Select>
               </Grid>
               <Grid item xs={4}>
                 <Typography>Video</Typography>
-                <TextField
-                  variant="outlined"
-                  placeholder="Video"
-                  fullWidth
-                  value={formData.video}
-                  onChange={handleInputChange}
-                  name="video"
-                />
+                <TextField variant="outlined" placeholder="Video" fullWidth value={formData.video} onChange={handleInputChange} name="video" />
               </Grid>
               <Grid item xs={6}>
                 <Typography>Detail</Typography>

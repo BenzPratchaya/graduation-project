@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Link, Typography } from "@mui/material";
 
-export default function Footer() {
+function Footer() {
   function Copyright() {
     return (
       <Typography variant="body2" color="text.secondary" align="center">
@@ -22,12 +22,7 @@ export default function Footer() {
         <Typography variant="h6" align="center" gutterBottom>
           Footer
         </Typography>
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color="text.secondary"
-          component="p"
-        >
+        <Typography variant="subtitle1" align="center" color="text.secondary" component="p">
           Something here to give the footer a purpose!
         </Typography>
         <Copyright />
@@ -36,3 +31,5 @@ export default function Footer() {
     </div>
   );
 }
+
+export default Footer;

@@ -1,19 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {
-  Box,
-  Toolbar,
-  Typography,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Button,
-  IconButton,
-} from "@mui/material";
+import { Box, Toolbar, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AdminfirstaidAdd from "./Adminfirstaid_add";
@@ -38,15 +25,13 @@ function Adminfirstaids() {
   const deleteFirstaid = (id) => {
     const confirmDelete = window.confirm("ต้องการลบข้อมูลหรือไม่?");
     if (confirmDelete) {
-      axios
-        .delete(`http://localhost:3001/firstaid/delete/${id}`)
-        .then((response) => {
-          setFirstaids(
-            firstaids.filter((firstaid) => {
-              return firstaid.id !== id;
-            })
-          );
-        });
+      axios.delete(`http://localhost:3001/firstaid/delete/${id}`).then((response) => {
+        setFirstaids(
+          firstaids.filter((firstaid) => {
+            return firstaid.id !== id;
+          })
+        );
+      });
       console.log("ลบข้อมูล");
     } else {
       console.log("ยกเลิกการลบ");
@@ -59,9 +44,7 @@ function Adminfirstaids() {
 
   const changeUrlVideo = (url) => {
     const embedUrl = url;
-    const imageUrl =
-      embedUrl.replace(/www\.youtube\.com\/embed\//, "img.youtube.com/vi/") +
-      "/maxresdefault.jpg";
+    const imageUrl = embedUrl.replace(/www\.youtube\.com\/embed\//, "img.youtube.com/vi/") + "/maxresdefault.jpg";
 
     return imageUrl;
   };
@@ -89,16 +72,9 @@ function Adminfirstaids() {
           transition: "margin-left 0.3s, width 0.3s",
         }}
       >
-        <Box
-          component="main"
-          sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
-        >
+        <Box component="main" sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}>
           <Toolbar />
-          <Paper
-            elevation={1}
-            className="d-flex justify-content-between"
-            sx={{ p: 3 }}
-          >
+          <Paper elevation={1} className="d-flex justify-content-between" sx={{ p: 3 }}>
             <Typography variant="h5">List of All Firstaids</Typography>
             <Button
               style={{
@@ -133,34 +109,18 @@ function Adminfirstaids() {
                     <TableCell align="center">{firstaid.name}</TableCell>
                     <TableCell align="left">{firstaid.detail}</TableCell>
                     <TableCell align="center">
-                      <img
-                        src={`http://localhost:3001/image/${firstaid.image}`}
-                        style={{ width: "50%" }}
-                        alt=""
-                      />
+                      <img src={`http://localhost:3001/image/${firstaid.image}`} style={{ width: "50%" }} alt="" />
                     </TableCell>
                     <TableCell align="center">
-                      {firstaid.video &&
-                      (firstaid.video.startsWith("http://") ||
-                        firstaid.video.startsWith("https://")) ? (
-                        <a
-                          href={firstaid.video}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <img
-                            src={changeUrlVideo(firstaid.video)}
-                            alt="Video"
-                            style={{ width: "50%" }}
-                          />
+                      {firstaid.video && (firstaid.video.startsWith("http://") || firstaid.video.startsWith("https://")) ? (
+                        <a href={firstaid.video} target="_blank" rel="noopener noreferrer">
+                          <img src={changeUrlVideo(firstaid.video)} alt="Video" style={{ width: "50%" }} />
                         </a>
                       ) : (
                         "ไม่มีวิดีโอ"
                       )}
                     </TableCell>
-                    <TableCell align="center">
-                      {formatDate(firstaid.created_date)}
-                    </TableCell>
+                    <TableCell align="center">{formatDate(firstaid.created_date)}</TableCell>
                     <TableCell align="center">
                       <IconButton
                         sx={{
@@ -203,11 +163,7 @@ function Adminfirstaids() {
               </TableBody>
             </Table>
           </TableContainer>
-          <AdminfirstaidAdd
-            popupadd={popupadd}
-            setPopupAdd={setPopupAdd}
-            setFirstaids={setFirstaids}
-          />
+          <AdminfirstaidAdd popupadd={popupadd} setPopupAdd={setPopupAdd} setFirstaids={setFirstaids} />
           <AdminfirstaidEdit
             popupedit={popupedit}
             setPopupEdit={setPopupEdit}

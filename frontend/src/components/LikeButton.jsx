@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import io from "socket.io-client";
-import "./css/LikeButton.css";
 
 function LikeButton(props) {
   const [liked, setLiked] = useState(props.article.liked);
@@ -29,18 +28,12 @@ function LikeButton(props) {
     const endpoint = liked ? "updateunlike" : "updatelike";
     const method = "put";
 
-    axios[method](
-      `http://localhost:3001/article/${endpoint}/${props.article.article_id}`,
-      { key: props.article.article_id }
-    )
+    axios[method](`http://localhost:3001/article/${endpoint}/${props.article.article_id}`, { key: props.article.article_id })
       .then((response) => {
         console.log(response.data);
-        axios[method](
-          `http://localhost:3001/like/${liked ? "unliked" : "liked"}/${
-            props.article.article_id
-          }/${props.user.id}`,
-          { key: props.article.article_id }
-        )
+        axios[method](`http://localhost:3001/like/${liked ? "unliked" : "liked"}/${props.article.article_id}/${props.user.id}`, {
+          key: props.article.article_id,
+        })
           .then((response) => {
             console.log(response.data);
             // ส่งข้อมูลผ่าน Socket.io เพื่ออัปเดตข้อมูลเมื่อมีการกด Like หรือ Unlike
@@ -74,14 +67,7 @@ function LikeButton(props) {
           <img
             src="http://localhost:3000/images/red-heart-icon.svg"
             alt="Heart Icon"
-            style={{
-              marginTop: "5px",
-              width: "30px",
-              height: "30px",
-              cursor: "pointer",
-              transition: "transform 0.2s ease-in-out",
-              transform: "scale(1)",
-            }}
+            style={heartLiked}
             onMouseEnter={(e) => (e.target.style.transform = "scale(1.1)")}
             onMouseLeave={(e) => (e.target.style.transform = "scale(1)")}
           />
@@ -89,14 +75,7 @@ function LikeButton(props) {
           <img
             src="http://localhost:3000/images/heart-thin-icon.svg"
             alt="Heart Icon"
-            style={{
-              marginTop: "5px",
-              width: "30px",
-              height: "30px",
-              cursor: "pointer",
-              transition: "transform 0.2s ease-in-out",
-              transform: "scale(1)",
-            }}
+            style={heartLike}
             onMouseEnter={(e) => (e.target.style.transform = "scale(1.1)")}
             onMouseLeave={(e) => (e.target.style.transform = "scale(1)")}
           />
@@ -110,3 +89,21 @@ function LikeButton(props) {
 }
 
 export default LikeButton;
+
+const heartLiked = {
+  marginTop: "5px",
+  width: "30px",
+  height: "30px",
+  cursor: "pointer",
+  transition: "transform 0.2s ease-in-out",
+  transform: "scale(1)",
+};
+
+const heartLike = {
+  marginTop: "5px",
+  width: "30px",
+  height: "30px",
+  cursor: "pointer",
+  transition: "transform 0.2s ease-in-out",
+  transform: "scale(1)",
+};

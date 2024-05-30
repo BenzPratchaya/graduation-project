@@ -1,4 +1,11 @@
-.Firstaid,h1,h2,h3,h4,h5{font-family: 'Kanit', sans-serif;}
+.Firstaid,
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Kanit", sans-serif;
+}
 
 /* styles.css */
 .modal {

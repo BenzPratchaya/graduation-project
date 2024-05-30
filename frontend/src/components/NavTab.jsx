@@ -31,7 +31,7 @@ function NavTab() {
     } else {
       setIsLoggedIn(false);
     }
-  }, []); // ใช้เป็น []
+  }, []);
 
   const fetchUserData = (token) => {
     fetch("http://localhost:3001/profile", {
@@ -79,11 +79,7 @@ function NavTab() {
           <Navbar.Brand>ระบบรวบรวมข้อมูลการปฐมพยาบาลเบื้องต้น</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
-            <Nav
-              className="ms-auto my-2 my-lg-0"
-              style={{ maxHeight: "100px" }}
-              navbarScroll
-            >
+            <Nav className="ms-auto my-2 my-lg-0" style={{ maxHeight: "100px" }} navbarScroll>
               <Nav.Link href="/home" className="Nav-Link mx-4">
                 หน้าแรก
               </Nav.Link>
@@ -112,17 +108,11 @@ function NavTab() {
               {user.fname} {user.lname}
             </Navbar.Brand>
             {isLoggedIn ? (
-              <Button
-                className="me-auto mx-2 my-2 my-lg-0 Logout-Button"
-                onClick={handleLogout}
-              >
+              <Button className="me-auto mx-2 my-2 my-lg-0 Logout-Button" onClick={handleLogout}>
                 ออกจากระบบ
               </Button>
             ) : (
-              <Button
-                href="/login"
-                className="me-auto mx-2 my-2 my-lg-0 Logout-Button"
-              >
+              <Button href="/login" className="me-auto mx-2 my-2 my-lg-0 Logout-Button">
                 เข้าสู่ระบบ
               </Button>
             )}

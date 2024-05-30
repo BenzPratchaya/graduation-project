@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { Button } from "react-bootstrap";
 import "./css/Home.css";
 import NavTab from "./NavTab";
 import Articlecards from "./Articlecards.jsx";
+import Articlehome from "./Articlehome.jsx";
 import BannerHome from "./BannerHome.jsx";
 import Footer from "./Footer.jsx";
-import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBriefcaseMedical,
-  faNewspaper,
-  faUser,
-  faComments,
-} from "@fortawesome/free-solid-svg-icons";
-import Articlehome from "./Articlehome.jsx";
+import { faBriefcaseMedical, faNewspaper, faUser, faComments } from "@fortawesome/free-solid-svg-icons";
 
 function Home() {
   const [articles, setArticles] = useState([]);
@@ -39,56 +34,30 @@ function Home() {
       {/* NAVBAR */}
       <NavTab />
       {/* END NAVBAR */}
-      <BannerHome
-        title="ยินดีต้อนรับสู่เว็บไซต์การปฐมพยาบาลเบื้องต้น"
-        page=""
-      />
+      <BannerHome title="ยินดีต้อนรับสู่เว็บไซต์การปฐมพยาบาลเบื้องต้น" page="" />
       <br />
       <section class="functional">
         <div class="container">
           <div class="row">
             <div class="col">
-              <FontAwesomeIcon
-                icon={faBriefcaseMedical}
-                style={{ height: "60px", marginBottom: "10px" }}
-              />
+              <FontAwesomeIcon icon={faBriefcaseMedical} style={{ height: "60px", marginBottom: "10px" }} />
               <h3>ปฐมพยาบาลเบื้องต้น</h3>
-              <p>
-                การปฐมพยาบาลในกรณีเบื้องต้น เช่น การให้ CPR,
-                การปฐมพยาบาลในสถานการณ์เฉพาะ
-              </p>
+              <p>การปฐมพยาบาลในกรณีเบื้องต้น เช่น การให้ CPR, การปฐมพยาบาลในสถานการณ์เฉพาะ</p>
             </div>
             <div class="col">
-              <FontAwesomeIcon
-                icon={faNewspaper}
-                style={{ height: "60px", marginBottom: "10px" }}
-              />
+              <FontAwesomeIcon icon={faNewspaper} style={{ height: "60px", marginBottom: "10px" }} />
               <h3>บทความสุขภาพ</h3>
-              <p>
-                บทความที่เกี่ยวกับสุขภาพทั่วไป เช่น การดูแลสุขภาพร่างกาย,
-                การบำบัดอาการที่พบบ่อย ความดันโลหิตสูง, เบาหวาน เป็นต้น
-              </p>
+              <p>บทความที่เกี่ยวกับสุขภาพทั่วไป เช่น การดูแลสุขภาพร่างกาย, การบำบัดอาการที่พบบ่อย ความดันโลหิตสูง, เบาหวาน เป็นต้น</p>
             </div>
             <div class="col">
-              <FontAwesomeIcon
-                icon={faUser}
-                style={{ height: "60px", marginBottom: "10px" }}
-              />
+              <FontAwesomeIcon icon={faUser} style={{ height: "60px", marginBottom: "10px" }} />
               <h3>แอดมิน</h3>
-              <p>
-                เป็นพื้นที่ที่แสดงข้อมูลต่างๆของเว็บไซต์เพื่อให้ทีมงานสามารถอัพเดทข้อมูลต่างๆได้
-              </p>
+              <p>เป็นพื้นที่ที่แสดงข้อมูลต่างๆของเว็บไซต์เพื่อให้ทีมงานสามารถอัพเดทข้อมูลต่างๆได้</p>
             </div>
             <div class="col">
-              <FontAwesomeIcon
-                icon={faComments}
-                style={{ height: "60px", marginBottom: "10px" }}
-              />
+              <FontAwesomeIcon icon={faComments} style={{ height: "60px", marginBottom: "10px" }} />
               <h3>ถูกใจ แสดงความคิดเห็น</h3>
-              <p>
-                เป็นพื้นที่ที่ผู้ใช้งานสามารถแสดงความคิดเห็นหรือข้อเสนอแนะต่างๆ
-                เกี่ยวกับเว็บไซต์
-              </p>
+              <p>เป็นพื้นที่ที่ผู้ใช้งานสามารถแสดงความคิดเห็นหรือข้อเสนอแนะต่างๆ เกี่ยวกับเว็บไซต์</p>
             </div>
           </div>
         </div>
@@ -98,16 +67,12 @@ function Home() {
         <div class="container">
           <div class="row">
             <div class="firstaid-pic">
-              <img
-                src="http://localhost:3000/images/first-aid-1080x675.jpeg"
-                alt=""
-              />
+              <img src="http://localhost:3000/images/first-aid-1080x675.jpeg" alt="" />
             </div>
             <div class="firstaid-content">
               <h3>การปฐมพยาบาลเบื้องต้น</h3>
               <p>
-                เป็นระบบที่ให้ผู้ใช้สามารถสืบค้นหาข้อมูลเกี่ยวกับวิธีกาปฐมพยาบาลเบื้องต้นได้
-                เนื้อหาและข้อมูลของการปฐมพยาบาลเบื้องต้น
+                เป็นระบบที่ให้ผู้ใช้สามารถสืบค้นหาข้อมูลเกี่ยวกับวิธีกาปฐมพยาบาลเบื้องต้นได้ เนื้อหาและข้อมูลของการปฐมพยาบาลเบื้องต้น
                 เป็นข้อมูลซึ่งได้มาจากการสืบค้นและนำมาใช้อ้างอิงเพื่อการปฐมพยาบาลเบื้องต้น
               </p>
               <br />
@@ -143,10 +108,7 @@ function Home() {
         <div class="content">
           <h3>บทความเพื่อสุขภาพ</h3>
           <h1>อัพเดทตามสถานการณ์ปัจจุบัน</h1>
-          <Button
-            href="/article"
-            className="w3-button w3-padding-large w3-white w3-border me-2"
-          >
+          <Button href="/article" className="w3-button w3-padding-large w3-white w3-border me-2">
             บทความเพื่อสุขภาพ
           </Button>
         </div>

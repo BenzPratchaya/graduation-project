@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleLeft } from "@fortawesome/free-solid-svg-icons";
@@ -48,15 +47,10 @@ function Banner(props) {
         </div>
         <div className="container">
           <div className="content">
-            <h1
-              id="banner_Tx"
-              style={{ textAlign: "center", fontSize: "48px", color: "black" }}
-            >
+            <h1 id="banner_Tx" style={{ textAlign: "center", fontSize: "48px", color: "black" }}>
               {props.title}
             </h1>
-            <p
-              style={{ textAlign: "center", fontSize: "24px", color: "black" }}
-            >
+            <p style={{ textAlign: "center", fontSize: "24px", color: "black" }}>
               Home / Pages / <span>{props.page}</span>
             </p>
           </div>

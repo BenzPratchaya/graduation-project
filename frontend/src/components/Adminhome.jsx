@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {
-  Box,
-  Toolbar,
-  Typography,
-  Paper,
-  Button,
-  TextField,
-} from "@mui/material";
+import { Box, Toolbar, Typography, Paper, Button, TextField } from "@mui/material";
 import Adminsidebar from "./Adminsidebar";
 import Articlehome from "./Articlehome";
 
@@ -41,31 +34,19 @@ function Adminhome({}) {
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:3001/articlelistsearch",
-        {
-          params: { q: searchTerm },
-        }
-      );
+      const response = await axios.get("http://localhost:3001/articlelistsearch", {
+        params: { q: searchTerm },
+      });
       const searchedArticles = response.data;
 
       // จัดเก็บค่าที่ไม่ได้ถูกค้นหาไว้ในอาร์เรย์เพิ่มเติม
-      const notSearchedArticles = articles.filter((article) =>
-        searchedArticles.every(
-          (searchedArticle) => searchedArticle.id !== article.id
-        )
-      );
+      const notSearchedArticles = articles.filter((article) => searchedArticles.every((searchedArticle) => searchedArticle.id !== article.id));
 
       // จัดเรียง notSearchedArticles ตาม created_date ในลำดับจากล่าสุดไปเก่าสุด
-      const sortedNotSearchedArticles = notSearchedArticles.sort(
-        (a, b) => new Date(b.created_date) - new Date(a.created_date)
-      );
+      const sortedNotSearchedArticles = notSearchedArticles.sort((a, b) => new Date(b.created_date) - new Date(a.created_date));
 
       // รวมอาร์เรย์ที่ถูกค้นหาและไม่ได้ถูกค้นหาเข้าด้วยกัน
-      const combinedArticles = [
-        ...searchedArticles,
-        ...sortedNotSearchedArticles,
-      ];
+      const combinedArticles = [...searchedArticles, ...sortedNotSearchedArticles];
 
       setArticleList(combinedArticles);
       localStorage.setItem("searchTerm", searchTerm);
@@ -96,16 +77,9 @@ function Adminhome({}) {
             transition: "margin-left 0.3s, width 0.3s",
           }}
         >
-          <Box
-            component="main"
-            sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
-          >
+          <Box component="main" sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}>
             <Toolbar />
-            <Paper
-              elevation={1}
-              className="d-flex justify-content-between"
-              sx={{ p: 3, alignItems: "center" }}
-            >
+            <Paper elevation={1} className="d-flex justify-content-between" sx={{ p: 3, alignItems: "center" }}>
               <Typography variant="h5">Articles</Typography>
 
               <TextField

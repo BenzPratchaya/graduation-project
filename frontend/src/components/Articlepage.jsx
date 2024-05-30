@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import "./css/Articledata.css";
 import CommentAdd from "./Comment_add";
@@ -75,9 +75,8 @@ const Articlepage = ({ user }) => {
 
             <div className="container container-sm">
               <hr />
-              What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the
-              printing and typesetting industry. Lorem Ipsum has been the
-              industry's standard dummy text ever since the 1500s,
+              What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+              standard dummy text ever since the 1500s,
             </div>
             <br />
           </Col>

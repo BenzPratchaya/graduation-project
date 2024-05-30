@@ -1,96 +1,92 @@
-import * as React from "react";
-import {
-  Button,
-  CssBaseline,
-  TextField,
-  Link,
-  Box,
-  Grid,
-  Typography,
-  Snackbar,
-  Alert,
-} from "@mui/material";
+import React from "react";
+import { Button, CssBaseline, TextField, Link, Box, Grid, Typography } from "@mui/material";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 export default function SignUp() {
-  const [openSnackbar, setOpenSnackbar] = React.useState(false);
-  const [snackbarMessage, setSnackbarMessage] = React.useState("");
-  const [snackbarSeverity, setSnackbarSeverity] = React.useState("success");
+  const MySwal = withReactContent(Swal);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     const data = new FormData(event.currentTarget);
 
-    if (
-      !data.get("firstName") ||
-      !data.get("lastName") ||
-      !data.get("email") ||
-      !data.get("password")
-    ) {
-      setSnackbarMessage("Please fill in all fields");
-      setSnackbarSeverity("error");
-      setOpenSnackbar(true);
-      return;
-    }
-
-    const jsonData = {
-      email: data.get("email"),
-      password: data.get("password"),
-      fname: data.get("firstName"),
-      lname: data.get("lastName"),
-    };
-
-    fetch("http://localhost:3001/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(jsonData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.status === "ok") {
-          setSnackbarMessage("Register success");
-          setSnackbarSeverity("success");
-          setOpenSnackbar(true);
-          setTimeout(() => {
-            window.location = "/login";
-          }, 1000);
-        } else {
-          if (data.message === "Email already exists") {
-            setSnackbarMessage(
-              "Email already exists. Please use a different email."
-            );
-          } else if (data.message === "Invalid email format") {
-            setSnackbarMessage("Invalid email format");
-          } else {
-            setSnackbarMessage("Register failed");
-          }
-          setSnackbarSeverity("error");
-          setOpenSnackbar(true);
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        setSnackbarMessage("An error occurred");
-        setSnackbarSeverity("error");
-        setOpenSnackbar(true);
+    if (!data.get("firstName") || !data.get("lastName") || !data.get("email") || !data.get("password")) {
+      MySwal.fire({
+        title: "ล้มเหลว",
+        text: "Please fill in all fields.",
+        icon: "error",
+        confirmButtonText: "OK",
       });
-  };
-
-  const handleCloseSnackbar = (event, reason) => {
-    if (reason === "clickaway") {
       return;
     }
-    setOpenSnackbar(false);
+
+    MySwal.fire({
+      title: "ต้องการลงทะเบียนใช่หรือไม่?",
+      text: "Do you want to submit the form?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "ลงทะเบียน",
+      cancelButtonText: "ยกเลิก",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const jsonData = {
+          email: data.get("email"),
+          password: data.get("password"),
+          fname: data.get("firstName"),
+          lname: data.get("lastName"),
+        };
+
+        fetch("http://localhost:3001/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(jsonData),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.status === "ok") {
+              MySwal.fire({
+                title: "ลงทะเบียนสำเร็จ",
+                text: "You have successfully registered.",
+                icon: "success",
+                confirmButtonText: "ยืนยัน",
+              }).then(() => {
+                window.location = "/login";
+              });
+            } else {
+              let message = "Register failed";
+              if (data.message === "Email already exists") {
+                message = "Email already exists. Please use a different email.";
+              } else if (data.message === "Invalid email format") {
+                message = "Invalid email format.";
+              }
+              MySwal.fire({
+                title: "ลงทะเบียนล้มเหลว",
+                text: message,
+                icon: "error",
+                confirmButtonText: "ยืนยัน",
+              });
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            MySwal.fire({
+              title: "Error",
+              text: "An error occurred",
+              icon: "error",
+              confirmButtonText: "OK",
+            });
+          });
+      }
+    });
   };
 
   return (
     <div
       className="register"
       style={{
-        backgroundImage:
-          "url('http://localhost:3000/images/Gemini_Generated_Image_nvo12snvo12snvo1.jpg')",
+        backgroundImage: "url('http://localhost:3000/images/Gemini_Generated_Image_nvo12snvo12snvo1.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         height: "100vh",
@@ -132,12 +128,7 @@ export default function SignUp() {
             <Typography component="h1" variant="h4">
               ลงทะเบียนผู้ใช้
             </Typography>
-            <Box
-              component="form"
-              noValidate
-              onSubmit={handleSubmit}
-              sx={{ mt: 3 }}
-            >
+            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField
@@ -215,9 +206,7 @@ export default function SignUp() {
               <Grid container justifyContent="flex-end">
                 <Grid item>
                   <Box display="flex" alignItems="center">
-                    <Typography variant="body2">
-                      มีบัญชีอยู่แล้ว?&nbsp;
-                    </Typography>
+                    <Typography variant="body2">มีบัญชีอยู่แล้ว?&nbsp;</Typography>
                     <Link
                       href="/login"
                       variant="body2"
@@ -240,15 +229,6 @@ export default function SignUp() {
           </Box>
         </Grid>
       </Grid>
-      <Snackbar
-        open={openSnackbar}
-        autoHideDuration={6000}
-        onClose={handleCloseSnackbar}
-      >
-        <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity}>
-          {snackbarMessage}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }

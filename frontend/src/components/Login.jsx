@@ -1,16 +1,9 @@
 import React, { useState, useEffect } from "react";
-import {
-  Button,
-  CssBaseline,
-  TextField,
-  Link,
-  Box,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Button, CssBaseline, TextField, Link, Box, Grid, Typography } from "@mui/material";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import "./css/Login.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleLeft } from "@fortawesome/free-solid-svg-icons";
 
 export default function Login() {
   const [user, setUser] = useState([]);
@@ -73,16 +66,25 @@ export default function Login() {
   };
 
   return (
-    <div
-      className="login"
-      style={{
-        backgroundImage:
-          "url('http://localhost:3000/images/login-register.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        height: "100vh",
-      }}
-    >
+    <div className="login" style={loginStyle}>
+      <Link href="/home" style={linkStyle}>
+        <FontAwesomeIcon
+          icon={faCircleLeft}
+          style={{
+            color: "rgba(0, 0, 0, 0.3)",
+            padding: "10px",
+            width: "40px",
+            height: "40px",
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.color = "rgba(0, 0, 0, 0.7)";
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.color = "rgba(0, 0, 0, 0.3)";
+          }}
+        />
+        <Typography>กลับสู่หน้าแรก</Typography>
+      </Link>
       <Grid
         container
         component="main"
@@ -123,7 +125,9 @@ export default function Login() {
               component="form"
               noValidate
               onSubmit={handleSubmit}
-              sx={{ mt: 1 }}
+              sx={{
+                mt: 1,
+              }}
             >
               <TextField
                 margin="normal"
@@ -155,8 +159,14 @@ export default function Login() {
                   },
                 }}
               />
-
-              <Grid container sx={{ mt: 2, mb: 2, justifyContent: "center" }}>
+              <Grid
+                container
+                sx={{
+                  mt: 2,
+                  mb: 2,
+                  justifyContent: "center",
+                }}
+              >
                 <Button
                   className="rounded-pill"
                   type="submit"
@@ -164,7 +174,9 @@ export default function Login() {
                   sx={{
                     width: "50%",
                     bgcolor: "#4761ff",
-                    "&:hover": { bgcolor: "#304ffe" },
+                    "&:hover": {
+                      bgcolor: "#304ffe",
+                    },
                   }}
                 >
                   เข้าสู่ระบบ
@@ -199,3 +211,23 @@ export default function Login() {
     </div>
   );
 }
+
+const loginStyle = {
+  backgroundImage: "url('http://localhost:3000/images/login-register.jpg')",
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  height: "100vh",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  position: "relative",
+};
+
+const linkStyle = {
+  position: "absolute",
+  top: 10,
+  left: 10,
+  display: "flex",
+  alignItems: "center",
+  textDecoration: "none",
+};
