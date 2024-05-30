@@ -1,26 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-
-import Login from "./components/Login.jsx";
-import Firstaid from "./components/Firstaid.jsx";
-import Register from "./components/Register.jsx";
 import Home from "./components/Home.jsx";
+import Login from "./components/Login.jsx";
+import Register from "./components/Register.jsx";
+import NavTab from "./components/NavTab.jsx";
+import Footer from "./components/Footer.jsx";
+import Firstaid from "./components/Firstaid.jsx";
 import Article from "./components/Article.jsx";
+import Articlepage from "./components/Articlepage.jsx";
 import Article1 from "./components/Article1.jsx";
 import Article2 from "./components/Article2.jsx";
 import Article3 from "./components/Article3.jsx";
 import Article4 from "./components/Article4.jsx";
 import Article5 from "./components/Article5.jsx";
 import Article6 from "./components/Article6.jsx";
-import NavTab from "./components/NavTab.jsx";
-import Footer from "./components/Footer.jsx";
 import Admin from "./components/Admin.jsx";
+import Admindashboard from "./components/Admindashboard.jsx";
+import Adminhome from "./components/Adminhome.jsx";
 import Adminusers from "./components/Adminusers.jsx";
 import Adminfirstaids from "./components/Adminfirstaids.jsx";
 import Adminarticles from "./components/Adminarticles.jsx";
-import Admindashboard from "./components/Admindashboard.jsx";
-import Adminhome from "./components/Adminhome.jsx";
-import Articlepage from "./components/Articlepage.jsx";
 
 function App() {
   const [user, setUser] = useState([]);
@@ -55,13 +54,14 @@ function App() {
     <div>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/home" element={<Home />} />
         <Route path="/navtab" element={<NavTab />} />
         <Route path="/footer" element={<Footer />} />
         <Route path="/firstaid" element={<Firstaid />} />
         <Route path="/article" element={<Article user={user} />} />
+        <Route path="/article/:articleId" element={<Articlepage user={user} />} />
         <Route path="/article/article1" element={<Article1 />} />
         <Route path="/article/article2" element={<Article2 />} />
         <Route path="/article/article3" element={<Article3 />} />
@@ -74,7 +74,6 @@ function App() {
         <Route path="/admin/users" element={<Adminusers />} />
         <Route path="/admin/firstaids" element={<Adminfirstaids />} />
         <Route path="/admin/articles" element={<Adminarticles />} />
-        <Route path="/article/:articleId" element={<Articlepage user={user}/>} />
       </Routes>
     </div>
   );
