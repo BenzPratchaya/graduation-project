@@ -6,7 +6,7 @@ import NavTab from "./NavTab";
 import Banner from "./Banner.jsx";
 import Footer from "./Footer";
 import Firstaidintro from "./Firstaidintro";
-import Firstaidlist from "./Firstaidlist.jsx";
+import Firstaidcontent from "./Firstaidcontent.jsx";
 
 export default function Firstaid() {
   const [firstaids, setFirstaids] = useState([]);
@@ -85,7 +85,7 @@ export default function Firstaid() {
               ค้นหา
             </Button>
           </Form>
-          <Firstaidlist firstaids={firstaids} filteredResults={filteredResults} />
+          <Firstaidcontent firstaids={firstaids} filteredResults={filteredResults} />
         </Container>
       </div>
       {/* ------------------------------------End Hero ------------------------------------*/}
