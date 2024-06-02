@@ -6,6 +6,10 @@ import "./css/Articledata.css";
 import CommentAdd from "./Comment_add";
 import Bannerpage from "./Bannerpage";
 import Articlepost from "./Articlepost";
+import Article1 from "../article/Article1";
+import Article2 from "../article/Article2";
+import Article3 from "../article/Article3";
+import Article4 from "../article/Article4";
 
 const Articlepage = ({ user }) => {
   const { articleId } = useParams();
@@ -31,10 +35,25 @@ const Articlepage = ({ user }) => {
     return <div>Loading...</div>;
   }
 
+  const selectArticleComponent = (articleId) => {
+    switch (articleId) {
+      case "1":
+        return <Article1 />;
+      case "2":
+        return <Article2 />;
+      case "3":
+        return <Article3 />;
+      case "4":
+        return <Article4 />;
+      default:
+        return <div>ไม่พบบทความที่ต้องการ {articleId}</div>;
+    }
+  };
+
   return (
     <div className="Article1">
       {/* <!-- Banner --> */}
-      <div class="banner-container">
+      <div className="banner-container">
         <Bannerpage title="บทความเพื่อสุขภาพ" page="Articles"></Bannerpage>
       </div>
       {/* <!-- END Banner --> */}
@@ -75,8 +94,9 @@ const Articlepage = ({ user }) => {
 
             <div className="container container-sm">
               <hr />
-              What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-              standard dummy text ever since the 1500s,
+              {/* Article */}
+              {selectArticleComponent(articleId)}
+              {/* Article */}
             </div>
             <br />
           </Col>

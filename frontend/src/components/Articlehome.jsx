@@ -47,14 +47,14 @@ function Articlehome({ articlelist }) {
               <a href={`/article/${articlelist[2].id}`} style={bottomArticleStyle}>
                 <img src={`http://localhost:3001/image/${articlelist[2].image}`} alt="Bottom Left Article" style={imageStyle} />
                 <h3 style={h3Style}>{articlelist[2].title}</h3>
-                <p style={pStyle}>{formatDateTimeToThai(articlelist[2].created_date)} น.</p>
+                <p style={pBottomStyle}>{formatDateTimeToThai(articlelist[2].created_date)} น.</p>
               </a>
             )}
             {articlelist[3] && (
               <a href={`/article/${articlelist[3].id}`} style={bottomArticleStyle}>
                 <img src={`http://localhost:3001/image/${articlelist[3].image}`} alt="Bottom Right Article" style={imageStyle} />
                 <h3 style={h3Style}>{articlelist[3].title}</h3>
-                <p style={pStyle}>{formatDateTimeToThai(articlelist[3].created_date)} น.</p>
+                <p style={pBottomStyle}>{formatDateTimeToThai(articlelist[3].created_date)} น.</p>
               </a>
             )}
           </div>
@@ -106,7 +106,9 @@ const bottomRowStyle = {
 
 const bottomArticleStyle = {
   flex: "1",
-  position: "relative",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-between",
   border: "1px solid #ddd",
   borderRadius: "10px",
   overflow: "hidden",
@@ -121,17 +123,26 @@ const imageStyle = {
 };
 
 const contentStyle = {
-  padding: "20px",
+  margin: "10px 0",
 };
 
 const h2Style = {
-  margin: "10px 0",
+  padding: "0 10px",
 };
 
 const h3Style = {
   margin: "10px 0",
+  padding: "0 10px",
+  flex: "1",
 };
 
 const pStyle = {
   color: "gray",
+  padding: "0 10px 10px 10px",
+};
+
+const pBottomStyle = {
+  color: "gray",
+  padding: "10px",
+  marginTop: "auto",
 };

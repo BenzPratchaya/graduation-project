@@ -1,9 +1,8 @@
 import React from "react";
-import "./css/Articledata.css";
 
 function Article2() {
   return (
-    <div className="Article2">
+    <div className="Article1">
       <div className="container w3-padding">
         <h1 className="fw-bold">
           เคล็ดลับการป้องกันโรค

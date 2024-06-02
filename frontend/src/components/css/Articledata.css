@@ -6,48 +6,22 @@ h4,
 h5 {
   font-family: "Kanit", sans-serif;
 }
-.Article2,
-h1,
-h2,
-h3,
-h4,
-h5 {
-  font-family: "Kanit", sans-serif;
-}
-.Article3,
-h1,
-h2,
-h3,
-h4,
-h5 {
-  font-family: "Kanit", sans-serif;
-}
-.Article4,
-h1,
-h2,
-h3,
-h4,
-h5 {
-  font-family: "Kanit", sans-serif;
-}
-.Article5,
-h1,
-h2,
-h3,
-h4,
-h5 {
-  font-family: "Kanit", sans-serif;
-}
-.Article6,
-h1,
-h2,
-h3,
-h4,
-h5 {
-  font-family: "Kanit", sans-serif;
-}
 
 p {
   margin-top: auto;
   margin-bottom: auto;
+  color: #00000080;
+}
+
+.header-title{
+  margin: 40px 0px 10px 0px;
+  font-size: 30px;
+  color: grey;
+}
+
+.header-content {
+  margin: 40px 0px 10px 0px;
+  font-size: 18px;
+  font-weight: bold;
+  color: grey;
 }

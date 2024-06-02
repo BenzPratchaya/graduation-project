@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Container, Row, Col, Card, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import "./css/Article.css";
 import Articlepost from "./Articlepost.jsx";
 import LikeButton from "./LikeButton.jsx";
 
@@ -85,22 +84,26 @@ function Articlecontent(props) {
                     {/* คอลัมการ์ด */}
                     <Card style={{ width: "100%" }} className="w3-card-4 w3-margin w3-white">
                       <Card.Img variant="top" src={`http://localhost:3001/image/${article.image}`} style={{ width: "100%", height: "20rem" }} />
-                      <Card.Body>
-                        <Card.Title style={{ backgroundColor: "white", color: "black" }}>{article.title}</Card.Title>
-                        <Card.Text
-                          /*className="text-truncate"*/ style={{
-                            height: "8rem",
-                          }}
-                        >
-                          {article.content}
-                        </Card.Text>
-                        {/* <!-- user ที่ไม่ได้ login เข้ามาดูได้ --> */}
-                        <Link to={`/article/${article.article_id !== undefined ? article.article_id : article.id}`}>
-                          <Button className="w3-button w3-padding-large w3-white w3-border">Read More</Button>
-                        </Link>
+                      <Card.Body style={{ display: "flex", flexDirection: "column", height: "20rem" }}>
+                        <div style={{ marginBottom: "auto" }}>
+                          {/* Title และ Text ชิดบน */}
+                          <Card.Title style={{ backgroundColor: "white", color: "black" }}>{article.title}</Card.Title>
+                          <Card.Text>{article.content}</Card.Text>
+                        </div>
+                        
+                        <div style={{ marginTop: "auto" }}>
                         <hr />
-                        <div className="d-flex justify-content-between">
-                          <LikeButton id={article.id} article={article} user={props.user} />
+                          {/* Link และ Like Button ชิดล่าง */}
+                          <div style={{ display: "flex", justifyContent: "space-between" }}>
+                            
+                            {/* Like Button */}
+                            <LikeButton id={article.id} article={article} user={props.user} />
+                            {/* Link */}
+                            <Link to={`/article/${article.article_id !== undefined ? article.article_id : article.id}`}>
+                              <Button className="w3-button w3-padding-large w3-white w3-border">Read More</Button>
+                            </Link>
+                          </div>
+                          
                         </div>
                       </Card.Body>
                     </Card>

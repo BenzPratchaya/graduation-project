@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Carousel, Row, Col } from "react-bootstrap";
+import { Container, Carousel, Row, Col, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 function Articlecards(props) {
@@ -24,16 +24,16 @@ function Articlecards(props) {
               <Row>
                 {chunk.map((card) => (
                   <Col key={card.id} md={4} className="mb-4">
-                    <div className="card w3-light-grey">
+                    <Card className="w3-light-grey">
                       <Link component={Link} to={`/article/${card.id}`} style={{ textDecoration: "none", color: "black" }}>
-                        <img src={`http://localhost:3001/image/${card.image}`} alt={`Card ${card.id}`} className="card-img-top" />
-                        <div className="card-body">
-                          <p className="card-title">{card.title}</p>
-                          <p className="card-content">{card.content}</p>
+                        <Card.Img src={`http://localhost:3001/image/${card.image}`} alt={`Card ${card.id}`} />
+                        <Card.Body>
+                          <Card.Title>{card.title}</Card.Title>
+                          <Card.Text>{card.content}</Card.Text>
                           {/* <Button className="btn btn-light">Read More</Button> */}
-                        </div>
+                        </Card.Body>
                       </Link>
-                    </div>
+                    </Card>
                   </Col>
                 ))}
               </Row>
