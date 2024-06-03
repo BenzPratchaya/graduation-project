@@ -13,20 +13,28 @@ router.use(express.static(path.join(__dirname, "upload/images")));
 const storage = multer.diskStorage({
   destination: "./upload/images",
   filename: (req, file, cb) => {
-    const date = new Date();
-    const hours = String(date.getHours()).padStart(2, "0");
-    const minutes = String(date.getMinutes()).padStart(2, "0");
-    const seconds = String(date.getSeconds()).padStart(2, "0");
-    const timestamp = `${hours}${minutes}${seconds}`;
-
     const originalName = file.originalname;
-    const ext = path.extname(originalName);
-    const nameWithoutExt = path.basename(originalName, ext);
-
-    const newFilename = `${nameWithoutExt}_${timestamp}${ext}`;
-    return cb(null, newFilename);
+    return cb(null, originalName);
   },
 });
+
+// const storage = multer.diskStorage({
+//   destination: "./upload/images",
+//   filename: (req, file, cb) => {
+//     const date = new Date();
+//     const hours = String(date.getHours()).padStart(2, "0");
+//     const minutes = String(date.getMinutes()).padStart(2, "0");
+//     const seconds = String(date.getSeconds()).padStart(2, "0");
+//     const timestamp = `${hours}${minutes}${seconds}`;
+
+//     const originalName = file.originalname;
+//     const ext = path.extname(originalName);
+//     const nameWithoutExt = path.basename(originalName, ext);
+
+//     const newFilename = `${nameWithoutExt}_${timestamp}${ext}`;
+//     return cb(null, newFilename);
+//   },
+// });
 
 const upload = multer({
   storage: storage,
