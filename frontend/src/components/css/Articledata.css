@@ -8,12 +8,11 @@ h5 {
 }
 
 p {
-  margin-top: auto;
-  margin-bottom: auto;
+  margin: 10px 0px;
   color: #00000080;
 }
 
-.header-title{
+.header-title {
   margin: 40px 0px 10px 0px;
   font-size: 30px;
   color: grey;

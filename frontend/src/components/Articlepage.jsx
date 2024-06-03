@@ -10,6 +10,12 @@ import Article1 from "../article/Article1";
 import Article2 from "../article/Article2";
 import Article3 from "../article/Article3";
 import Article4 from "../article/Article4";
+import Article5 from "../article/Article5";
+import Article6 from "../article/Article6";
+import Article7 from "../article/Article7";
+import Article8 from "../article/Article8";
+import Article9 from "../article/Article9";
+import Article10 from "../article/Article10";
 
 const Articlepage = ({ user }) => {
   const { articleId } = useParams();
@@ -45,6 +51,18 @@ const Articlepage = ({ user }) => {
         return <Article3 />;
       case "4":
         return <Article4 />;
+      case "5":
+        return <Article5 />;
+      case "6":
+        return <Article6 />;
+      case "7":
+        return <Article7 />;
+      case "8":
+        return <Article8 />;
+      case "9":
+        return <Article9 />;
+      case "10":
+        return <Article10 />;
       default:
         return <div>ไม่พบบทความที่ต้องการ {articleId}</div>;
     }
@@ -88,10 +106,6 @@ const Articlepage = ({ user }) => {
                 }}
               />
             </div>
-            <div className="w3-padding">
-              <h2>{article.content}</h2>
-            </div>
-
             <div className="container container-sm">
               <hr />
               {/* Article */}
@@ -100,7 +114,6 @@ const Articlepage = ({ user }) => {
             </div>
             <br />
           </Col>
-
           {/* <!-- Introduction menu --> */}
           <Articlepost postList={articles} />
           {/* <!-- END Introduction Menu --> */}
