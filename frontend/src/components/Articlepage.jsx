@@ -5,6 +5,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import "./css/Articledata.css";
 import CommentAdd from "./Comment_add";
 import Bannerpage from "./Bannerpage";
+import Footer from "./Footer";
 import Articlepost from "./Articlepost";
 import Article1 from "../article/Article1";
 import Article2 from "../article/Article2";
@@ -72,7 +73,7 @@ const Articlepage = ({ user }) => {
     <div className="Article1">
       {/* <!-- Banner --> */}
       <div className="banner-container">
-        <Bannerpage title="บทความเพื่อสุขภาพ" page="Articles"></Bannerpage>
+        <Bannerpage title="บทความเพื่อสุขภาพ" page="Articles" link="/article"></Bannerpage>
       </div>
       {/* <!-- END Banner --> */}
       <Container
@@ -122,6 +123,7 @@ const Articlepage = ({ user }) => {
         <CommentAdd articleId={articleId} user={user} />
         {/* <!-- END Comment --> */}
       </Container>
+      <Footer/>
     </div>
   );
 };

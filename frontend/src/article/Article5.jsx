@@ -116,7 +116,7 @@ function Article5() {
           <li>
             <p>
               การดูแลสุขภาพระบบลำไส้โดยการหลีกเลี่ยงอาหารแปรรูป เช่น อาหารประเภท Fast Food หรือ Junk Food
-              ร่วมกับการให้ระบบย่อยอาหารและสำไส้ได้หยุดพักเป็นระยะหรือการฝึกกินแบบ Intermittent Fasting หรือ Prolonged Fasting{" "}
+              ร่วมกับการให้ระบบย่อยอาหารและสำไส้ได้หยุดพักเป็นระยะหรือการฝึกกินแบบ Intermittent Fasting หรือ Prolonged Fasting
             </p>
           </li>
           <li>

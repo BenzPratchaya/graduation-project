@@ -101,7 +101,7 @@ function Adminhome({}) {
               </Button>
             </Paper>
             <br />
-            <div className="article-container">
+            {/* <div className="article-container">
               {articlelist && articlelist.length > 0 ? (
                 articlelist.map((article) => (
                   <div key={article.id} className="card">
@@ -113,7 +113,7 @@ function Adminhome({}) {
               ) : (
                 <p>No articles found</p>
               )}
-            </div>
+            </div> */}
             {/* -------------------- Articlehome ------------------------ */}
             <Articlehome articlelist={articlelist} />
             {/* -------------------- End Articlehome ------------------------ */}

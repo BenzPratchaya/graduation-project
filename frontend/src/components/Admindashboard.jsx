@@ -12,6 +12,7 @@ function Admindashboard() {
   const [countmonth, setCountMonth] = useState([]);
   const [accounttype, setACCountType] = useState([]);
   const [facounttype, setFACountType] = useState([]);
+  const [facountmonth, setFACountMonth] = useState([]);
   const [showFirstGraph, setShowFirstGraph] = useState(false);
   const [showSecondGraph, setShowSecondGraph] = useState(false);
   const [showThirdGraph, setShowThirdGraph] = useState(false);
@@ -68,6 +69,10 @@ function Admindashboard() {
       const facounttypeResponse = await fetch("http://localhost:3001/firstaids/counttype");
       const facounttypeData = await facounttypeResponse.json();
       setFACountType(facounttypeData);
+
+      const facountmonthResponse = await fetch("http://localhost:3001/firstaids/countmonth");
+      const facountmonthData = await facountmonthResponse.json();
+      setFACountMonth(facountmonthData)
 
       const articlesResponse = await fetch("http://localhost:3001/articles");
       const articlesData = await articlesResponse.json();
@@ -170,13 +175,27 @@ function Admindashboard() {
       const myFirstaidChart = new Chart(firstaidchart1, {
         type: "bar",
         data: {
-          labels: ["A", "B", "C", "D", "E"],
+          labels: facountmonth.map((item) => item.date).slice(0, 10),
           datasets: [
             {
-              label: "Sample Data",
-              data: [10, 20, 30, 40, 50],
-              backgroundColor: "rgba(54, 162, 235, 0.2)",
-              borderColor: "rgba(54, 162, 235, 1)",
+              label: "จำนวนการปฐมพยาบาล",
+              data: facountmonth.map((item) => item.count).slice(0, 10),
+              backgroundColor: [
+                "rgba(255, 99, 132, 0.2)",
+                "rgba(54, 162, 235, 0.2)",
+                "rgba(255, 206, 86, 0.2)",
+                "rgba(75, 192, 192, 0.2)",
+                "rgba(153, 102, 255, 0.2)",
+                "rgba(255, 159, 64, 0.2)",
+              ],
+              borderColor: [
+                "rgba(255, 99, 132, 1)",
+                "rgba(54, 162, 235, 1)",
+                "rgba(255, 206, 86, 1)",
+                "rgba(75, 192, 192, 1)",
+                "rgba(153, 102, 255, 1)",
+                "rgba(255, 159, 64, 1)",
+              ],
               borderWidth: 1,
             },
           ],
@@ -238,15 +257,27 @@ function Admindashboard() {
       const articlechart1 = document.getElementById("myArticleChart").getContext("2d");
 
       const myArticleChart = new Chart(articlechart1, {
-        type: "line",
+        type: "bar",
         data: {
           labels: articles.map((item) => item.title.slice(0, 25 - 3) + "..."),
           datasets: [
             {
               label: "จำนวนคนถูกใจ",
               data: articles.map((item) => item.like_count),
-              backgroundColor: "rgba(255, 99, 132, 0.2)",
-              borderColor: "rgba(255, 99, 132, 1)",
+              backgroundColor: [
+                "rgba(255, 99, 132, 0.2)",
+                "rgba(54, 162, 235, 0.2)",
+                "rgba(255, 206, 86, 0.2)",
+                "rgba(75, 192, 192, 0.2)",
+                "rgba(153, 102, 255, 0.2)",
+              ],
+              borderColor: [
+                "rgba(255, 99, 132, 1)",
+                "rgba(54, 162, 235, 1)",
+                "rgba(255, 206, 86, 1)",
+                "rgba(75, 192, 192, 1)",
+                "rgba(153, 102, 255, 1)",
+              ],
               borderWidth: 1,
             },
           ],

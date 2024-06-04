@@ -27,7 +27,7 @@ function Banner(props) {
             left: "10px",
           }}
         >
-          <Link to="/article">
+          <Link to={props.link}>
             <FontAwesomeIcon
               icon={faCircleLeft}
               style={{

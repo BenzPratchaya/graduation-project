@@ -100,7 +100,7 @@ function Articlecontent(props) {
                             <LikeButton id={article.id} article={article} user={props.user} />
                             {/* Link */}
                             <Link to={`/article/${article.article_id !== undefined ? article.article_id : article.id}`}>
-                              <Button className="w3-button w3-padding-large w3-white w3-border">Read More</Button>
+                              <Button className="w3-button w3-padding-large w3-white w3-border">เรียนรู้เพิ่มเติม</Button>
                             </Link>
                           </div>
                           
