@@ -2,8 +2,11 @@ import React from "react";
 import { Button, CssBaseline, TextField, Link, Box, Grid, Typography } from "@mui/material";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleLeft } from "@fortawesome/free-solid-svg-icons";
+import "./css/Home.css";
 
-export default function SignUp() {
+function Register() {
   const MySwal = withReactContent(Swal);
 
   const handleSubmit = (event) => {
@@ -83,15 +86,25 @@ export default function SignUp() {
   };
 
   return (
-    <div
-      className="register"
-      style={{
-        backgroundImage: "url('http://localhost:3000/images/Gemini_Generated_Image_nvo12snvo12snvo1.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        height: "100vh",
-      }}
-    >
+    <div className="Font" style={registerStyle}>
+      <Link href="/home" style={linkStyle}>
+        <FontAwesomeIcon
+          icon={faCircleLeft}
+          style={{
+            color: "rgba(0, 0, 0, 0.3)",
+            padding: "10px",
+            width: "40px",
+            height: "40px",
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.color = "rgba(0, 0, 0, 0.7)";
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.color = "rgba(0, 0, 0, 0.3)";
+          }}
+        />
+        <Typography>กลับสู่หน้าแรก</Typography>
+      </Link>
       <Grid
         container
         component="main"
@@ -232,3 +245,24 @@ export default function SignUp() {
     </div>
   );
 }
+export default Register;
+
+const registerStyle = {
+  backgroundImage: "url('http://localhost:3000/images/login-register.jpg')",
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  height: "100vh",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  position: "relative",
+};
+
+const linkStyle = {
+  position: "absolute",
+  top: 10,
+  left: 10,
+  display: "flex",
+  alignItems: "center",
+  textDecoration: "none",
+};

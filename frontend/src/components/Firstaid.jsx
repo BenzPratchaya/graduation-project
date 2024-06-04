@@ -64,11 +64,14 @@ export default function Firstaid() {
               onChange={handleTypeChange} // เพิ่ม onChange เพื่อเรียกใช้ handleTypeChange เมื่อมีการเลือกประเภทใหม่
             >
               <option value="All">เลือกประเภทการปฐมพยาบาล</option>
-              <option value="1">บาดแผลที่เกิดจากการแตกหรือฉีกขาด</option>
-              <option value="2">บาดแผลที่เกิดจากการบีบหรือกระทบ</option>
-              <option value="3">บาดแผลที่เกิดจากการเผาไหม้หรือรอยไฟ</option>
-              <option value="4">บาดแผลที่เกิดจากการไหลเลือด</option>
-              <option value="5">บาดแผลที่เกิดจากการถูกสัตว์กัด</option>
+              <option value="1">บาดแผล</option>
+              <option value="2">การบาดเจ็บจากสัตว์</option>
+              <option value="3">การบาดเจ็บที่จมูก</option>
+              <option value="4">ไฟหรือความร้อน</option>
+              <option value="5">การบาดเจ็บที่กระดูกและข้อ</option>
+              <option value="6">การบาดเจ็บที่กล้ามเนื้อ</option>
+              <option value="7">การบาดเจ็บที่ศีรษะ</option>
+              <option value="8">เหตุการณ์ฉุกเฉิน</option>
             </Form.Select>
 
             <Form.Control

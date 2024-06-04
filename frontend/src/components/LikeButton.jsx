@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import io from "socket.io-client";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 function LikeButton(props) {
   const [liked, setLiked] = useState(props.article.liked);
   const [likes, setLikes] = useState(props.article.like_count);
   const [socket, setSocket] = useState(null);
+  const MySwal = withReactContent(Swal);
 
   useEffect(() => {
     setLiked(props.article.liked);
@@ -21,7 +24,18 @@ function LikeButton(props) {
 
   const handleLikeUnlike = () => {
     if (!props.user.id) {
-      alert("Please log in or register to like articles.");
+      MySwal.fire({
+        title: "คุณยังไม่ได้เข้าสู่ระบบ?",
+        text: "Please log in or register to like articles.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "เข้าสู่ระบบ",
+        cancelButtonText: "ยกเลิก",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "/login";
+        }
+      });
       return;
     }
 

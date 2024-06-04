@@ -4,10 +4,13 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { format, parseISO } from "date-fns";
 import { formatInTimeZone } from "date-fns-tz";
 import { th } from "date-fns/locale";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 function Comment_add({ articleId, user }) {
   const [comments, setComments] = useState([]);
   const [body, setBody] = useState("");
+  const MySwal = withReactContent(Swal);
 
   useEffect(() => {
     axios
@@ -20,7 +23,18 @@ function Comment_add({ articleId, user }) {
     event.preventDefault();
 
     if (!user || !user.id) {
-      alert("Please log in to comment.");
+      MySwal.fire({
+        title: "คุณยังไม่ได้เข้าสู่ระบบ?",
+        text: "Please log in or register to comment articles.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "เข้าสู่ระบบ",
+        cancelButtonText: "ยกเลิก",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "/login";
+        }
+      });
       return;
     }
 

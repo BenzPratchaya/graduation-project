@@ -96,11 +96,14 @@ function Adminfirstaid_add({ popupadd, setPopupAdd, setFirstaids }) {
                   <MenuItem value="0" disabled>
                     * เลือกประเภทการปฐมพยาบาล
                   </MenuItem>
-                  <MenuItem value="1">บาดแผลที่เกิดจากการแตกหรือฉีกขาด</MenuItem>
-                  <MenuItem value="2">บาดแผลที่เกิดจากการบีบหรือกระทบ</MenuItem>
-                  <MenuItem value="3">บาดแผลที่เกิดจากการเผาไหม้หรือรอยไฟ</MenuItem>
-                  <MenuItem value="4">บาดแผลที่เกิดจากการไหลเลือด</MenuItem>
-                  <MenuItem value="5">บาดแผลที่เกิดจากการถูกสัตว์กัด</MenuItem>
+                  <MenuItem value="1">บาดแผล</MenuItem>
+                  <MenuItem value="2">การบาดเจ็บจากสัตว์</MenuItem>
+                  <MenuItem value="3">การบาดเจ็บที่จมูก</MenuItem>
+                  <MenuItem value="4">ไฟหรือความร้อน</MenuItem>
+                  <MenuItem value="5">การบาดเจ็บที่กระดูกและข้อ</MenuItem>
+                  <MenuItem value="6">การบาดเจ็บที่กล้ามเนื้อ</MenuItem>
+                  <MenuItem value="7">การบาดเจ็บที่ศีรษะ</MenuItem>
+                  <MenuItem value="8">เหตุการณ์ฉุกเฉิน</MenuItem>
                 </Select>
               </Grid>
               <Grid item xs={4}>

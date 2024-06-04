@@ -4,8 +4,9 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleLeft } from "@fortawesome/free-solid-svg-icons";
+import "./css/Home.css";
 
-export default function Login() {
+function Login() {
   const [user, setUser] = useState([]);
   const MySwal = withReactContent(Swal);
 
@@ -66,7 +67,7 @@ export default function Login() {
   };
 
   return (
-    <div className="login" style={loginStyle}>
+    <div className="Font" style={loginStyle}>
       <Link href="/home" style={linkStyle}>
         <FontAwesomeIcon
           icon={faCircleLeft}
@@ -211,6 +212,7 @@ export default function Login() {
     </div>
   );
 }
+export default Login;
 
 const loginStyle = {
   backgroundImage: "url('http://localhost:3000/images/login-register.jpg')",
