@@ -41,6 +41,16 @@ exports.getFirstaidCountType = (req, res) => {
   );
 };
 
+  exports.getFirstaidCountMonth = (req, res) => {
+    db.query("SELECT DATE_FORMAT(created_date, '%m/%Y') AS date, COUNT(id) AS count FROM firstaids GROUP BY date;", (err, result) => {
+      if (err) {
+        console.log("error in firstaids", err);
+      } else {
+        res.send(result);
+      }
+    });
+  };
+
 exports.createFirstaid = (req, res) => {
   if (!req.file) {
     return res.status(400).send("No image file uploaded");

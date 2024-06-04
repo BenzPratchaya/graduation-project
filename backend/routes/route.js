@@ -69,9 +69,11 @@ router.put("/like/unliked/:article_id/:user_id", LikeController.updateLikeForUnL
 router.get("/firstaids", FirstaidController.getFirstaidList);
 router.get("/firstaid/:id", FirstaidController.getFirstaidById);
 router.get("/firstaids/counttype", FirstaidController.getFirstaidCountType);
+router.get("/firstaids/countmonth", FirstaidController.getFirstaidCountMonth);
 router.post("/firstaid/create", upload.single("image"), FirstaidController.createFirstaid);
 router.put("/firstaid/update/:id", upload.single("image"), FirstaidController.updateFirstaid);
 router.delete("/firstaid/delete/:id", FirstaidController.deleteFirstaid);
+
 
 // Comment routes
 router.get("/comments/:article_id", CommentController.getCommentListByArticleId);
