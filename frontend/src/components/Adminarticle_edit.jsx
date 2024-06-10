@@ -85,7 +85,7 @@ function Adminarticle_edit({ popupedit, setPopupEdit, articleId, setArticles }) 
       {/* โค้ดสำหรับ Popup */}
       <Dialog open={popupedit} onClose={() => setPopupEdit(false)} fullWidth maxWidth="md">
         <form onSubmit={handleSubmit}>
-          <DialogTitle>Create Article</DialogTitle>
+          <DialogTitle>Edit Article</DialogTitle>
           <DialogContent dividers>
             <Grid container spacing={2}>
               <Grid item xs={4}>

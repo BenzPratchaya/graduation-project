@@ -88,7 +88,7 @@ function Adminfirstaid_edit({ popupedit, setPopupEdit, firstaidId, setFirstaids 
       {/* โค้ดสำหรับ Popup */}
       <Dialog open={popupedit} onClose={() => setPopupEdit(false)} fullWidth maxWidth="md">
         <form onSubmit={handleSubmit}>
-          <DialogTitle>Create Firstaid</DialogTitle>
+          <DialogTitle>Edit Firstaid</DialogTitle>
           <DialogContent dividers>
             <Grid container spacing={2}>
               <Grid item xs={4}>
