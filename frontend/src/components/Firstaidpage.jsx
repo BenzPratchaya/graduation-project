@@ -67,7 +67,7 @@ const Firstaidpage = ({ user }) => {
       case "11":
         return <Firstaid11 />;
       default:
-        return <div>ไม่พบบทความที่ต้องการ</div>;
+        return <div>อยู่ในการตรวจสอบข้อมูลเพิ่มเติม...</div>;
     }
   };
 

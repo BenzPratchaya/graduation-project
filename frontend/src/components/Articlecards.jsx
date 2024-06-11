@@ -26,7 +26,7 @@ function Articlecards(props) {
                   <Col key={card.id} md={4} className="mb-4">
                     <Card className="w3-light-grey">
                       <Link component={Link} to={`/article/${card.id}`} style={{ textDecoration: "none", color: "black" }}>
-                        <Card.Img src={`http://localhost:3001/image/${card.image}`} alt={`Card ${card.id}`} />
+                        <Card.Img src={`http://localhost:3001/image/${card.image}`} alt={`Card ${card.id}`} style={{ height: "350px" }} />
                         <Card.Body>
                           <Card.Title>{card.title}</Card.Title>
                           <Card.Text>{card.content}</Card.Text>

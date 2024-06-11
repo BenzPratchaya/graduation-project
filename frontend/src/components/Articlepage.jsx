@@ -65,7 +65,7 @@ const Articlepage = ({ user }) => {
       case "10":
         return <Article10 />;
       default:
-        return <div>ไม่พบบทความที่ต้องการ {articleId}</div>;
+        return <div>อยู่ในการตรวจสอบข้อมูลเพิ่มเติม...</div>;
     }
   };
 
