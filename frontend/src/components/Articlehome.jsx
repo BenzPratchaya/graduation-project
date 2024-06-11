@@ -26,7 +26,7 @@ function Articlehome({ articlelist }) {
     <TableContainer>
       <div style={containerStyle}>
         {articlelist[0] && (
-          <a href={`/article/${articlelist[0].id}`} style={mainArticleStyle}>
+          <a href={`/article/${articlelist[0].id}`} target="_blank" style={mainArticleStyle}>
             <img src={`http://localhost:3001/image/${articlelist[0].image}`} alt="Main Article" style={imageStyle} />
             <div style={contentStyle}>
               <h2 style={h2Style}>{articlelist[0].title}</h2>
@@ -36,7 +36,7 @@ function Articlehome({ articlelist }) {
         )}
         <div style={sideArticlesStyle}>
           {articlelist[1] && (
-            <a href={`/article/${articlelist[1].id}`} style={topArticleStyle}>
+            <a href={`/article/${articlelist[1].id}`} target="_blank" style={topArticleStyle}>
               <img src={`http://localhost:3001/image/${articlelist[1].image}`} alt="Top Article" style={imageStyle} />
               <h3 style={h3Style}>{articlelist[1].title}</h3>
               <p style={pStyle}>{formatDateTimeToThai(articlelist[1].created_date)}</p>
@@ -44,14 +44,14 @@ function Articlehome({ articlelist }) {
           )}
           <div style={bottomRowStyle}>
             {articlelist[2] && (
-              <a href={`/article/${articlelist[2].id}`} style={bottomArticleStyle}>
+              <a href={`/article/${articlelist[2].id}`} target="_blank" style={bottomArticleStyle}>
                 <img src={`http://localhost:3001/image/${articlelist[2].image}`} alt="Bottom Left Article" style={imageStyle} />
                 <h3 style={h3Style}>{articlelist[2].title}</h3>
                 <p style={pBottomStyle}>{formatDateTimeToThai(articlelist[2].created_date)}</p>
               </a>
             )}
             {articlelist[3] && (
-              <a href={`/article/${articlelist[3].id}`} style={bottomArticleStyle}>
+              <a href={`/article/${articlelist[3].id}`} target="_blank" style={bottomArticleStyle}>
                 <img src={`http://localhost:3001/image/${articlelist[3].image}`} alt="Bottom Right Article" style={imageStyle} />
                 <h3 style={h3Style}>{articlelist[3].title}</h3>
                 <p style={pBottomStyle}>{formatDateTimeToThai(articlelist[3].created_date)}</p>
