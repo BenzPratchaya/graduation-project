@@ -111,6 +111,12 @@ function Adminhome({}) {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search..."
                 style={{ width: "70%" }}
+                InputProps={{
+                  sx: {
+                    borderRadius: 5,
+                    fontFamily: "'Kanit', sans-serif",
+                  },
+                }}
               />
               <Button
                 style={{

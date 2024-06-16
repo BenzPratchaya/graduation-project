@@ -114,7 +114,17 @@ function Adminarticle_add({ popupadd, setPopupAdd, setArticles }) {
                   value={formData.title}
                   onChange={handleInputChange}
                   name="title"
-                  sx={{ fontFamily: "'Kanit', sans-serif" }}
+                  InputProps={{
+                    sx: {
+                      borderRadius: 3,
+                      fontFamily: "'Kanit', sans-serif",
+                    },
+                  }}
+                  InputLabelProps={{
+                    sx: {
+                      fontFamily: "'Kanit', sans-serif",
+                    },
+                  }}
                 />
               </Grid>
               <Grid item xs={4}>
@@ -124,14 +134,26 @@ function Adminarticle_add({ popupadd, setPopupAdd, setArticles }) {
                   fullWidth
                   value={formData.type_id}
                   onChange={(event) => setFormData({ ...formData, type_id: event.target.value })}
+                  sx={{
+                    borderRadius: 3,
+                    fontFamily: "'Kanit', sans-serif",
+                  }}
                 >
-                  <MenuItem value="0" disabled>
+                  <MenuItem value="0" disabled sx={{ fontFamily: "'Kanit', sans-serif" }}>
                     * เลือกประเภทบทความ
                   </MenuItem>
-                  <MenuItem value="1">บทความเชิงวิชาการ</MenuItem>
-                  <MenuItem value="2">บทความแนะนำและเคล็ดลับ</MenuItem>
-                  <MenuItem value="3">บทความเกี่ยวกับโรคและการรักษา</MenuItem>
-                  <MenuItem value="4">บทความเกี่ยวกับโภชนาการ</MenuItem>
+                  <MenuItem value="1" sx={{ fontFamily: "'Kanit', sans-serif" }}>
+                    บทความเชิงวิชาการ
+                  </MenuItem>
+                  <MenuItem value="2" sx={{ fontFamily: "'Kanit', sans-serif" }}>
+                    บทความแนะนำและเคล็ดลับ
+                  </MenuItem>
+                  <MenuItem value="3" sx={{ fontFamily: "'Kanit', sans-serif" }}>
+                    บทความเกี่ยวกับโรคและการรักษา
+                  </MenuItem>
+                  <MenuItem value="4" sx={{ fontFamily: "'Kanit', sans-serif" }}>
+                    บทความเกี่ยวกับโภชนาการ
+                  </MenuItem>
                 </Select>
               </Grid>
               <Grid item xs={6}>
@@ -144,6 +166,17 @@ function Adminarticle_add({ popupadd, setPopupAdd, setArticles }) {
                   value={formData.content}
                   onChange={handleInputChange}
                   name="content"
+                  InputProps={{
+                    sx: {
+                      borderRadius: 3,
+                      fontFamily: "'Kanit', sans-serif",
+                    },
+                  }}
+                  InputLabelProps={{
+                    sx: {
+                      fontFamily: "'Kanit', sans-serif",
+                    },
+                  }}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -158,9 +191,10 @@ function Adminarticle_add({ popupadd, setPopupAdd, setArticles }) {
                     color: "#333",
                     backgroundColor: "#f0f0f0",
                     border: "1px solid #ccc",
-                    borderRadius: "3px",
+                    borderRadius: "10px",
                     padding: "12px",
                     outlineColor: "#007bff",
+                    fontFamily: "'Kanit', sans-serif",
                   }}
                 />
                 {formData.image && (

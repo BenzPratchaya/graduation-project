@@ -110,7 +110,25 @@ function Adminfirstaid_add({ popupadd, setPopupAdd, setFirstaids }) {
             <Grid container spacing={2}>
               <Grid item xs={4}>
                 <Typography sx={{ fontFamily: "'Kanit', sans-serif" }}>Name</Typography>
-                <TextField variant="outlined" placeholder="Name" fullWidth value={formData.name} onChange={handleInputChange} name="name" />
+                <TextField
+                  variant="outlined"
+                  placeholder="Name"
+                  fullWidth
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  name="name"
+                  InputProps={{
+                    sx: {
+                      borderRadius: 3,
+                      fontFamily: "'Kanit', sans-serif",
+                    },
+                  }}
+                  InputLabelProps={{
+                    sx: {
+                      fontFamily: "'Kanit', sans-serif",
+                    },
+                  }}
+                />
               </Grid>
               <Grid item xs={4}>
                 <Typography sx={{ fontFamily: "'Kanit', sans-serif" }}>Type</Typography>
@@ -119,23 +137,61 @@ function Adminfirstaid_add({ popupadd, setPopupAdd, setFirstaids }) {
                   fullWidth
                   value={formData.type_id}
                   onChange={(event) => setFormData({ ...formData, type_id: event.target.value })}
+                  sx={{
+                    borderRadius: 3,
+                    fontFamily: "'Kanit', sans-serif",
+                  }}
                 >
-                  <MenuItem value="0" disabled>
+                  <MenuItem value="0" disabled sx={{ fontFamily: "'Kanit', sans-serif" }}>
                     * เลือกประเภทการปฐมพยาบาล
                   </MenuItem>
-                  <MenuItem value="1">บาดแผล</MenuItem>
-                  <MenuItem value="2">การบาดเจ็บจากสัตว์</MenuItem>
-                  <MenuItem value="3">การบาดเจ็บที่จมูก</MenuItem>
-                  <MenuItem value="4">ไฟหรือความร้อน</MenuItem>
-                  <MenuItem value="5">การบาดเจ็บที่กระดูกและข้อ</MenuItem>
-                  <MenuItem value="6">การบาดเจ็บที่กล้ามเนื้อ</MenuItem>
-                  <MenuItem value="7">การบาดเจ็บที่ศีรษะ</MenuItem>
-                  <MenuItem value="8">เหตุการณ์ฉุกเฉิน</MenuItem>
+                  <MenuItem value="1" sx={{ fontFamily: "'Kanit', sans-serif" }}>
+                    บาดแผล
+                  </MenuItem>
+                  <MenuItem value="2" sx={{ fontFamily: "'Kanit', sans-serif" }}>
+                    การบาดเจ็บจากสัตว์
+                  </MenuItem>
+                  <MenuItem value="3" sx={{ fontFamily: "'Kanit', sans-serif" }}>
+                    การบาดเจ็บที่จมูก
+                  </MenuItem>
+                  <MenuItem value="4" sx={{ fontFamily: "'Kanit', sans-serif" }}>
+                    ไฟหรือความร้อน
+                  </MenuItem>
+                  <MenuItem value="5" sx={{ fontFamily: "'Kanit', sans-serif" }}>
+                    การบาดเจ็บที่กระดูกและข้อ
+                  </MenuItem>
+                  <MenuItem value="6" sx={{ fontFamily: "'Kanit', sans-serif" }}>
+                    การบาดเจ็บที่กล้ามเนื้อ
+                  </MenuItem>
+                  <MenuItem value="7" sx={{ fontFamily: "'Kanit', sans-serif" }}>
+                    การบาดเจ็บที่ศีรษะ
+                  </MenuItem>
+                  <MenuItem value="8" sx={{ fontFamily: "'Kanit', sans-serif" }}>
+                    เหตุการณ์ฉุกเฉิน
+                  </MenuItem>
                 </Select>
               </Grid>
               <Grid item xs={4}>
                 <Typography sx={{ fontFamily: "'Kanit', sans-serif" }}>Video</Typography>
-                <TextField variant="outlined" placeholder="Video" fullWidth value={formData.video} onChange={handleInputChange} name="video" />
+                <TextField
+                  variant="outlined"
+                  placeholder="Video"
+                  fullWidth
+                  value={formData.video}
+                  onChange={handleInputChange}
+                  name="video"
+                  InputProps={{
+                    sx: {
+                      borderRadius: 3,
+                      fontFamily: "'Kanit', sans-serif",
+                    },
+                  }}
+                  InputLabelProps={{
+                    sx: {
+                      fontFamily: "'Kanit', sans-serif",
+                    },
+                  }}
+                />
               </Grid>
               <Grid item xs={6}>
                 <Typography sx={{ fontFamily: "'Kanit', sans-serif" }}>Detail</Typography>
@@ -147,6 +203,17 @@ function Adminfirstaid_add({ popupadd, setPopupAdd, setFirstaids }) {
                   value={formData.detail}
                   onChange={handleInputChange}
                   name="detail"
+                  InputProps={{
+                    sx: {
+                      borderRadius: 3,
+                      fontFamily: "'Kanit', sans-serif",
+                    },
+                  }}
+                  InputLabelProps={{
+                    sx: {
+                      fontFamily: "'Kanit', sans-serif",
+                    },
+                  }}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -161,9 +228,10 @@ function Adminfirstaid_add({ popupadd, setPopupAdd, setFirstaids }) {
                     color: "#333",
                     backgroundColor: "#f0f0f0",
                     border: "1px solid #ccc",
-                    borderRadius: "3px",
+                    borderRadius: "10px",
                     padding: "12px",
                     outlineColor: "#007bff",
+                    fontFamily: "'Kanit', sans-serif",
                   }}
                 />
                 {formData.image && (
