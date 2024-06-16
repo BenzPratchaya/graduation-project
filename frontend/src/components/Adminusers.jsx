@@ -3,10 +3,13 @@ import axios from "axios";
 import { Box, Toolbar, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Adminsidebar from "./Adminsidebar";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 function Adminusers() {
   const [users, setUsers] = useState([]);
   const [open, setOpen] = useState(true);
+  const MySwal = withReactContent(Swal);
 
   useEffect(() => {
     fetch("http://localhost:3001/users")
@@ -17,19 +20,39 @@ function Adminusers() {
   }, []);
 
   const deleteUser = (id) => {
-    const confirmDelete = window.confirm("ต้องการลบผู้ใช้หรือไม่?");
-    if (confirmDelete) {
-      axios.delete(`http://localhost:3001/user/delete/${id}`).then((response) => {
-        setUsers(
-          users.filter((user) => {
-            return user.id !== id;
-          })
-        );
-      });
-      console.log("ลบข้อมูล");
-    } else {
-      console.log("ยกเลิกการลบ");
-    }
+    MySwal.fire({
+      title: "ต้องการลบข้อมูลหรือไม่?",
+      text: "Do you want to delete this user entry?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "ลบข้อมูล",
+      cancelButtonText: "ยกเลิก",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await axios.delete(`http://localhost:3001/user/delete/${id}`);
+
+          // อัปเดตรายการ users ใหม่
+          const res = await axios.get("http://localhost:3001/users");
+          setUsers(res.data);
+
+          MySwal.fire({
+            title: "ลบข้อมูลสำเร็จ!",
+            text: "User deleted successfully",
+            icon: "success",
+            confirmButtonText: "ยืนยัน",
+          });
+        } catch (error) {
+          console.error("Error deleting user:", error);
+          MySwal.fire({
+            title: "ลบข้อมูลไม่สำเร็จ!",
+            text: "Failed to delete user",
+            icon: "error",
+            confirmButtonText: "ยืนยัน",
+          });
+        }
+      }
+    });
   };
 
   const toggleDrawer = () => {

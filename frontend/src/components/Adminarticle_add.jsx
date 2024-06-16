@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { CssBaseline, Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Grid, Typography, MenuItem, Select } from "@mui/material";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 function Adminarticle_add({ popupadd, setPopupAdd, setArticles }) {
+  const MySwal = withReactContent(Swal);
   const [formData, setFormData] = useState({
     title: "",
     content: "",
@@ -38,35 +41,59 @@ function Adminarticle_add({ popupadd, setPopupAdd, setArticles }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    try {
-      const data = new FormData();
-      data.append("title", formData.title);
-      data.append("content", formData.content);
-      data.append("image", formData.image); // ใช้ formData.image ไม่ใช่ formData.file
-      data.append("type_id", formData.type_id);
+    setPopupAdd(false);
 
-      await axios.post("http://localhost:3001/article/create", data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+    MySwal.fire({
+      title: "ต้องการสร้างข้อมูลใช่หรือไม่?",
+      text: "Do you want to create this article entry?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "สร้างข้อมูล",
+      cancelButtonText: "ยกเลิก",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const data = new FormData();
+          data.append("title", formData.title);
+          data.append("content", formData.content);
+          data.append("image", formData.image); // ใช้ formData.image ไม่ใช่ formData.file
+          data.append("type_id", formData.type_id);
 
-      // อัปเดตรายการ articles ใหม่
-      axios
-        .get("http://localhost:3001/articles")
-        .then((res) => {
-          setArticles(res.data);
-        })
-        .catch((error) => {
-          console.error("Error fetching articles: ", error);
-        });
+          await axios.post("http://localhost:3001/article/create", data, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
 
-      alert("Article created successfully");
-      setPopupAdd(false);
-    } catch (error) {
-      console.error("Error creating article:", error);
-      alert("Failed to creating article");
-    }
+          // อัปเดตรายการ articles ใหม่
+          axios
+            .get("http://localhost:3001/articles")
+            .then((res) => {
+              setArticles(res.data);
+            })
+            .catch((error) => {
+              console.error("Error fetching articles: ", error);
+            });
+
+          MySwal.fire({
+            title: "สร้างข้อมูลสำเร็จ!",
+            text: "Article created successfully",
+            icon: "success",
+            confirmButtonText: "ยืนยัน",
+          });
+        } catch (error) {
+          console.error("Error creating article:", error);
+          MySwal.fire({
+            title: "สร้างข้อมูลไม่สำเร็จ!",
+            text: "Failed to create article",
+            icon: "error",
+            confirmButtonText: "ยืนยัน",
+          });
+        }
+      } else {
+        setPopupAdd(true);
+      }
+    });
   };
 
   return (

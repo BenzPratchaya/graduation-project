@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { CssBaseline, Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Grid, Typography, MenuItem, Select } from "@mui/material";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 function Adminfirstaid_add({ popupadd, setPopupAdd, setFirstaids }) {
+  const MySwal = withReactContent(Swal);
   const [formData, setFormData] = useState({
     name: "",
     detail: "",
@@ -40,36 +43,60 @@ function Adminfirstaid_add({ popupadd, setPopupAdd, setFirstaids }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    try {
-      const data = new FormData();
-      data.append("name", formData.name);
-      data.append("detail", formData.detail);
-      data.append("image", formData.image); // ใช้ formData.image ไม่ใช่ formData.file
-      data.append("video", formData.video.replace("watch?v=", "embed/"));
-      data.append("type_id", formData.type_id);
+    setPopupAdd(false); // Close the Dialog first
 
-      await axios.post("http://localhost:3001/firstaid/create", data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+    MySwal.fire({
+      title: "ต้องการสร้างข้อมูลใช่หรือไม่?",
+      text: "Do you want to create this first aid entry?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "สร้างข้อมูล",
+      cancelButtonText: "ยกเลิก",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const data = new FormData();
+          data.append("name", formData.name);
+          data.append("detail", formData.detail);
+          data.append("image", formData.image); // ใช้ formData.image ไม่ใช่ formData.file
+          data.append("video", formData.video.replace("watch?v=", "embed/"));
+          data.append("type_id", formData.type_id);
 
-      // อัปเดตรายการ firstaids ใหม่
-      axios
-        .get("http://localhost:3001/firstaids")
-        .then((res) => {
-          setFirstaids(res.data);
-        })
-        .catch((error) => {
-          console.error("Error fetching firstaids: ", error);
-        });
+          await axios.post("http://localhost:3001/firstaid/create", data, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
 
-      alert("Firstaid created successfully");
-      setPopupAdd(false);
-    } catch (error) {
-      console.error("Error creating firstaid:", error);
-      alert("Failed to creating firstaid");
-    }
+          // อัปเดตรายการ firstaids ใหม่
+          axios
+            .get("http://localhost:3001/firstaids")
+            .then((res) => {
+              setFirstaids(res.data);
+            })
+            .catch((error) => {
+              console.error("Error fetching firstaids: ", error);
+            });
+
+          MySwal.fire({
+            title: "สร้างข้อมูลสำเร็จ!",
+            text: "Firstaid created successfully",
+            icon: "success",
+            confirmButtonText: "ยืนยัน",
+          });
+        } catch (error) {
+          console.error("Error creating firstaid:", error);
+          MySwal.fire({
+            title: "สร้างข้อมูลไม่สำเร็จ!",
+            text: "Failed to create firstaid",
+            icon: "error",
+            confirmButtonText: "ยืนยัน",
+          });
+        }
+      } else {
+        setPopupAdd(true); // Reopen the Dialog if the user cancels
+      }
+    });
   };
 
   return (

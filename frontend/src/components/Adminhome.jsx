@@ -3,12 +3,15 @@ import axios from "axios";
 import { Box, Toolbar, Typography, Paper, Button, TextField } from "@mui/material";
 import Adminsidebar from "./Adminsidebar";
 import Articlehome from "./Articlehome";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 function Adminhome({}) {
   const [searchTerm, setSearchTerm] = useState("");
   const [articles, setArticles] = useState([]);
   const [articlelist, setArticleList] = useState([]);
   const [open, setOpen] = useState(true);
+  const MySwal = withReactContent(Swal);
 
   useEffect(() => {
     fetch("http://localhost:3001/articles")
@@ -33,27 +36,45 @@ function Adminhome({}) {
   }, []);
 
   const handleSearch = async () => {
-    try {
-      const response = await axios.get("http://localhost:3001/articlelistsearch", {
-        params: { q: searchTerm },
-      });
-      const searchedArticles = response.data;
+    MySwal.fire({
+      title: "ต้องการจะอัพเดทหน้าแรกหรือไม่?",
+      text: "Do you want to perform the search?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "อัพเดท",
+      cancelButtonText: "ยกเลิก",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await axios.get("http://localhost:3001/articlelistsearch", {
+            params: { q: searchTerm },
+          });
+          const searchedArticles = response.data;
 
-      // จัดเก็บค่าที่ไม่ได้ถูกค้นหาไว้ในอาร์เรย์เพิ่มเติม
-      const notSearchedArticles = articles.filter((article) => searchedArticles.every((searchedArticle) => searchedArticle.id !== article.id));
+          // จัดเก็บค่าที่ไม่ได้ถูกค้นหาไว้ในอาร์เรย์เพิ่มเติม
+          const notSearchedArticles = articles.filter((article) => searchedArticles.every((searchedArticle) => searchedArticle.id !== article.id));
 
-      // จัดเรียง notSearchedArticles ตาม created_date ในลำดับจากล่าสุดไปเก่าสุด
-      const sortedNotSearchedArticles = notSearchedArticles.sort((a, b) => new Date(b.created_date) - new Date(a.created_date));
+          // จัดเรียง notSearchedArticles ตาม created_date ในลำดับจากล่าสุดไปเก่าสุด
+          const sortedNotSearchedArticles = notSearchedArticles.sort((a, b) => new Date(b.created_date) - new Date(a.created_date));
 
-      // รวมอาร์เรย์ที่ถูกค้นหาและไม่ได้ถูกค้นหาเข้าด้วยกัน
-      const combinedArticles = [...searchedArticles, ...sortedNotSearchedArticles];
+          // รวมอาร์เรย์ที่ถูกค้นหาและไม่ได้ถูกค้นหาเข้าด้วยกัน
+          const combinedArticles = [...searchedArticles, ...sortedNotSearchedArticles];
 
-      setArticleList(combinedArticles);
-      localStorage.setItem("searchTerm", searchTerm);
-      localStorage.setItem("articleList", JSON.stringify(combinedArticles));
-    } catch (error) {
-      console.error("Error fetching articles:", error);
-    }
+          setArticleList(combinedArticles);
+          localStorage.setItem("searchTerm", searchTerm);
+          localStorage.setItem("articleList", JSON.stringify(combinedArticles));
+
+          MySwal.fire({
+            title: "อัพเดทหน้าแรกสำเร็จ",
+            text: "You have successfully update home.",
+            icon: "success",
+            confirmButtonText: "ยืนยัน",
+          });
+        } catch (error) {
+          console.error("Error fetching articles:", error);
+        }
+      }
+    });
   };
 
   const toggleDrawer = () => {

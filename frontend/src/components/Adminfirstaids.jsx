@@ -6,6 +6,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AdminfirstaidAdd from "./Adminfirstaid_add";
 import AdminfirstaidEdit from "./Adminfirstaid_edit";
 import Adminsidebar from "./Adminsidebar";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 function Adminfirstaids() {
   const [firstaids, setFirstaids] = useState([]);
@@ -13,6 +15,7 @@ function Adminfirstaids() {
   const [popupadd, setPopupAdd] = useState(false);
   const [popupedit, setPopupEdit] = useState(false);
   const [selectedFirstaidId, setSelectedFirstaidId] = useState(null);
+  const MySwal = withReactContent(Swal);
 
   useEffect(() => {
     fetch("http://localhost:3001/firstaids")
@@ -23,19 +26,39 @@ function Adminfirstaids() {
   }, []);
 
   const deleteFirstaid = (id) => {
-    const confirmDelete = window.confirm("ต้องการลบข้อมูลหรือไม่?");
-    if (confirmDelete) {
-      axios.delete(`http://localhost:3001/firstaid/delete/${id}`).then((response) => {
-        setFirstaids(
-          firstaids.filter((firstaid) => {
-            return firstaid.id !== id;
-          })
-        );
-      });
-      console.log("ลบข้อมูล");
-    } else {
-      console.log("ยกเลิกการลบ");
-    }
+    MySwal.fire({
+      title: "ต้องการลบข้อมูลหรือไม่?",
+      text: "Do you want to delete this first aid entry?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "ลบข้อมูล",
+      cancelButtonText: "ยกเลิก",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await axios.delete(`http://localhost:3001/firstaid/delete/${id}`);
+
+          // อัปเดตรายการ firstaids ใหม่
+          const res = await axios.get("http://localhost:3001/firstaids");
+          setFirstaids(res.data);
+
+          MySwal.fire({
+            title: "ลบข้อมูลสำเร็จ!",
+            text: "Firstaid deleted successfully",
+            icon: "success",
+            confirmButtonText: "ยืนยัน",
+          });
+        } catch (error) {
+          console.error("Error deleting firstaid:", error);
+          MySwal.fire({
+            title: "ลบข้อมูลไม่สำเร็จ!",
+            text: "Failed to delete firstaid",
+            icon: "error",
+            confirmButtonText: "ยืนยัน",
+          });
+        }
+      }
+    });
   };
 
   const toggleDrawer = () => {

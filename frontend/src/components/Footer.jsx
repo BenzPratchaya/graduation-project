@@ -15,7 +15,7 @@ function Footer() {
             </div>
 
             <div>
-              <a href="" class="text-white me-4">
+              <a href="https://www.facebook.com/BenzPratchaya" class="text-white me-4">
                 <FontAwesomeIcon icon={faFacebook} />
               </a>
               <a href="https://www.instagram.com/benz_pratch/" class="text-white me-4">

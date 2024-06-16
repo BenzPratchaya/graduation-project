@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { CssBaseline, Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Grid, Typography, MenuItem, Select } from "@mui/material";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 function Adminarticle_edit({ popupedit, setPopupEdit, articleId, setArticles }) {
+  const MySwal = withReactContent(Swal);
   const [formData, setFormData] = useState({
     id: "",
     title: "",
@@ -43,40 +46,60 @@ function Adminarticle_edit({ popupedit, setPopupEdit, articleId, setArticles }) 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const data = new FormData();
-      data.append("id", formData.id);
-      data.append("title", formData.title);
-      data.append("content", formData.content);
-      if (formData.image) {
-        data.append("image", formData.image);
-      }
-      data.append("type_id", formData.type_id);
 
-      const confirmEdit = window.confirm("ต้องการแก้ไขข้อมูลหรือไม่?");
-      if (confirmEdit) {
-        await axios.put(`http://localhost:3001/article/update/${articleId}`, data, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+    setPopupEdit(false);
 
-        axios
-          .get("http://localhost:3001/articles")
-          .then((res) => {
-            setArticles(res.data);
-          })
-          .catch((error) => {
-            console.error("Error fetching articles: ", error);
+    MySwal.fire({
+      title: "ต้องการแก้ไขข้อมูลหรือไม่?",
+      text: "Do you want to edit this article entry?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "แก้ไขข้อมูล",
+      cancelButtonText: "ยกเลิก",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const data = new FormData();
+          data.append("id", formData.id);
+          data.append("title", formData.title);
+          data.append("content", formData.content);
+          if (formData.image) {
+            data.append("image", formData.image);
+          }
+          data.append("type_id", formData.type_id);
+
+          await axios.put(`http://localhost:3001/article/update/${articleId}`, data, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
           });
 
-        alert("Article updated successfully");
-        setPopupEdit(false);
+          // Fetch updated articles
+          const res = await axios.get("http://localhost:3001/articles");
+          setArticles(res.data);
+
+          MySwal.fire({
+            title: "แก้ไขข้อมูลสำเร็จ!",
+            text: "Article updated successfully",
+            icon: "success",
+            confirmButtonText: "ยืนยัน",
+          });
+
+          setPopupEdit(false);
+        } catch (error) {
+          console.error("Error updating article:", error);
+          MySwal.fire({
+            title: "แก้ไขข้อมูลไม่สำเร็จ!",
+            text: "Failed to update article",
+            icon: "error",
+            confirmButtonText: "ยืนยัน",
+          });
+          setPopupEdit(true);
+        }
+      } else {
+        setPopupEdit(true);
       }
-    } catch (error) {
-      console.error("Error updating article:", error);
-      alert("Failed to updating article");
-    }
+    });
   };
 
   return (

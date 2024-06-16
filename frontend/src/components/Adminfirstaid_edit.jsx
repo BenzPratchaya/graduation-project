@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { CssBaseline, Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Grid, Typography, MenuItem, Select } from "@mui/material";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 function Adminfirstaid_edit({ popupedit, setPopupEdit, firstaidId, setFirstaids }) {
+  const MySwal = withReactContent(Swal);
   const [formData, setFormData] = useState({
     id: "",
     name: "",
@@ -45,41 +48,59 @@ function Adminfirstaid_edit({ popupedit, setPopupEdit, firstaidId, setFirstaids 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const data = new FormData();
-      data.append("id", formData.id);
-      data.append("name", formData.name);
-      data.append("detail", formData.detail);
-      if (formData.image) {
-        data.append("image", formData.image);
-      }
-      data.append("video", formData.video.replace("watch?v=", "embed/"));
-      data.append("type_id", formData.type_id);
 
-      const confirmEdit = window.confirm("ต้องการแก้ไขข้อมูลหรือไม่?");
-      if (confirmEdit) {
-        await axios.put(`http://localhost:3001/firstaid/update/${firstaidId}`, data, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+    setPopupEdit(false); // Close the Dialog first
 
-        axios
-          .get("http://localhost:3001/firstaids")
-          .then((res) => {
-            setFirstaids(res.data);
-          })
-          .catch((error) => {
-            console.error("Error fetching firstaids: ", error);
+    MySwal.fire({
+      title: "ต้องการแก้ไขข้อมูลหรือไม่?",
+      text: "Do you want to edit this first aid entry?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "แก้ไขข้อมูล",
+      cancelButtonText: "ยกเลิก",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const data = new FormData();
+          data.append("id", formData.id);
+          data.append("name", formData.name);
+          data.append("detail", formData.detail);
+          if (formData.image) {
+            data.append("image", formData.image);
+          }
+          data.append("video", formData.video.replace("watch?v=", "embed/"));
+          data.append("type_id", formData.type_id);
+
+          await axios.put(`http://localhost:3001/firstaid/update/${firstaidId}`, data, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
           });
 
-        alert("Firstaid updated successfully");
-        setPopupEdit(false);
+          // อัปเดตรายการ firstaids ใหม่
+          const res = await axios.get("http://localhost:3001/firstaids");
+          setFirstaids(res.data);
+
+          MySwal.fire({
+            title: "แก้ไขข้อมูลสำเร็จ!",
+            text: "Firstaid updated successfully",
+            icon: "success",
+            confirmButtonText: "ยืนยัน",
+          });
+        } catch (error) {
+          console.error("Error updating firstaid:", error);
+          MySwal.fire({
+            title: "แก้ไขข้อมูลไม่สำเร็จ!",
+            text: "Failed to update firstaid",
+            icon: "error",
+            confirmButtonText: "ยืนยัน",
+          });
+          setPopupEdit(true); // Reopen the Dialog if update fails
+        }
+      } else {
+        setPopupEdit(true); // Reopen the Dialog if the user cancels
       }
-    } catch (error) {
-      console.error("Error updating firstaid:", error);
-      alert("Failed to updating firstaid");
-    }
+    });
   };
 
   return (

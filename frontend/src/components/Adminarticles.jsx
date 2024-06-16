@@ -6,6 +6,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AdminarticleAdd from "./Adminarticle_add";
 import AdminarticleEdit from "./Adminarticle_edit";
 import Adminsidebar from "./Adminsidebar";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 function Adminarticles() {
   const [articles, setArticles] = useState([]);
@@ -13,6 +15,7 @@ function Adminarticles() {
   const [popupadd, setPopupAdd] = useState(false);
   const [popupedit, setPopupEdit] = useState(false);
   const [selectedArticleId, setSelectedArticleId] = useState(null);
+  const MySwal = withReactContent(Swal);
 
   useEffect(() => {
     fetch("http://localhost:3001/articles")
@@ -23,19 +26,39 @@ function Adminarticles() {
   }, []);
 
   const deleteArticle = (id) => {
-    const confirmDelete = window.confirm("ต้องการลบข้อมูลหรือไม่?");
-    if (confirmDelete) {
-      axios.delete(`http://localhost:3001/article/delete/${id}`).then((response) => {
-        setArticles(
-          articles.filter((article) => {
-            return article.id !== id;
-          })
-        );
-      });
-      console.log("ลบข้อมูล");
-    } else {
-      console.log("ยกเลิกการลบ");
-    }
+    MySwal.fire({
+      title: "ต้องการลบข้อมูลหรือไม่?",
+      text: "Do you want to delete this article entry?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "ลบข้อมูล",
+      cancelButtonText: "ยกเลิก",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await axios.delete(`http://localhost:3001/article/delete/${id}`);
+
+          // อัปเดตรายการ articles ใหม่
+          const res = await axios.get("http://localhost:3001/articles");
+          setArticles(res.data);
+
+          MySwal.fire({
+            title: "ลบข้อมูลสำเร็จ!",
+            text: "Article deleted successfully",
+            icon: "success",
+            confirmButtonText: "ยืนยัน",
+          });
+        } catch (error) {
+          console.error("Error deleting article:", error);
+          MySwal.fire({
+            title: "ลบข้อมูลไม่สำเร็จ!",
+            text: "Failed to delete article",
+            icon: "error",
+            confirmButtonText: "ยืนยัน",
+          });
+        }
+      }
+    });
   };
 
   const toggleDrawer = () => {
