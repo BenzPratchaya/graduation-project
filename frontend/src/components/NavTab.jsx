@@ -64,7 +64,7 @@ function NavTab() {
   return (
     <div className="NavTab">
       {/* ---------------------------------- NAVBAR ---------------------------------- */}
-      <Navbar expand="lg" className="bg-body-tertiary fixed-top shadow-lg">
+      <Navbar expand="lg" className="bg-body-tertiary fixed-top shadow-sm">
         <Container fluid className="container-nav">
           <Navbar.Brand className="ms-5">
             <img
