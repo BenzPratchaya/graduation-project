@@ -78,5 +78,6 @@ router.delete("/firstaid/delete/:id", FirstaidController.deleteFirstaid);
 // Comment routes
 router.get("/comments/:article_id", CommentController.getCommentListByArticleId);
 router.post("/comment/create", CommentController.createComment);
+router.delete("/comment/delete/:id", CommentController.deleteComment);
 
 module.exports = router;

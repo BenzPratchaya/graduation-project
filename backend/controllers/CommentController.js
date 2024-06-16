@@ -22,3 +22,14 @@ exports.createComment = (req, res) => {
     res.status(201).send(result);
   });
 };
+
+exports.deleteComment = (req, res) => {
+  const id = req.params.id;
+  db.query("DELETE FROM comments WHERE id = ?", id, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+};
