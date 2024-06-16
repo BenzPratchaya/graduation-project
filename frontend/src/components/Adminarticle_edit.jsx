@@ -108,28 +108,44 @@ function Adminarticle_edit({ popupedit, setPopupEdit, articleId, setArticles }) 
       {/* โค้ดสำหรับ Popup */}
       <Dialog open={popupedit} onClose={() => setPopupEdit(false)} fullWidth maxWidth="md">
         <form onSubmit={handleSubmit}>
-          <DialogTitle>Edit Article</DialogTitle>
+          <DialogTitle sx={{ fontFamily: "'Kanit', sans-serif" }}>Edit Article</DialogTitle>
           <DialogContent dividers>
             <Grid container spacing={2}>
               <Grid item xs={4}>
-                <Typography>Title</Typography>
-                <TextField variant="outlined" placeholder="Title" fullWidth value={formData.title} onChange={handleInputChange} name="title" />
+                <Typography sx={{ fontFamily: "'Kanit', sans-serif" }}>Title</Typography>
+                <TextField
+                  variant="outlined"
+                  placeholder="Title"
+                  fullWidth
+                  value={formData.title}
+                  onChange={handleInputChange}
+                  name="title"
+                  sx={{ fontFamily: "'Kanit', sans-serif" }}
+                />
               </Grid>
               <Grid item xs={4}>
-                <Typography>Type</Typography>
+                <Typography sx={{ fontFamily: "'Kanit', sans-serif" }}>Type</Typography>
                 <Select
                   variant="outlined"
                   fullWidth
                   value={formData.type_id}
                   onChange={(event) => setFormData({ ...formData, type_id: event.target.value })}
                 >
-                  <MenuItem value="0" disabled>
+                  <MenuItem value="0" disabled sx={{ fontFamily: "'Kanit', sans-serif" }}>
                     * เลือกประเภทบทความ
                   </MenuItem>
-                  <MenuItem value="1">บทความเชิงวิชาการ</MenuItem>
-                  <MenuItem value="2">บทความแนะนำและเคล็ดลับ</MenuItem>
-                  <MenuItem value="3">บทความเกี่ยวกับโรคและการรักษา</MenuItem>
-                  <MenuItem value="4">บทความเกี่ยวกับโภชนาการ</MenuItem>
+                  <MenuItem value="1" sx={{ fontFamily: "'Kanit', sans-serif" }}>
+                    บทความเชิงวิชาการ
+                  </MenuItem>
+                  <MenuItem value="2" sx={{ fontFamily: "'Kanit', sans-serif" }}>
+                    บทความแนะนำและเคล็ดลับ
+                  </MenuItem>
+                  <MenuItem value="3" sx={{ fontFamily: "'Kanit', sans-serif" }}>
+                    บทความเกี่ยวกับโรคและการรักษา
+                  </MenuItem>
+                  <MenuItem value="4" sx={{ fontFamily: "'Kanit', sans-serif" }}>
+                    บทความเกี่ยวกับโภชนาการ
+                  </MenuItem>
                 </Select>
               </Grid>
               <Grid item xs={6}>
@@ -181,6 +197,7 @@ function Adminarticle_edit({ popupedit, setPopupEdit, articleId, setArticles }) 
               style={{
                 background: "var(--blue1)",
                 color: "white",
+                fontFamily: "'Kanit', sans-serif",
               }}
               onClick={() => setPopupEdit(false)}
               color="primary"
@@ -192,6 +209,7 @@ function Adminarticle_edit({ popupedit, setPopupEdit, articleId, setArticles }) 
               style={{
                 background: "var(--blue1)",
                 color: "white",
+                fontFamily: "'Kanit', sans-serif",
               }}
               onClick={handleSubmit}
               color="primary"

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { format, parseISO } from "date-fns";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import IconButton from "@mui/material/IconButton";
+import { parseISO } from "date-fns";
 import { formatInTimeZone } from "date-fns-tz";
 import { th } from "date-fns/locale";
 import Swal from "sweetalert2";
@@ -53,7 +55,43 @@ function Comment_add({ articleId, user }) {
       .catch((error) => console.error(error));
   };
 
-  // สร้างฟังก์ชัน formatDateTimeToThai ที่ควบคุมสำหรับการตรวจสอบว่าค่าอินพุตไม่ใช่ undefined ก่อนที่จะใช้งาน
+  const handleDeleteComment = (id) => {
+    MySwal.fire({
+      title: "ต้องการลบความคิดเห็นหรือไม่?",
+      text: "Do you want to delete this comment?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "ลบความคิดเห็น",
+      cancelButtonText: "ยกเลิก",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await axios
+            .delete(`http://localhost:3001/comment/delete/${id}`)
+            .then(() => {
+              setComments(comments.filter((comment) => comment.id !== id));
+            })
+            .catch((error) => console.error(error));
+
+          MySwal.fire({
+            title: "ลบความคิดเห็นสำเร็จ!",
+            text: "Comment deleted successfully",
+            icon: "success",
+            confirmButtonText: "ยืนยัน",
+          });
+        } catch (error) {
+          console.error("Error deleting comment:", error);
+          MySwal.fire({
+            title: "ลบความคิดเห็นไม่สำเร็จ!",
+            text: "Failed to delete comment",
+            icon: "error",
+            confirmButtonText: "ยืนยัน",
+          });
+        }
+      }
+    });
+  };
+
   function formatDateTimeToThai(isoDateString) {
     if (!isoDateString) return "Invalid date";
 
@@ -97,7 +135,7 @@ function Comment_add({ articleId, user }) {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "auto 1fr",
+                gridTemplateColumns: "auto 1fr auto", // เพิ่มส่วนของปุ่ม Delete เข้ามา
                 gap: "10px",
                 alignItems: "center",
               }}
@@ -117,6 +155,20 @@ function Comment_add({ articleId, user }) {
                 </p>
                 <p style={{ margin: 0 }}>{formatDateTimeToThai(comment.created_date)}</p>
               </div>
+              {user.id === comment.user_id && (
+                <IconButton
+                  style={{ deleteButtonStyle }}
+                  sx={{
+                    "&:hover": {
+                      backgroundColor: "transparent", // เปลี่ยนสีใสเมื่อโฮเวอร์
+                      color: "#333", // สีของไอคอนเมื่อโฮเวอร์
+                    },
+                  }}
+                  onClick={() => handleDeleteComment(comment.id)}
+                >
+                  <DeleteOutlineIcon />
+                </IconButton>
+              )}
             </div>
             <br />
             <p>{comment.body}</p>
@@ -169,11 +221,21 @@ const buttonStyle = {
   border: "none",
   borderRadius: "3px",
   cursor: "pointer",
-  backgroundColor: "#333",
+  backgroundColor: "gray",
   color: "#fff",
   transition: "all 0.2s ease-in-out",
 };
 
 const buttonHoverStyle = {
   backgroundColor: "#222",
+};
+
+const deleteButtonStyle = {
+  padding: "5px 10px",
+  border: "none",
+  borderRadius: "10px",
+  cursor: "pointer",
+  marginRight: "10px",
+  backgroundColor: "transparent", // เปลี่ยนเป็นสีใส
+  color: "#d72e3e", // สีของไอคอน
 };

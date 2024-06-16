@@ -108,11 +108,11 @@ function NavTab() {
               {user.fname} {user.lname}
             </Navbar.Brand>
             {isLoggedIn ? (
-              <Button className="me-auto mx-2 my-2 my-lg-0 Logout-Button" onClick={handleLogout}>
+              <Button className="w3-button w3-padding-large w3-white w3-border me-auto mx-2 my-2 my-lg-0 Logout-Button" onClick={handleLogout}>
                 ออกจากระบบ
               </Button>
             ) : (
-              <Button href="/login" className="me-auto mx-2 my-2 my-lg-0 Logout-Button">
+              <Button href="/login" className="w3-button w3-padding-large w3-white w3-border me-auto mx-2 my-2 my-lg-0 Logout-Button">
                 เข้าสู่ระบบ
               </Button>
             )}

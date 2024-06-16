@@ -84,7 +84,7 @@ function Login() {
             e.currentTarget.style.color = "rgba(0, 0, 0, 0.3)";
           }}
         />
-        <Typography>กลับสู่หน้าแรก</Typography>
+        <Typography sx={{ fontFamily: "'Kanit', sans-serif" }}>กลับสู่หน้าแรก</Typography>
       </Link>
       <Grid
         container
@@ -119,7 +119,7 @@ function Login() {
               alignItems: "center",
             }}
           >
-            <Typography component="h1" variant="h4">
+            <Typography component="h1" variant="h4" sx={{ fontFamily: "'Kanit', sans-serif" }}>
               ลงชื่อเข้าใช้
             </Typography>
             <Box
@@ -138,10 +138,15 @@ function Login() {
                 type="email"
                 name="email"
                 label="อีเมล"
-                autocomplete="off"
                 InputProps={{
                   sx: {
                     borderRadius: 5,
+                    fontFamily: "'Kanit', sans-serif",
+                  },
+                }}
+                InputLabelProps={{
+                  sx: {
+                    fontFamily: "'Kanit', sans-serif",
                   },
                 }}
               />
@@ -157,6 +162,12 @@ function Login() {
                 InputProps={{
                   sx: {
                     borderRadius: 5,
+                    fontFamily: "'Kanit', sans-serif",
+                  },
+                }}
+                InputLabelProps={{
+                  sx: {
+                    fontFamily: "'Kanit', sans-serif",
                   },
                 }}
               />
@@ -175,6 +186,7 @@ function Login() {
                   sx={{
                     width: "50%",
                     bgcolor: "#4761ff",
+                    fontFamily: "'Kanit', sans-serif",
                     "&:hover": {
                       bgcolor: "#304ffe",
                     },
@@ -186,7 +198,9 @@ function Login() {
               <Grid container justifyContent="flex-end">
                 <Grid item>
                   <Box display="flex" alignItems="center">
-                    <Typography variant="body2">ไม่มีบัญชีผู้ใช้?&nbsp;</Typography>
+                    <Typography variant="body2" sx={{ fontFamily: "'Kanit', sans-serif" }}>
+                      ไม่มีบัญชีผู้ใช้?&nbsp;
+                    </Typography>
                     <Link
                       href="/register"
                       variant="body2"
@@ -194,6 +208,7 @@ function Login() {
                         color: "#4761ff",
                         textDecoration: "none",
                         fontWeight: "bold",
+                        fontFamily: "'Kanit', sans-serif",
                         "&:hover": {
                           color: "#304ffe",
                           textDecoration: "underline",

@@ -78,31 +78,31 @@ function Adminusers() {
         <Box component="main" sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}>
           <Toolbar />
           <Paper elevation={1} className="d-flex justify-content-between" sx={{ p: 3 }}>
-            <Typography variant="h5">List of All Users</Typography>
+            <Typography variant="h5" sx={{ fontFamily: "'Kanit', sans-serif" }}>List of All Users</Typography>
           </Paper>
           <br />
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell align="left">ID</TableCell>
-                  <TableCell align="left">FirstName</TableCell>
-                  <TableCell align="left">LastName</TableCell>
-                  <TableCell align="left">Email</TableCell>
-                  <TableCell align="left">Password</TableCell>
-                  <TableCell align="left">Role</TableCell>
-                  <TableCell align="left">Delete</TableCell>
+                  <TableCell align="left" sx={{ fontSize: "16px", fontFamily: "'Kanit', sans-serif" }}>ID</TableCell>
+                  <TableCell align="left" sx={{ fontSize: "16px", fontFamily: "'Kanit', sans-serif" }}>FirstName</TableCell>
+                  <TableCell align="left" sx={{ fontSize: "16px", fontFamily: "'Kanit', sans-serif" }}>LastName</TableCell>
+                  <TableCell align="left" sx={{ fontSize: "16px", fontFamily: "'Kanit', sans-serif" }}>Email</TableCell>
+                  <TableCell align="left" sx={{ fontSize: "16px", fontFamily: "'Kanit', sans-serif" }}>Password</TableCell>
+                  <TableCell align="left" sx={{ fontSize: "16px", fontFamily: "'Kanit', sans-serif" }}>Role</TableCell>
+                  <TableCell align="left" sx={{ fontSize: "16px", fontFamily: "'Kanit', sans-serif" }}>Delete</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {users.map((user) => (
                   <TableRow key={user.id}>
-                    <TableCell align="left">{user.id}</TableCell>
-                    <TableCell align="left">{user.fname}</TableCell>
-                    <TableCell align="left">{user.lname}</TableCell>
-                    <TableCell align="left">{user.email}</TableCell>
-                    <TableCell align="left">{user.password}</TableCell>
-                    <TableCell align="left">{user.role_id}</TableCell>
+                    <TableCell align="left" sx={{ fontFamily: "'Kanit', sans-serif" }}>{user.id}</TableCell>
+                    <TableCell align="left" sx={{ fontFamily: "'Kanit', sans-serif" }}>{user.fname}</TableCell>
+                    <TableCell align="left" sx={{ fontFamily: "'Kanit', sans-serif" }}>{user.lname}</TableCell>
+                    <TableCell align="left" sx={{ fontFamily: "'Kanit', sans-serif" }}>{user.email}</TableCell>
+                    <TableCell align="left" sx={{ fontFamily: "'Kanit', sans-serif" }}>{user.password}</TableCell>
+                    <TableCell align="left" sx={{ fontFamily: "'Kanit', sans-serif" }}>{user.role_id}</TableCell>
                     <TableCell align="left">
                       <IconButton
                         sx={{

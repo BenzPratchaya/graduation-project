@@ -72,7 +72,7 @@ function Admindashboard() {
 
       const facountmonthResponse = await fetch("http://localhost:3001/firstaids/countmonth");
       const facountmonthData = await facountmonthResponse.json();
-      setFACountMonth(facountmonthData)
+      setFACountMonth(facountmonthData);
 
       const articlesResponse = await fetch("http://localhost:3001/articles");
       const articlesData = await articlesResponse.json();
@@ -338,7 +338,7 @@ function Admindashboard() {
           transition: "margin-left 0.3s, width 0.3s",
         }}
       >
-        <Box component="main" sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}>
+        <Box component="main" sx={{ flexGrow: 1, bgcolor: "background.default", p: 3, fontFamily: "'Kanit', sans-serif" }}>
           <div className="main-adminBx">
             <div className="showDataWeb">
               <div className="dataBx" onClick={handleFirstButtonClick}>

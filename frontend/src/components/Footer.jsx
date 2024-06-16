@@ -69,7 +69,7 @@ function Footer() {
             </div>
           </section>
           <div class="text-white text-center p-3" style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}>
-            © 2024 Copyright :<a class="text-white">Collects First Aid System</a>
+            © 2024 Copyright :<a class="text-white" href="/home">Collects First Aid System</a>
           </div>
         </footer>
       </div>

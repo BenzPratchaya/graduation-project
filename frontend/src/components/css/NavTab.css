@@ -43,17 +43,6 @@
   border-bottom: 1px solid #ccc;
 }
 
-.Logout-Button {
-  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
-  background-color: transparent; /* สีพื้นหลังเริ่มต้น */
-  color: #333; /* สีข้อความเริ่มต้น */
-  border: 1px solid #333; /* เส้นขอบปุ่ม */
-  padding: 8px 16px; /* ขนาดของปุ่ม */
-  cursor: pointer; /* เปลี่ยนเคอเซอร์เป็นลูกศร */
-}
-
 .Logout-Button:hover {
-  background-color: #333; /* เปลี่ยนสีพื้นหลังเมื่อ hover */
-  color: #fff; /* เปลี่ยนสีข้อความเมื่อ hover */
   transform: translateY(-3px); /* ย้ายปุ่มขึ้นเล็กน้อยเมื่อ hover */
 }

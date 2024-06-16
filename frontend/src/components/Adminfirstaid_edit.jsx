@@ -109,15 +109,15 @@ function Adminfirstaid_edit({ popupedit, setPopupEdit, firstaidId, setFirstaids 
       {/* โค้ดสำหรับ Popup */}
       <Dialog open={popupedit} onClose={() => setPopupEdit(false)} fullWidth maxWidth="md">
         <form onSubmit={handleSubmit}>
-          <DialogTitle>Edit Firstaid</DialogTitle>
+          <DialogTitle sx={{ fontFamily: "'Kanit', sans-serif" }}>Edit Firstaid</DialogTitle>
           <DialogContent dividers>
             <Grid container spacing={2}>
               <Grid item xs={4}>
-                <Typography>Name</Typography>
+                <Typography sx={{ fontFamily: "'Kanit', sans-serif" }}>Name</Typography>
                 <TextField variant="outlined" placeholder="Name" fullWidth value={formData.name} onChange={handleInputChange} name="name" />
               </Grid>
               <Grid item xs={4}>
-                <Typography>Type</Typography>
+                <Typography sx={{ fontFamily: "'Kanit', sans-serif" }}>Type</Typography>
                 <Select
                   variant="outlined"
                   fullWidth
@@ -138,11 +138,11 @@ function Adminfirstaid_edit({ popupedit, setPopupEdit, firstaidId, setFirstaids 
                 </Select>
               </Grid>
               <Grid item xs={4}>
-                <Typography>Video</Typography>
+                <Typography sx={{ fontFamily: "'Kanit', sans-serif" }}>Video</Typography>
                 <TextField variant="outlined" placeholder="Video" fullWidth value={formData.video} onChange={handleInputChange} name="video" />
               </Grid>
               <Grid item xs={6}>
-                <Typography>Detail</Typography>
+                <Typography sx={{ fontFamily: "'Kanit', sans-serif" }}>Detail</Typography>
                 <TextField
                   variant="outlined"
                   placeholder="Detail"
@@ -154,7 +154,7 @@ function Adminfirstaid_edit({ popupedit, setPopupEdit, firstaidId, setFirstaids 
                 />
               </Grid>
               <Grid item xs={6}>
-                <Typography>Image</Typography>
+                <Typography sx={{ fontFamily: "'Kanit', sans-serif" }}>Image</Typography>
                 <input
                   type="file"
                   accept="image/*"
@@ -190,6 +190,7 @@ function Adminfirstaid_edit({ popupedit, setPopupEdit, firstaidId, setFirstaids 
               style={{
                 background: "var(--blue1)",
                 color: "white",
+                fontFamily: "'Kanit', sans-serif",
               }}
               onClick={() => setPopupEdit(false)}
               color="primary"
@@ -201,6 +202,7 @@ function Adminfirstaid_edit({ popupedit, setPopupEdit, firstaidId, setFirstaids 
               style={{
                 background: "var(--blue1)",
                 color: "white",
+                fontFamily: "'Kanit', sans-serif",
               }}
               onClick={handleSubmit}
               color="primary"

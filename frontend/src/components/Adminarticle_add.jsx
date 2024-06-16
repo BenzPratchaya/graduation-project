@@ -102,15 +102,23 @@ function Adminarticle_add({ popupadd, setPopupAdd, setArticles }) {
       {/* โค้ดสำหรับ Popup */}
       <Dialog open={popupadd} onClose={() => setPopupAdd(false)} fullWidth maxWidth="md">
         <form onSubmit={handleSubmit}>
-          <DialogTitle>Create Article</DialogTitle>
+          <DialogTitle sx={{ fontFamily: "'Kanit', sans-serif" }}>Create Article</DialogTitle>
           <DialogContent dividers>
             <Grid container spacing={2}>
               <Grid item xs={4}>
-                <Typography>Title</Typography>
-                <TextField variant="outlined" placeholder="Title" fullWidth value={formData.title} onChange={handleInputChange} name="title" />
+                <Typography sx={{ fontFamily: "'Kanit', sans-serif" }}>Title</Typography>
+                <TextField
+                  variant="outlined"
+                  placeholder="Title"
+                  fullWidth
+                  value={formData.title}
+                  onChange={handleInputChange}
+                  name="title"
+                  sx={{ fontFamily: "'Kanit', sans-serif" }}
+                />
               </Grid>
               <Grid item xs={4}>
-                <Typography>Type</Typography>
+                <Typography sx={{ fontFamily: "'Kanit', sans-serif" }}>Type</Typography>
                 <Select
                   variant="outlined"
                   fullWidth
@@ -127,7 +135,7 @@ function Adminarticle_add({ popupadd, setPopupAdd, setArticles }) {
                 </Select>
               </Grid>
               <Grid item xs={6}>
-                <Typography>Content</Typography>
+                <Typography sx={{ fontFamily: "'Kanit', sans-serif" }}>Content</Typography>
                 <TextField
                   variant="outlined"
                   placeholder="Content"
@@ -139,7 +147,7 @@ function Adminarticle_add({ popupadd, setPopupAdd, setArticles }) {
                 />
               </Grid>
               <Grid item xs={6}>
-                <Typography>Image</Typography>
+                <Typography sx={{ fontFamily: "'Kanit', sans-serif" }}>Image</Typography>
                 <input
                   type="file"
                   multiple
@@ -176,6 +184,7 @@ function Adminarticle_add({ popupadd, setPopupAdd, setArticles }) {
               style={{
                 background: "var(--blue1)",
                 color: "white",
+                fontFamily: "'Kanit', sans-serif",
               }}
               onClick={() => setPopupAdd(false)}
               color="primary"
@@ -187,6 +196,7 @@ function Adminarticle_add({ popupadd, setPopupAdd, setArticles }) {
               style={{
                 background: "var(--blue1)",
                 color: "white",
+                fontFamily: "'Kanit', sans-serif",
               }}
               onClick={handleSubmit}
               color="primary"

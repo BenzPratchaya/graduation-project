@@ -98,12 +98,15 @@ function Adminfirstaids() {
         <Box component="main" sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}>
           <Toolbar />
           <Paper elevation={1} className="d-flex justify-content-between" sx={{ p: 3 }}>
-            <Typography variant="h5">List of All Firstaids</Typography>
+            <Typography variant="h5" sx={{ fontFamily: "'Kanit', sans-serif" }}>
+              List of All Firstaids
+            </Typography>
             <Button
               style={{
                 background: "var(--blue1)",
                 color: "white",
                 fontWeight: "bold",
+                fontFamily: "'Kanit', sans-serif"
               }}
               onClick={() => setPopupAdd(true)}
             >
@@ -115,26 +118,48 @@ function Adminfirstaids() {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell align="center">ID</TableCell>
-                  <TableCell align="center">Name</TableCell>
-                  <TableCell align="center">Detail</TableCell>
-                  <TableCell align="center">Image</TableCell>
-                  <TableCell align="center">Video</TableCell>
-                  <TableCell align="center">Date</TableCell>
-                  <TableCell align="center">Edit</TableCell>
-                  <TableCell align="center">Delete</TableCell>
+                  <TableCell align="center" sx={{ fontSize: "16px", fontFamily: "'Kanit', sans-serif" }}>
+                    ID
+                  </TableCell>
+                  <TableCell align="center" sx={{ fontSize: "16px", fontFamily: "'Kanit', sans-serif" }}>
+                    Name
+                  </TableCell>
+                  <TableCell align="center" sx={{ fontSize: "16px", fontFamily: "'Kanit', sans-serif" }}>
+                    Detail
+                  </TableCell>
+                  <TableCell align="center" sx={{ fontSize: "16px", fontFamily: "'Kanit', sans-serif" }}>
+                    Image
+                  </TableCell>
+                  <TableCell align="center" sx={{ fontSize: "16px", fontFamily: "'Kanit', sans-serif" }}>
+                    Video
+                  </TableCell>
+                  <TableCell align="center" sx={{ fontSize: "16px", fontFamily: "'Kanit', sans-serif" }}>
+                    Date
+                  </TableCell>
+                  <TableCell align="center" sx={{ fontSize: "16px", fontFamily: "'Kanit', sans-serif" }}>
+                    Edit
+                  </TableCell>
+                  <TableCell align="center" sx={{ fontSize: "16px", fontFamily: "'Kanit', sans-serif" }}>
+                    Delete
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {firstaids.map((firstaid) => (
                   <TableRow key={firstaid.id}>
-                    <TableCell align="center">{firstaid.id}</TableCell>
-                    <TableCell align="center">{firstaid.name}</TableCell>
-                    <TableCell align="left">{firstaid.detail}</TableCell>
+                    <TableCell align="center" sx={{ fontFamily: "'Kanit', sans-serif" }}>
+                      {firstaid.id}
+                    </TableCell>
+                    <TableCell align="center" sx={{ fontFamily: "'Kanit', sans-serif" }}>
+                      {firstaid.name}
+                    </TableCell>
+                    <TableCell align="left" sx={{ fontFamily: "'Kanit', sans-serif" }}>
+                      {firstaid.detail}
+                    </TableCell>
                     <TableCell align="center">
                       <img src={`http://localhost:3001/image/${firstaid.image}`} style={{ width: "50%" }} alt="" />
                     </TableCell>
-                    <TableCell align="center">
+                    <TableCell align="center" sx={{ fontFamily: "'Kanit', sans-serif" }}>
                       {firstaid.video && (firstaid.video.startsWith("http://") || firstaid.video.startsWith("https://")) ? (
                         <a href={firstaid.video} target="_blank" rel="noopener noreferrer">
                           <img src={changeUrlVideo(firstaid.video)} alt="Video" style={{ width: "50%" }} />
@@ -143,7 +168,9 @@ function Adminfirstaids() {
                         "ไม่มีวิดีโอ"
                       )}
                     </TableCell>
-                    <TableCell align="center">{formatDate(firstaid.created_date)}</TableCell>
+                    <TableCell align="center" sx={{ fontFamily: "'Kanit', sans-serif" }}>
+                      {formatDate(firstaid.created_date)}
+                    </TableCell>
                     <TableCell align="center">
                       <IconButton
                         sx={{

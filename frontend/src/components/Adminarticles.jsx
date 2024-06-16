@@ -91,12 +91,13 @@ function Adminarticles() {
         <Box component="main" sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}>
           <Toolbar />
           <Paper elevation={1} className="d-flex justify-content-between" sx={{ p: 3 }}>
-            <Typography variant="h5">List of All Articles</Typography>
+            <Typography variant="h5" sx={{ fontFamily: "'Kanit', sans-serif" }}>List of All Articles</Typography>
             <Button
               style={{
                 background: "var(--blue1)",
                 color: "white",
                 fontWeight: "bold",
+                fontFamily: "'Kanit', sans-serif",
               }}
               onClick={() => setPopupAdd(true)}
             >
@@ -108,27 +109,43 @@ function Adminarticles() {
             <Table sx={{ minWidth: 650 }} aria-label="article table">
               <TableHead>
                 <TableRow>
-                  <TableCell align="center">ID</TableCell>
-                  <TableCell align="center">Title</TableCell>
-                  <TableCell align="center">Content</TableCell>
-                  <TableCell align="center">Image</TableCell>
-                  <TableCell align="center">Like</TableCell>
-                  <TableCell align="center">Date</TableCell>
-                  <TableCell align="center">Edit</TableCell>
-                  <TableCell align="center">Delete</TableCell>
+                  <TableCell align="center" sx={{ fontSize: "16px", fontFamily: "'Kanit', sans-serif" }}>
+                    ID
+                  </TableCell>
+                  <TableCell align="center" sx={{ fontSize: "16px", fontFamily: "'Kanit', sans-serif" }}>
+                    Title
+                  </TableCell>
+                  <TableCell align="center" sx={{ fontSize: "16px", fontFamily: "'Kanit', sans-serif" }}>
+                    Content
+                  </TableCell>
+                  <TableCell align="center" sx={{ fontSize: "16px", fontFamily: "'Kanit', sans-serif" }}>
+                    Image
+                  </TableCell>
+                  <TableCell align="center" sx={{ fontSize: "16px", fontFamily: "'Kanit', sans-serif" }}>
+                    Like
+                  </TableCell>
+                  <TableCell align="center" sx={{ fontSize: "16px", fontFamily: "'Kanit', sans-serif" }}>
+                    Date
+                  </TableCell>
+                  <TableCell align="center" sx={{ fontSize: "16px", fontFamily: "'Kanit', sans-serif" }}>
+                    Edit
+                  </TableCell>
+                  <TableCell align="center" sx={{ fontSize: "16px", fontFamily: "'Kanit', sans-serif" }}>
+                    Delete
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {articles.map((article) => (
                   <TableRow key={article.id}>
-                    <TableCell align="center">{article.id}</TableCell>
-                    <TableCell align="center">{article.title}</TableCell>
-                    <TableCell align="left">{article.content}</TableCell>
+                    <TableCell align="center" sx={{ fontFamily: "'Kanit', sans-serif" }}>{article.id}</TableCell>
+                    <TableCell align="center" sx={{ fontFamily: "'Kanit', sans-serif" }}>{article.title}</TableCell>
+                    <TableCell align="left" sx={{ fontFamily: "'Kanit', sans-serif" }}>{article.content}</TableCell>
                     <TableCell align="center">
                       <img src={`http://localhost:3001/image/${article.image}`} style={{ width: "50%" }} alt="" />
                     </TableCell>
-                    <TableCell align="center">{article.like_count}</TableCell>
-                    <TableCell align="center">{formatDate(article.created_date)}</TableCell>
+                    <TableCell align="center" sx={{ fontFamily: "'Kanit', sans-serif" }}>{article.like_count}</TableCell>
+                    <TableCell align="center" sx={{ fontFamily: "'Kanit', sans-serif" }}>{formatDate(article.created_date)}</TableCell>
                     <TableCell align="center">
                       <IconButton
                         sx={{

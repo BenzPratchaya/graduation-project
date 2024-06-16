@@ -75,9 +75,6 @@ function Adminsidebar({ open, toggleDrawer }) {
           <IconButton onClick={toggleDrawer} sx={{ color: "black" }}>
             <FontAwesomeIcon icon={faBars} sx={{ width: "24", height: "24" }} />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" style={{ color: "black" }}>
-            Admin System
-          </Typography>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -122,6 +119,7 @@ function Adminsidebar({ open, toggleDrawer }) {
               color: "white",
               fontWeight: "bold",
               fontSize: "24px",
+              fontFamily: "'Kanit', sans-serif",
             }}
           >
             Admin System
@@ -135,7 +133,7 @@ function Adminsidebar({ open, toggleDrawer }) {
               <ListItem disablePadding sx={{ display: "flex", alignItems: "center" }}>
                 <ListItemButton>
                   <ListItemIcon style={{ minWidth: "30px", color: "white" }}>{item.icon}</ListItemIcon>
-                  <ListItemText primary={item.name} primaryTypographyProps={{ style: { fontSize: "17px" } }} />
+                  <ListItemText primary={item.name} primaryTypographyProps={{ style: { fontSize: "17px", fontFamily: "'Kanit', sans-serif" } }} />
                 </ListItemButton>
               </ListItem>
             </Link>

@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import "./css/Articledata.css";
-import CommentAdd from "./Comment_add";
+import CommentAddDelete from "./Comment_add_delete";
 import Bannerpage from "./Bannerpage";
 import Footer from "./Footer";
 import Articlepost from "./Articlepost";
@@ -120,7 +120,7 @@ const Articlepage = ({ user }) => {
           {/* <!-- END Introduction Menu --> */}
         </Row>
         {/* <!-- Comment --> */}
-        <CommentAdd articleId={articleId} user={user} />
+        <CommentAddDelete articleId={articleId} user={user} />
         {/* <!-- END Comment --> */}
       </Container>
       <Footer/>

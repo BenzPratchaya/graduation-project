@@ -101,7 +101,9 @@ function Adminhome({}) {
           <Box component="main" sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}>
             <Toolbar />
             <Paper elevation={1} className="d-flex justify-content-between" sx={{ p: 3, alignItems: "center" }}>
-              <Typography variant="h5">Articles</Typography>
+              <Typography variant="h5" sx={{ fontFamily: "'Kanit', sans-serif" }}>
+                Articles
+              </Typography>
 
               <TextField
                 type="text"
@@ -115,6 +117,7 @@ function Adminhome({}) {
                   background: "var(--blue1)",
                   color: "white",
                   fontWeight: "bold",
+                  fontFamily: "'Kanit', sans-serif",
                 }}
                 onClick={handleSearch}
               >

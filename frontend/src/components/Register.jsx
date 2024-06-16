@@ -103,7 +103,7 @@ function Register() {
             e.currentTarget.style.color = "rgba(0, 0, 0, 0.3)";
           }}
         />
-        <Typography>กลับสู่หน้าแรก</Typography>
+        <Typography sx={{ fontFamily: "'Kanit', sans-serif" }}>กลับสู่หน้าแรก</Typography>
       </Link>
       <Grid
         container
@@ -138,7 +138,7 @@ function Register() {
               alignItems: "center",
             }}
           >
-            <Typography component="h1" variant="h4">
+            <Typography component="h1" variant="h4"  sx={{ fontFamily: "'Kanit', sans-serif" }}>
               ลงทะเบียนผู้ใช้
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
@@ -154,6 +154,12 @@ function Register() {
                     InputProps={{
                       sx: {
                         borderRadius: 5,
+                        fontFamily: "'Kanit', sans-serif",
+                      },
+                    }}
+                    InputLabelProps={{
+                      sx: {
+                        fontFamily: "'Kanit', sans-serif",
                       },
                     }}
                   />
@@ -168,6 +174,12 @@ function Register() {
                     InputProps={{
                       sx: {
                         borderRadius: 5,
+                        fontFamily: "'Kanit', sans-serif",
+                      },
+                    }}
+                    InputLabelProps={{
+                      sx: {
+                        fontFamily: "'Kanit', sans-serif",
                       },
                     }}
                   />
@@ -182,6 +194,12 @@ function Register() {
                     InputProps={{
                       sx: {
                         borderRadius: 5,
+                        fontFamily: "'Kanit', sans-serif",
+                      },
+                    }}
+                    InputLabelProps={{
+                      sx: {
+                        fontFamily: "'Kanit', sans-serif",
                       },
                     }}
                   />
@@ -197,6 +215,12 @@ function Register() {
                     InputProps={{
                       sx: {
                         borderRadius: 5,
+                        fontFamily: "'Kanit', sans-serif",
+                      },
+                    }}
+                    InputLabelProps={{
+                      sx: {
+                        fontFamily: "'Kanit', sans-serif",
                       },
                     }}
                   />
@@ -210,6 +234,7 @@ function Register() {
                   sx={{
                     width: "50%",
                     bgcolor: "#4761ff",
+                    fontFamily: "'Kanit', sans-serif",
                     "&:hover": { bgcolor: "#304ffe" },
                   }}
                 >
@@ -219,7 +244,7 @@ function Register() {
               <Grid container justifyContent="flex-end">
                 <Grid item>
                   <Box display="flex" alignItems="center">
-                    <Typography variant="body2">มีบัญชีอยู่แล้ว?&nbsp;</Typography>
+                    <Typography variant="body2" sx={{ fontFamily: "'Kanit', sans-serif" }}>มีบัญชีอยู่แล้ว?&nbsp;</Typography>
                     <Link
                       href="/login"
                       variant="body2"
@@ -227,6 +252,7 @@ function Register() {
                         color: "#4761ff",
                         textDecoration: "none",
                         fontWeight: "bold",
+                        fontFamily: "'Kanit', sans-serif",
                         "&:hover": {
                           color: "#304ffe",
                           textDecoration: "underline",
