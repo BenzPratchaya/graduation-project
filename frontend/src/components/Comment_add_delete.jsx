@@ -73,20 +73,10 @@ function Comment_add({ articleId, user }) {
             })
             .catch((error) => console.error(error));
 
-          MySwal.fire({
-            title: "ลบความคิดเห็นสำเร็จ!",
-            text: "Comment deleted successfully",
-            icon: "success",
-            confirmButtonText: "ยืนยัน",
-          });
+          MySwal.fire({ title: "ลบความคิดเห็นสำเร็จ!", text: "Comment deleted successfully", icon: "success", confirmButtonText: "ยืนยัน" });
         } catch (error) {
           console.error("Error deleting comment:", error);
-          MySwal.fire({
-            title: "ลบความคิดเห็นไม่สำเร็จ!",
-            text: "Failed to delete comment",
-            icon: "error",
-            confirmButtonText: "ยืนยัน",
-          });
+          MySwal.fire({ title: "ลบความคิดเห็นไม่สำเร็จ!", text: "Failed to delete comment", icon: "error", confirmButtonText: "ยืนยัน" });
         }
       }
     });
