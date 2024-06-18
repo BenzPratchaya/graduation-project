@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 const UserController = require("../controllers/UserController");
 const ArticleController = require("../controllers/ArticleController");
+const ArticleTypeController = require("../controllers/ArticleTypeController");
 const FirstaidController = require("../controllers/FirstaidController");
+const FirstaidTypeController = require("../controllers/FirstaidTypeController");
 const LikeController = require("../controllers/LikeController");
 const CommentController = require("../controllers/CommentController");
 
@@ -59,6 +61,10 @@ router.put("/article/updatelike/:id", ArticleController.updateArticleLike);
 router.put("/article/updateunlike/:id", ArticleController.updateArticleUnLike);
 router.delete("/article/delete/:id", ArticleController.deleteArticle);
 
+// ArticleType routes
+router.get("/articletype", ArticleTypeController.getArticleTypeList);
+router.get("/articletype/:id", ArticleTypeController.getArticleTypeById);
+
 // Like routes
 router.get("/like", LikeController.getLikeList);
 router.get("/like/:article_id/user/:user_id", LikeController.getLikeByArticleIdUserId);
@@ -74,6 +80,9 @@ router.post("/firstaid/create", upload.single("image"), FirstaidController.creat
 router.put("/firstaid/update/:id", upload.single("image"), FirstaidController.updateFirstaid);
 router.delete("/firstaid/delete/:id", FirstaidController.deleteFirstaid);
 
+// FirstaidType routes
+router.get("/firstaidtype", FirstaidTypeController.getFirstaidTypeList);
+router.get("/firstaidtype/:id", FirstaidTypeController.getFirstaidTypeById);
 
 // Comment routes
 router.get("/comments/:article_id", CommentController.getCommentListByArticleId);
