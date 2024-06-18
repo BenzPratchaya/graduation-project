@@ -16,9 +16,8 @@ exports.getLikeByArticleIdUserId = (req, res) => {
   db.query("SELECT * FROM `likes` WHERE article_id = ? AND user_id = ?", [articleId, userId], (err, result) => {
     if (err) {
       console.log(err);
-      res.status(500).json({ error: "Internal Server Error" });
     } else {
-      res.status(200).json(result);
+      res.send(result);
     }
   });
 };

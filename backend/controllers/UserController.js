@@ -6,7 +6,7 @@ const db = require("../config/db");
 exports.getUserList = (req, res) => {
   db.query("SELECT * FROM users", (err, result) => {
     if (err) {
-      console.log("error in users", err);
+      console.log(err);
     } else {
       res.send(result);
     }
@@ -19,7 +19,6 @@ exports.getUserById = (req, res) => {
   db.query("SELECT * FROM users WHERE id = ?", userId, (err, result) => {
     if (err) {
       console.log(err);
-      res.status(500).send("Internal Server Error");
     } else {
       if (result.length > 0) {
         res.send(result[0]);
@@ -36,7 +35,6 @@ exports.getUserByRoleId = (req, res) => {
   db.query("SELECT * FROM users WHERE role_id = ?", roleId, (err, result) => {
     if (err) {
       console.log(err);
-      res.status(500).send("Internal Server Error");
     } else {
       res.send(result);
     }
@@ -47,9 +45,22 @@ exports.getUserByRoleId = (req, res) => {
 exports.getUserCountMonth = (req, res) => {
   db.query("SELECT DATE_FORMAT(created_date, '%m/%Y') AS date, COUNT(id) AS count FROM users GROUP BY date;", (err, result) => {
     if (err) {
-      console.log("error in users", err);
+      console.log(err);
     } else {
       res.send(result);
+    }
+  });
+};
+
+// router.put("/user/upda/:id", (req, res) => {
+exports.updateUser = (req, res) => {
+  const { id, fname, lname } = req.body;
+  db.query("UPDATE users SET fname = ?, lname = ? WHERE id = ?", [fname, lname, id], (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).json({ status: "error", message: "Failed to update user" });
+    } else {
+      res.status(200).json({ status: "success", message: "User updated successfully" });
     }
   });
 };
@@ -61,7 +72,7 @@ exports.deleteUser = (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      res.send(result);
+      res.status(200).send("User deleted successfully");
     }
   });
 };

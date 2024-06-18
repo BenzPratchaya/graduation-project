@@ -17,7 +17,6 @@ exports.getFirstaidById = (req, res) => {
   db.query("SELECT * FROM firstaids WHERE id = ?", firstaidId, (err, result) => {
     if (err) {
       console.log(err);
-      res.status(500).send("Internal Server Error");
     } else {
       if (result.length > 0) {
         res.send(result[0]);
@@ -33,7 +32,7 @@ exports.getFirstaidCountType = (req, res) => {
     "SELECT firstaidtype.name, COUNT(firstaids.id) AS count FROM firstaids JOIN firstaidtype ON firstaids.type_id = firstaidtype.id GROUP BY firstaids.type_id",
     (err, result) => {
       if (err) {
-        console.log("error in users", err);
+        console.log(err);
       } else {
         res.send(result);
       }
@@ -41,15 +40,15 @@ exports.getFirstaidCountType = (req, res) => {
   );
 };
 
-  exports.getFirstaidCountMonth = (req, res) => {
-    db.query("SELECT DATE_FORMAT(created_date, '%m/%Y') AS date, COUNT(id) AS count FROM firstaids GROUP BY date;", (err, result) => {
-      if (err) {
-        console.log("error in firstaids", err);
-      } else {
-        res.send(result);
-      }
-    });
-  };
+exports.getFirstaidCountMonth = (req, res) => {
+  db.query("SELECT DATE_FORMAT(created_date, '%m/%Y') AS date, COUNT(id) AS count FROM firstaids GROUP BY date;", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+};
 
 exports.createFirstaid = (req, res) => {
   if (!req.file) {

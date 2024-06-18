@@ -19,7 +19,7 @@ exports.createComment = (req, res) => {
     if (err) {
       return res.status(500).send(err);
     }
-    res.status(201).send(result);
+    res.status(200).send(result);
   });
 };
 
