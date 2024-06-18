@@ -94,7 +94,7 @@ function Adminsidebar({ open, toggleDrawer }) {
         anchor="left"
         open={open}
       >
-        <Typography style={{ display: "flex" }}>
+        <div style={{ display: "flex" }}>
           <FontAwesomeIcon
             icon={faUsersGear}
             style={{
@@ -124,7 +124,7 @@ function Adminsidebar({ open, toggleDrawer }) {
           >
             Admin System
           </Typography>
-        </Typography>
+        </div>
         <Toolbar />
         <Divider />
         <List>
