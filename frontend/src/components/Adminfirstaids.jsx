@@ -157,12 +157,12 @@ function Adminfirstaids() {
                       {firstaid.detail}
                     </TableCell>
                     <TableCell align="center">
-                      <img src={`http://localhost:3001/image/${firstaid.image}`} style={{ width: "50%" }} alt="" />
+                      <img src={`http://localhost:3001/image/${firstaid.image}`} style={{ width: "70%" }} alt="" />
                     </TableCell>
                     <TableCell align="center" sx={{ fontFamily: "'Kanit', sans-serif" }}>
                       {firstaid.video && (firstaid.video.startsWith("http://") || firstaid.video.startsWith("https://")) ? (
                         <a href={firstaid.video} target="_blank" rel="noopener noreferrer">
-                          <img src={changeUrlVideo(firstaid.video)} alt="Video" style={{ width: "50%" }} />
+                          <img src={changeUrlVideo(firstaid.video)} alt="Video" style={{ width: "70%" }} />
                         </a>
                       ) : (
                         "ไม่มีวิดีโอ"

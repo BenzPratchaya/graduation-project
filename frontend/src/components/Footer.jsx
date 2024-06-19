@@ -62,7 +62,7 @@ function Footer() {
                     <FontAwesomeIcon icon={faEnvelope} /> pratchaya.tanapibulphol@gmail.com
                   </p>
                   <p>
-                    <FontAwesomeIcon icon={faPhone} /> + 64 145 3596
+                    <FontAwesomeIcon icon={faPhone} /> +66 6 4145 3596
                   </p>
                 </div>
               </div>
