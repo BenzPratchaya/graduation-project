@@ -6,15 +6,11 @@ import withReactContent from "sweetalert2-react-content";
 
 function Adminarticle_edit({ popupedit, setPopupEdit, articleId, setArticles }) {
   const MySwal = withReactContent(Swal);
-  const [formData, setFormData] = useState({
-    id: "",
-    title: "",
-    content: "",
-    image: null,
-    type_id: "0",
-  });
+  const [imagePreview, setImagePreview] = useState(null);
+  const [articletype, setArticleType] = useState([]);
+  const [formData, setFormData] = useState({ id: "", title: "", content: "", image: null, type_id: "0" });
 
-  useEffect(() => {
+  const fetchArticleData = async () => {
     if (articleId !== null) {
       fetch(`http://localhost:3001/article/${articleId}`)
         .then((res) => res.json())
@@ -26,9 +22,22 @@ function Adminarticle_edit({ popupedit, setPopupEdit, articleId, setArticles }) 
             image: result.image,
             type_id: result.type_id,
           });
+          setImagePreview(`http://localhost:3001/image/${result.image}`);
         });
     }
+  };
+
+  useEffect(() => {
+    fetchArticleData();
   }, [articleId]);
+
+  useEffect(() => {
+    fetch("http://localhost:3001/articletype")
+      .then((res) => res.json())
+      .then((result) => {
+        setArticleType(result);
+      });
+  }, []);
 
   const handleInputChange = (event) => {
     setFormData({
@@ -38,10 +47,12 @@ function Adminarticle_edit({ popupedit, setPopupEdit, articleId, setArticles }) 
   };
 
   const handleFileChange = (event) => {
+    const file = event.target.files[0];
     setFormData({
       ...formData,
-      image: event.target.files[0],
+      image: file,
     });
+    setImagePreview(URL.createObjectURL(file));
   };
 
   const handleSubmit = async (event) => {
@@ -102,11 +113,16 @@ function Adminarticle_edit({ popupedit, setPopupEdit, articleId, setArticles }) 
     });
   };
 
+  const handleClose = () => {
+    setPopupEdit(false);
+    fetchArticleData();
+  };
+
   return (
     <React.Fragment>
       <CssBaseline />
       {/* โค้ดสำหรับ Popup */}
-      <Dialog open={popupedit} onClose={() => setPopupEdit(false)} fullWidth maxWidth="md">
+      <Dialog open={popupedit} onClose={handleClose} fullWidth maxWidth="md">
         <form onSubmit={handleSubmit}>
           <DialogTitle sx={{ fontFamily: "'Kanit', sans-serif" }}>Edit Article</DialogTitle>
           <DialogContent dividers>
@@ -148,22 +164,15 @@ function Adminarticle_edit({ popupedit, setPopupEdit, articleId, setArticles }) 
                   <MenuItem value="0" disabled sx={{ fontFamily: "'Kanit', sans-serif" }}>
                     * เลือกประเภทบทความ
                   </MenuItem>
-                  <MenuItem value="1" sx={{ fontFamily: "'Kanit', sans-serif" }}>
-                    บทความเชิงวิชาการ
-                  </MenuItem>
-                  <MenuItem value="2" sx={{ fontFamily: "'Kanit', sans-serif" }}>
-                    บทความแนะนำและเคล็ดลับ
-                  </MenuItem>
-                  <MenuItem value="3" sx={{ fontFamily: "'Kanit', sans-serif" }}>
-                    บทความเกี่ยวกับโรคและการรักษา
-                  </MenuItem>
-                  <MenuItem value="4" sx={{ fontFamily: "'Kanit', sans-serif" }}>
-                    บทความเกี่ยวกับโภชนาการ
-                  </MenuItem>
+                  {articletype.map((type) => (
+                    <MenuItem key={type.id} value={type.id} sx={{ fontFamily: "'Kanit', sans-serif" }}>
+                      {type.name}
+                    </MenuItem>
+                  ))}
                 </Select>
               </Grid>
               <Grid item xs={6}>
-                <Typography>Content</Typography>
+                <Typography sx={{ fontFamily: "'Kanit', sans-serif" }}>Content</Typography>
                 <TextField
                   variant="outlined"
                   placeholder="Content"
@@ -186,7 +195,7 @@ function Adminarticle_edit({ popupedit, setPopupEdit, articleId, setArticles }) 
                 />
               </Grid>
               <Grid item xs={6}>
-                <Typography>Image</Typography>
+                <Typography sx={{ fontFamily: "'Kanit', sans-serif" }}>Image</Typography>
                 <input
                   type="file"
                   accept="image/*"
@@ -202,7 +211,7 @@ function Adminarticle_edit({ popupedit, setPopupEdit, articleId, setArticles }) 
                     fontFamily: "'Kanit', sans-serif",
                   }}
                 />
-                {formData.image && (
+                {imagePreview && (
                   <div>
                     <img
                       style={{
@@ -210,8 +219,8 @@ function Adminarticle_edit({ popupedit, setPopupEdit, articleId, setArticles }) 
                         height: "auto",
                         margin: "10px 0",
                       }}
-                      src={`http://localhost:3001/image/${formData.image}`}
-                      alt=""
+                      src={imagePreview}
+                      alt="Preview"
                     />
                   </div>
                 )}
@@ -225,7 +234,7 @@ function Adminarticle_edit({ popupedit, setPopupEdit, articleId, setArticles }) 
                 color: "white",
                 fontFamily: "'Kanit', sans-serif",
               }}
-              onClick={() => setPopupEdit(false)}
+              onClick={handleClose}
               color="primary"
             >
               Cancel

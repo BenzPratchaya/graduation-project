@@ -6,31 +6,37 @@ import withReactContent from "sweetalert2-react-content";
 
 function Adminfirstaid_edit({ popupedit, setPopupEdit, firstaidId, setFirstaids }) {
   const MySwal = withReactContent(Swal);
-  const [formData, setFormData] = useState({
-    id: "",
-    name: "",
-    detail: "",
-    image: null,
-    video: "",
-    type_id: "0",
-  });
+  const [imagePreview, setImagePreview] = useState(null);
+  const [firstaidtype, setFirstaidType] = useState([]);
+  const [formData, setFormData] = useState({ id: "", name: "", detail: "", image: null, video: "", type_id: "0" });
+
+  const fetchFirstaidData = async () => {
+    if (firstaidId !== null) {
+      const res = await fetch(`http://localhost:3001/firstaid/${firstaidId}`);
+      const result = await res.json();
+      setFormData({
+        id: result.id,
+        name: result.name,
+        detail: result.detail,
+        image: result.image,
+        video: result.video,
+        type_id: result.type_id,
+      });
+      setImagePreview(`http://localhost:3001/image/${result.image}`);
+    }
+  };
 
   useEffect(() => {
-    if (firstaidId !== null) {
-      fetch(`http://localhost:3001/firstaid/${firstaidId}`)
-        .then((res) => res.json())
-        .then((result) => {
-          setFormData({
-            id: result.id,
-            name: result.name,
-            detail: result.detail,
-            image: result.image,
-            video: result.video,
-            type_id: result.type_id,
-          });
-        });
-    }
+    fetchFirstaidData();
   }, [firstaidId]);
+
+  useEffect(() => {
+    fetch("http://localhost:3001/firstaidtype")
+      .then((res) => res.json())
+      .then((result) => {
+        setFirstaidType(result);
+      });
+  }, []);
 
   const handleInputChange = (event) => {
     setFormData({
@@ -40,10 +46,12 @@ function Adminfirstaid_edit({ popupedit, setPopupEdit, firstaidId, setFirstaids 
   };
 
   const handleFileChange = (event) => {
+    const file = event.target.files[0];
     setFormData({
       ...formData,
-      image: event.target.files[0],
+      image: file,
     });
+    setImagePreview(URL.createObjectURL(file));
   };
 
   const handleSubmit = async (event) => {
@@ -103,11 +111,16 @@ function Adminfirstaid_edit({ popupedit, setPopupEdit, firstaidId, setFirstaids 
     });
   };
 
+  const handleClose = () => {
+    setPopupEdit(false);
+    fetchFirstaidData(); // Reset form data and image preview when closing
+  };
+
   return (
     <React.Fragment>
       <CssBaseline />
       {/* โค้ดสำหรับ Popup */}
-      <Dialog open={popupedit} onClose={() => setPopupEdit(false)} fullWidth maxWidth="md">
+      <Dialog open={popupedit} onClose={handleClose} fullWidth maxWidth="md">
         <form onSubmit={handleSubmit}>
           <DialogTitle sx={{ fontFamily: "'Kanit', sans-serif" }}>Edit Firstaid</DialogTitle>
           <DialogContent dividers>
@@ -149,35 +162,23 @@ function Adminfirstaid_edit({ popupedit, setPopupEdit, firstaidId, setFirstaids 
                   <MenuItem value="0" disabled sx={{ fontFamily: "'Kanit', sans-serif" }}>
                     * เลือกประเภทการปฐมพยาบาล
                   </MenuItem>
-                  <MenuItem value="1" sx={{ fontFamily: "'Kanit', sans-serif" }}>
-                    บาดแผล
-                  </MenuItem>
-                  <MenuItem value="2" sx={{ fontFamily: "'Kanit', sans-serif" }}>
-                    การบาดเจ็บจากสัตว์
-                  </MenuItem>
-                  <MenuItem value="3" sx={{ fontFamily: "'Kanit', sans-serif" }}>
-                    การบาดเจ็บที่จมูก
-                  </MenuItem>
-                  <MenuItem value="4" sx={{ fontFamily: "'Kanit', sans-serif" }}>
-                    ไฟหรือความร้อน
-                  </MenuItem>
-                  <MenuItem value="5" sx={{ fontFamily: "'Kanit', sans-serif" }}>
-                    การบาดเจ็บที่กระดูกและข้อ
-                  </MenuItem>
-                  <MenuItem value="6" sx={{ fontFamily: "'Kanit', sans-serif" }}>
-                    การบาดเจ็บที่กล้ามเนื้อ
-                  </MenuItem>
-                  <MenuItem value="7" sx={{ fontFamily: "'Kanit', sans-serif" }}>
-                    การบาดเจ็บที่ศีรษะ
-                  </MenuItem>
-                  <MenuItem value="8" sx={{ fontFamily: "'Kanit', sans-serif" }}>
-                    เหตุการณ์ฉุกเฉิน
-                  </MenuItem>
+                  {firstaidtype.map((type) => (
+                    <MenuItem key={type.id} value={type.id} sx={{ fontFamily: "'Kanit', sans-serif" }}>
+                      {type.name}
+                    </MenuItem>
+                  ))}
                 </Select>
               </Grid>
               <Grid item xs={4}>
                 <Typography sx={{ fontFamily: "'Kanit', sans-serif" }}>Video</Typography>
-                <TextField variant="outlined" placeholder="Video" fullWidth value={formData.video} onChange={handleInputChange} name="video" InputProps={{
+                <TextField
+                  variant="outlined"
+                  placeholder="Video"
+                  fullWidth
+                  value={formData.video}
+                  onChange={handleInputChange}
+                  name="video"
+                  InputProps={{
                     sx: {
                       borderRadius: 3,
                       fontFamily: "'Kanit', sans-serif",
@@ -187,7 +188,8 @@ function Adminfirstaid_edit({ popupedit, setPopupEdit, firstaidId, setFirstaids 
                     sx: {
                       fontFamily: "'Kanit', sans-serif",
                     },
-                  }}/>
+                  }}
+                />
               </Grid>
               <Grid item xs={6}>
                 <Typography sx={{ fontFamily: "'Kanit', sans-serif" }}>Detail</Typography>
@@ -229,7 +231,7 @@ function Adminfirstaid_edit({ popupedit, setPopupEdit, firstaidId, setFirstaids 
                     fontFamily: "'Kanit', sans-serif",
                   }}
                 />
-                {formData.image && (
+                {imagePreview && (
                   <div>
                     <img
                       style={{
@@ -237,8 +239,8 @@ function Adminfirstaid_edit({ popupedit, setPopupEdit, firstaidId, setFirstaids 
                         height: "auto",
                         margin: "10px 0",
                       }}
-                      src={`http://localhost:3001/image/${formData.image}`}
-                      alt=""
+                      src={imagePreview}
+                      alt="Preview"
                     />
                   </div>
                 )}
@@ -252,7 +254,7 @@ function Adminfirstaid_edit({ popupedit, setPopupEdit, firstaidId, setFirstaids 
                 color: "white",
                 fontFamily: "'Kanit', sans-serif",
               }}
-              onClick={() => setPopupEdit(false)}
+              onClick={handleClose}
               color="primary"
             >
               Cancel

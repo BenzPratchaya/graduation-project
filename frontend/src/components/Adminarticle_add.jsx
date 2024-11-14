@@ -6,12 +6,8 @@ import withReactContent from "sweetalert2-react-content";
 
 function Adminarticle_add({ popupadd, setPopupAdd, setArticles }) {
   const MySwal = withReactContent(Swal);
-  const [formData, setFormData] = useState({
-    title: "",
-    content: "",
-    image: null,
-    type_id: "0",
-  });
+  const [articletype, setArticleType] = useState([]);
+  const [formData, setFormData] = useState({ title: "", content: "", image: null, type_id: "0" });
 
   useEffect(() => {
     if (popupadd) {
@@ -23,6 +19,14 @@ function Adminarticle_add({ popupadd, setPopupAdd, setArticles }) {
       });
     }
   }, [popupadd]);
+
+  useEffect(() => {
+    fetch("http://localhost:3001/articletype")
+      .then((res) => res.json())
+      .then((result) => {
+        setArticleType(result);
+      });
+  }, []);
 
   const handleInputChange = (event) => {
     setFormData({
@@ -142,18 +146,11 @@ function Adminarticle_add({ popupadd, setPopupAdd, setArticles }) {
                   <MenuItem value="0" disabled sx={{ fontFamily: "'Kanit', sans-serif" }}>
                     * เลือกประเภทบทความ
                   </MenuItem>
-                  <MenuItem value="1" sx={{ fontFamily: "'Kanit', sans-serif" }}>
-                    บทความเชิงวิชาการ
-                  </MenuItem>
-                  <MenuItem value="2" sx={{ fontFamily: "'Kanit', sans-serif" }}>
-                    บทความแนะนำและเคล็ดลับ
-                  </MenuItem>
-                  <MenuItem value="3" sx={{ fontFamily: "'Kanit', sans-serif" }}>
-                    บทความเกี่ยวกับโรคและการรักษา
-                  </MenuItem>
-                  <MenuItem value="4" sx={{ fontFamily: "'Kanit', sans-serif" }}>
-                    บทความเกี่ยวกับโภชนาการ
-                  </MenuItem>
+                  {articletype.map((type) => (
+                    <MenuItem key={type.id} value={type.id} sx={{ fontFamily: "'Kanit', sans-serif" }}>
+                      {type.name}
+                    </MenuItem>
+                  ))}
                 </Select>
               </Grid>
               <Grid item xs={6}>

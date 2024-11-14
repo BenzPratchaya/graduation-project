@@ -6,13 +6,8 @@ import withReactContent from "sweetalert2-react-content";
 
 function Adminfirstaid_add({ popupadd, setPopupAdd, setFirstaids }) {
   const MySwal = withReactContent(Swal);
-  const [formData, setFormData] = useState({
-    name: "",
-    detail: "",
-    image: null,
-    video: "",
-    type_id: "0",
-  });
+  const [firstaidtype, setFirstaidType] = useState([]);
+  const [formData, setFormData] = useState({ name: "", detail: "", image: null, video: "", type_id: "0" });
 
   useEffect(() => {
     if (popupadd) {
@@ -25,6 +20,14 @@ function Adminfirstaid_add({ popupadd, setPopupAdd, setFirstaids }) {
       });
     }
   }, [popupadd]);
+
+  useEffect(() => {
+    fetch("http://localhost:3001/firstaidtype")
+      .then((res) => res.json())
+      .then((result) => {
+        setFirstaidType(result);
+      });
+  }, []);
 
   const handleInputChange = (event) => {
     setFormData({
@@ -145,30 +148,11 @@ function Adminfirstaid_add({ popupadd, setPopupAdd, setFirstaids }) {
                   <MenuItem value="0" disabled sx={{ fontFamily: "'Kanit', sans-serif" }}>
                     * เลือกประเภทการปฐมพยาบาล
                   </MenuItem>
-                  <MenuItem value="1" sx={{ fontFamily: "'Kanit', sans-serif" }}>
-                    บาดแผล
-                  </MenuItem>
-                  <MenuItem value="2" sx={{ fontFamily: "'Kanit', sans-serif" }}>
-                    การบาดเจ็บจากสัตว์
-                  </MenuItem>
-                  <MenuItem value="3" sx={{ fontFamily: "'Kanit', sans-serif" }}>
-                    การบาดเจ็บที่จมูก
-                  </MenuItem>
-                  <MenuItem value="4" sx={{ fontFamily: "'Kanit', sans-serif" }}>
-                    ไฟหรือความร้อน
-                  </MenuItem>
-                  <MenuItem value="5" sx={{ fontFamily: "'Kanit', sans-serif" }}>
-                    การบาดเจ็บที่กระดูกและข้อ
-                  </MenuItem>
-                  <MenuItem value="6" sx={{ fontFamily: "'Kanit', sans-serif" }}>
-                    การบาดเจ็บที่กล้ามเนื้อ
-                  </MenuItem>
-                  <MenuItem value="7" sx={{ fontFamily: "'Kanit', sans-serif" }}>
-                    การบาดเจ็บที่ศีรษะ
-                  </MenuItem>
-                  <MenuItem value="8" sx={{ fontFamily: "'Kanit', sans-serif" }}>
-                    เหตุการณ์ฉุกเฉิน
-                  </MenuItem>
+                  {firstaidtype.map((type) => (
+                    <MenuItem key={type.id} value={type.id} sx={{ fontFamily: "'Kanit', sans-serif" }}>
+                      {type.name}
+                    </MenuItem>
+                  ))}
                 </Select>
               </Grid>
               <Grid item xs={4}>
