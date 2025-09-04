@@ -1,6 +1,6 @@
 # Project Firstaid System
-*Backend Nodejs Express
-*npm run dev
+* Backend Nodejs Express
+  * npm run dev
 
-*Frontend React
-*npm start
+* Frontend React
+  * npm start
